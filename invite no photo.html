@@ -19,7 +19,6 @@
             --accent-light: #d4c5a0;
             --white: #ffffff;
             --border: #e8e4db;
-            --shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
         }
 
         * {
@@ -40,7 +39,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ========== ГЛАВНЫЙ ЭКРАН ========== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -135,25 +133,14 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes bounce {
-            0%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            50% {
-                transform: translateX(-50%) translateY(12px);
-            }
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(12px); }
         }
 
-        /* ========== СЕКЦИИ ========== */
         .section {
             max-width: 800px;
             margin: 0 auto;
@@ -175,7 +162,6 @@
             margin: 0 auto 40px;
         }
 
-        /* ========== ДЕТАЛИ ========== */
         .details-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -188,10 +174,7 @@
             border-radius: 2px;
             background: var(--white);
         }
-        .detail-card .icon {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
+        .detail-card .icon { font-size: 32px; margin-bottom: 15px; }
         .detail-card .label {
             font-size: 11px;
             letter-spacing: 4px;
@@ -211,7 +194,6 @@
             letter-spacing: 1px;
         }
 
-        /* ========== КАРТА ========== */
         .map-container {
             width: 100%;
             height: 350px;
@@ -228,7 +210,6 @@
             letter-spacing: 1px;
         }
 
-        /* ========== ФОРМА ========== */
         .rsvp-form {
             max-width: 500px;
             margin: 0 auto;
@@ -303,9 +284,8 @@
             background: #a07d3a;
             transform: translateY(-2px);
         }
-        .rsvp-form button:active {
-            transform: translateY(0);
-        }
+        .rsvp-form button:active { transform: translateY(0); }
+
         .form-success {
             display: none;
             text-align: center;
@@ -314,15 +294,9 @@
             color: var(--accent);
             letter-spacing: 2px;
         }
-        .form-success.active {
-            display: block;
-        }
-        .form-success .check {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
+        .form-success.active { display: block; }
+        .form-success .check { font-size: 50px; margin-bottom: 20px; }
 
-        /* ========== ПОДВАЛ ========== */
         .footer {
             text-align: center;
             padding: 40px 20px;
@@ -338,50 +312,23 @@
             margin-bottom: 10px;
         }
 
-        /* ========== АДАПТИВ ========== */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 28px;
-                letter-spacing: 4px;
-            }
-            .hero .date-large {
-                font-size: 36px;
-                letter-spacing: 4px;
-            }
-            .monogram .letter {
-                font-size: 50px;
-            }
-            .details-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .section {
-                padding: 50px 20px;
-            }
-            .rsvp-form .radio-group {
-                flex-direction: column;
-                gap: 12px;
-                align-items: flex-start;
-            }
+            .hero h1 { font-size: 28px; letter-spacing: 4px; }
+            .hero .date-large { font-size: 36px; letter-spacing: 4px; }
+            .monogram .letter { font-size: 50px; }
+            .details-grid { grid-template-columns: 1fr; gap: 20px; }
+            .section { padding: 50px 20px; }
+            .rsvp-form .radio-group { flex-direction: column; gap: 12px; align-items: flex-start; }
         }
         @media (max-width: 400px) {
-            .hero h1 {
-                font-size: 22px;
-                letter-spacing: 2px;
-            }
-            .hero .date-large {
-                font-size: 28px;
-                letter-spacing: 2px;
-            }
-            .monogram .letter {
-                font-size: 38px;
-            }
+            .hero h1 { font-size: 22px; letter-spacing: 2px; }
+            .hero .date-large { font-size: 28px; letter-spacing: 2px; }
+            .monogram .letter { font-size: 38px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ГЛАВНЫЙ ЭКРАН -->
     <section class="hero" id="hero">
         <div class="monogram">
             <span class="letter">А</span>
@@ -399,7 +346,6 @@
         </div>
     </section>
 
-    <!-- ДЕТАЛИ -->
     <section class="section" id="details">
         <h2 class="section-title">Детали</h2>
         <div class="section-line"></div>
@@ -419,38 +365,36 @@
         </div>
     </section>
 
-    <!-- КАРТА -->
     <section class="section" id="map">
         <h2 class="section-title">Место проведения</h2>
         <div class="section-line"></div>
         <div class="map-container" id="yandexMap"></div>
         <p class="map-address">
             Зал торжественных регистраций, отдел ЗАГС<br>
-            ул. Хабаровская, 13, корп. Б
+            г. Долинск, ул. Хабаровская, 13, корп. Б
         </p>
     </section>
 
-    <!-- ФОРМА ПОДТВЕРЖДЕНИЯ -->
     <section class="section" id="rsvp">
         <h2 class="section-title">Подтвердите присутствие</h2>
         <div class="section-line"></div>
-        <form class="rsvp-form" id="rsvpForm">
-            <input type="text" placeholder="Ваше имя и фамилия" required>
-            <input type="email" placeholder="Email" required>
-            <input type="tel" placeholder="Телефон">
+        <form class="rsvp-form" id="rsvpForm" action="https://formspree.io/f/xvznpvqd" method="POST">
+            <input type="text" name="name" placeholder="Ваше имя и фамилия" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="tel" name="phone" placeholder="Телефон">
             <div class="radio-group">
                 <span style="letter-spacing:1px;color:var(--text)">Вы придёте?</span>
-                <label><input type="radio" name="attending" value="yes" required> Да, с радостью!</label>
-                <label><input type="radio" name="attending" value="no"> К сожалению, нет</label>
+                <label><input type="radio" name="attending" value="Да, с радостью!" required> Да, с радостью!</label>
+                <label><input type="radio" name="attending" value="К сожалению, нет"> К сожалению, нет</label>
             </div>
-            <select>
+            <select name="guests">
                 <option value="" disabled selected>Количество гостей</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
             </select>
-            <textarea placeholder="Пожелания или сообщение..."></textarea>
+            <textarea name="message" placeholder="Пожелания или сообщение..."></textarea>
             <button type="submit">Отправить</button>
         </form>
         <div class="form-success" id="formSuccess">
@@ -460,39 +404,38 @@
         </div>
     </section>
 
-    <!-- ПОДВАЛ -->
     <footer class="footer">
         <div class="monogram-small">А &amp; А</div>
         До встречи 1 августа 2026 года
     </footer>
 
     <script>
-        // ========== ФОРМА ==========
         const rsvpForm = document.getElementById('rsvpForm');
         const formSuccess = document.getElementById('formSuccess');
+
         rsvpForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            rsvpForm.style.display = 'none';
-            formSuccess.classList.add('active');
+            setTimeout(function() {
+                rsvpForm.style.display = 'none';
+                formSuccess.classList.add('active');
+            }, 1000);
         });
 
-        // ========== КАРТА ==========
         function initMap() {
             if (typeof ymaps === 'undefined') {
                 document.getElementById('yandexMap').innerHTML =
-                    '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8a8a8a;letter-spacing:2px;text-align:center;padding:20px;">📍<br>ул. Хабаровская, 13, корп. Б</div>';
+                    '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8a8a8a;letter-spacing:2px;text-align:center;padding:20px;">📍<br>г. Долинск, ул. Хабаровская, 13, корп. Б</div>';
                 return;
             }
             ymaps.ready(function() {
                 const map = new ymaps.Map('yandexMap', {
-                    center: [48.4800, 135.0700],
+                    center: [47.3200, 142.7900],
                     zoom: 15,
                     controls: ['zoomControl']
                 });
                 const placemark = new ymaps.Placemark(
-                    [48.4800, 135.0700], {
+                    [47.3200, 142.7900], {
                         hintContent: 'ЗАГС, ул. Хабаровская, 13Б',
-                        balloonContent: 'Зал торжественных регистраций<br>ул. Хабаровская, 13, корп. Б'
+                        balloonContent: 'Зал торжественных регистраций<br>г. Долинск, ул. Хабаровская, 13, корп. Б'
                     }, {
                         iconLayout: 'default#image',
                         iconImageHref: 'https://cdn.jsdelivr.net/gh/somanchiu/leaflet-color-markers@master/img/marker-icon-gold.png',
@@ -501,7 +444,9 @@
                     }
                 );
                 map.geoObjects.add(placemark);
-                ymaps.geocode('Хабаровск, ул. Хабаровская, 13Б').then(function(res) {
+
+                // Геокодер — город Долинск Сахалинской области
+                ymaps.geocode('Сахалинская область, г. Долинск, ул. Хабаровская, 13Б').then(function(res) {
                     const firstGeoObject = res.geoObjects.get(0);
                     if (firstGeoObject) {
                         map.setCenter(firstGeoObject.geometry.getCoordinates(), 16);
