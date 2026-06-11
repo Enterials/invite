@@ -74,7 +74,6 @@
             transform: translateY(0);
         }
 
-        /* Задержки для разных элементов */
         .fade-in-delay-1 { transition-delay: 0.1s; }
         .fade-in-delay-2 { transition-delay: 0.2s; }
         .fade-in-delay-3 { transition-delay: 0.3s; }
@@ -265,12 +264,8 @@
             border-color: var(--accent);
             box-shadow: 0 6px 20px rgba(184, 148, 75, 0.3);
         }
-        .slider-nav.prev {
-            left: -25px;
-        }
-        .slider-nav.next {
-            right: -25px;
-        }
+        .slider-nav.prev { left: -25px; }
+        .slider-nav.next { right: -25px; }
 
         .slider-counter {
             text-align: center;
@@ -531,7 +526,6 @@
     <!-- ФОН С ХАОТИЧНЫМИ ЛИНИЯМИ -->
     <div class="bg-lines">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
-            <!-- Случайные линии -->
             <line x1="0" y1="120" x2="400" y2="80" stroke="#d4c5a0" stroke-width="0.5" opacity="0.6"/>
             <line x1="200" y1="300" x2="700" y2="250" stroke="#d4c5a0" stroke-width="0.3" opacity="0.5"/>
             <line x1="800" y1="100" x2="1200" y2="180" stroke="#d4c5a0" stroke-width="0.4" opacity="0.4"/>
@@ -540,16 +534,13 @@
             <line x1="0" y1="700" x2="500" y2="650" stroke="#b8944b" stroke-width="0.3" opacity="0.4"/>
             <line x1="600" y1="800" x2="1100" y2="750" stroke="#d4c5a0" stroke-width="0.4" opacity="0.3"/>
             <line x1="300" y1="900" x2="800" y2="880" stroke="#b8944b" stroke-width="0.3" opacity="0.5"/>
-            <!-- Диагональные -->
             <line x1="100" y1="0" x2="500" y2="400" stroke="#d4c5a0" stroke-width="0.3" opacity="0.4"/>
             <line x1="800" y1="0" x2="1200" y2="500" stroke="#b8944b" stroke-width="0.3" opacity="0.3"/>
             <line x1="0" y1="300" x2="600" y2="800" stroke="#d4c5a0" stroke-width="0.2" opacity="0.5"/>
             <line x1="1000" y1="200" x2="1440" y2="600" stroke="#b8944b" stroke-width="0.3" opacity="0.4"/>
-            <!-- Волнистые -->
             <path d="M0 150 Q200 100 400 180 T800 160 T1200 200 T1440 170" stroke="#d4c5a0" stroke-width="0.4" fill="none" opacity="0.4"/>
             <path d="M0 450 Q300 400 500 480 T1000 440 T1440 500" stroke="#b8944b" stroke-width="0.3" fill="none" opacity="0.3"/>
             <path d="M0 600 Q250 550 450 620 T900 580 T1440 630" stroke="#d4c5a0" stroke-width="0.3" fill="none" opacity="0.4"/>
-            <!-- Короткие штрихи -->
             <line x1="150" y1="200" x2="250" y2="190" stroke="#d4c5a0" stroke-width="0.5" opacity="0.5"/>
             <line x1="500" y1="350" x2="580" y2="340" stroke="#b8944b" stroke-width="0.4" opacity="0.4"/>
             <line x1="850" y1="150" x2="950" y2="160" stroke="#d4c5a0" stroke-width="0.5" opacity="0.5"/>
@@ -581,17 +572,17 @@
         <!-- СЛАЙДЕР-ГАЛЕРЕЯ НА 11 ФОТО -->
         <div class="slider-section fade-in" id="sliderSection">
             <div class="slider-container" id="sliderContainer">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo1.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo1.jpg" alt="Фото 1" style="display: block;" onerror="this.style.display='none'; document.getElementById('placeholderSlide').style.display='flex'; document.getElementById('placeholderSlide').innerHTML='📷<br>Фото 1 (не найдено)';">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo2.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo2.jpg" alt="Фото 2" style="display: none;" onerror="this.style.display='none';">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo3.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo3.jpg" alt="Фото 3" style="display: none;" onerror="this.style.display='none';">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo4.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo4.jpg" alt="Фото 4" style="display: none;" onerror="this.style.display='none';">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo5.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo5.jpg" alt="Фото 5" style="display: none;" onerror="this.style.display='none';">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo6.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo6.jpg" alt="Фото 6" style="display: none;" onerror="this.style.display='none';">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo7.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo7.jpg" alt="Фото 7" style="display: none;" onerror="this.style.display='none';">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo8.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo8.jpg" alt="Фото 8" style="display: none;" onerror="this.style.display='none';">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo9.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo9.jpg" alt="Фото 9" style="display: none;" onerror="this.style.display='none';">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo10.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo10.jpg" alt="Фото 10" style="display: none;" onerror="this.style.display='none';">
-                <img src="C:/Users/aleks/Desktop/priglashenie/photo11.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo11.jpg" alt="Фото 11" style="display: none;" onerror="this.style.display='none';">
+                <img src="photo1.jpg" data-src="photo1.jpg" alt="Фото 1" style="display: block;" onerror="this.style.display='none'; document.getElementById('placeholderSlide').style.display='flex'; document.getElementById('placeholderSlide').innerHTML='📷<br>Фото 1 (не найдено)';">
+                <img src="photo2.jpg" data-src="photo2.jpg" alt="Фото 2" style="display: none;" onerror="this.style.display='none';">
+                <img src="photo3.jpg" data-src="photo3.jpg" alt="Фото 3" style="display: none;" onerror="this.style.display='none';">
+                <img src="photo4.jpg" data-src="photo4.jpg" alt="Фото 4" style="display: none;" onerror="this.style.display='none';">
+                <img src="photo5.jpg" data-src="photo5.jpg" alt="Фото 5" style="display: none;" onerror="this.style.display='none';">
+                <img src="photo6.jpg" data-src="photo6.jpg" alt="Фото 6" style="display: none;" onerror="this.style.display='none';">
+                <img src="photo7.jpg" data-src="photo7.jpg" alt="Фото 7" style="display: none;" onerror="this.style.display='none';">
+                <img src="photo8.jpg" data-src="photo8.jpg" alt="Фото 8" style="display: none;" onerror="this.style.display='none';">
+                <img src="photo9.jpg" data-src="photo9.jpg" alt="Фото 9" style="display: none;" onerror="this.style.display='none';">
+                <img src="photo10.jpg" data-src="photo10.jpg" alt="Фото 10" style="display: none;" onerror="this.style.display='none';">
+                <img src="photo11.jpg" data-src="photo11.jpg" alt="Фото 11" style="display: none;" onerror="this.style.display='none';">
 
                 <div class="placeholder-slide" id="placeholderSlide" style="display: none;">
                     📷<br>Фото 1
@@ -693,7 +684,6 @@
 
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('load', handleScroll);
-        // Запускаем сразу для видимых элементов
         setTimeout(handleScroll, 100);
 
         // ========== КНОПКА КАЛЕНДАРЯ ==========
