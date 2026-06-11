@@ -47,7 +47,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 40px 20px;
+            padding: 40px 20px 60px;
             position: relative;
         }
 
@@ -126,7 +126,7 @@
             max-width: 700px;
             line-height: 1.6;
             margin-top: 30px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         .calendar-btn {
@@ -143,6 +143,8 @@
             transition: all 0.3s ease;
             text-decoration: none;
             animation: fadeInUp 1.2s ease 0.8s both;
+            margin-top: 20px;
+            margin-bottom: 60px;
         }
         .calendar-btn:hover {
             background: var(--accent);
@@ -154,9 +156,118 @@
             transform: translateY(0);
         }
 
+        /* ========== ГАЛЕРЕЯ ========== */
+        .gallery-section {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 80px;
+            padding: 0 30px;
+            animation: fadeInUp 1.2s ease 0.95s both;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .gallery .photo {
+            aspect-ratio: 3 / 4;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .gallery .photo:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        .gallery .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery .photo.placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--muted);
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 10px;
+            flex-direction: column;
+        }
+        .gallery .photo.placeholder::before {
+            content: '📷';
+            font-size: 36px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* Лайтбокс */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 2px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .lightbox .close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 45px;
+            color: white;
+            cursor: pointer;
+            font-family: sans-serif;
+            line-height: 1;
+            transition: opacity 0.3s;
+        }
+        .lightbox .close:hover {
+            opacity: 0.7;
+        }
+        .lightbox .nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 55px;
+            color: white;
+            cursor: pointer;
+            font-family: sans-serif;
+            padding: 20px;
+            transition: opacity 0.3s;
+            user-select: none;
+        }
+        .lightbox .nav:hover {
+            opacity: 0.7;
+        }
+        .lightbox .nav.prev {
+            left: 20px;
+        }
+        .lightbox .nav.next {
+            right: 20px;
+        }
+
         .scroll-hint {
             position: absolute;
-            bottom: 40px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             animation: bounce 2s infinite;
@@ -357,6 +468,7 @@
             .monogram .letter { font-size: 58px; }
             .hero .romantic-phrase { font-size: 26px; }
             .calendar-btn { font-size: 18px; padding: 14px 28px; }
+            .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .details-grid { grid-template-columns: 1fr; gap: 20px; }
             .section { padding: 50px 20px; }
             .rsvp-form .radio-group { flex-direction: column; gap: 12px; align-items: flex-start; }
@@ -367,6 +479,7 @@
             .monogram .letter { font-size: 44px; }
             .hero .romantic-phrase { font-size: 22px; }
             .calendar-btn { font-size: 16px; padding: 12px 24px; letter-spacing: 2px; }
+            .gallery { grid-template-columns: 1fr 1fr; gap: 8px; }
         }
     </style>
 </head>
@@ -385,11 +498,32 @@
         <div class="date-large">01 · 08 · 2026</div>
         <p class="date-sub">Сохраните дату</p>
         <p class="romantic-phrase">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
-        <a class="calendar-btn" id="calendarButton" href="#" download="Алина_и_Артур_свадьба.ics">Чтоб не забыли :3</a>
+        <a class="calendar-btn" id="calendarButton" href="#" download="Алина_и_Артур_свадьба.ics">Нажми чтобы не забыть :3</a>
+
+        <!-- ГАЛЕРЕЯ -->
+        <div class="gallery-section">
+            <div class="gallery" id="galleryGrid">
+                <div class="photo placeholder" data-src="" data-index="0">Фото 1</div>
+                <div class="photo placeholder" data-src="" data-index="1">Фото 2</div>
+                <div class="photo placeholder" data-src="" data-index="2">Фото 3</div>
+                <div class="photo placeholder" data-src="" data-index="3">Фото 4</div>
+                <div class="photo placeholder" data-src="" data-index="4">Фото 5</div>
+                <div class="photo placeholder" data-src="" data-index="5">Фото 6</div>
+            </div>
+        </div>
+
         <div class="scroll-hint" onclick="document.getElementById('details').scrollIntoView()">
             <span></span>
         </div>
     </section>
+
+    <!-- ЛАЙТБОКС -->
+    <div class="lightbox" id="lightbox">
+        <span class="close" id="lightboxClose">&times;</span>
+        <span class="nav prev" id="lightboxPrev">&lsaquo;</span>
+        <img src="" alt="Фото" id="lightboxImg">
+        <span class="nav next" id="lightboxNext">&rsaquo;</span>
+    </div>
 
     <section class="section" id="details">
         <h2 class="section-title">Детали</h2>
@@ -482,6 +616,76 @@
             link.href = URL.createObjectURL(blob);
             link.download = 'Алина_и_Артур_свадьба.ics';
             link.click();
+        });
+
+        // ========== ЛАЙТБОКС ==========
+        const galleryPhotos = document.querySelectorAll('.gallery .photo');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        let currentIndex = 0;
+        let photoList = [];
+
+        function updatePhotoList() {
+            photoList = [];
+            galleryPhotos.forEach((photo, i) => {
+                const img = photo.querySelector('img');
+                const src = img ? img.getAttribute('src') : photo.getAttribute('data-src');
+                if (src && src.trim() !== '' && !photo.classList.contains('placeholder')) {
+                    photoList.push({ element: photo, src: src, index: i });
+                }
+            });
+        }
+        updatePhotoList();
+
+        function openLightbox(index) {
+            if (photoList.length === 0) return;
+            const item = photoList.find(p => p.index === index);
+            if (!item) return;
+            currentIndex = photoList.indexOf(item);
+            lightboxImg.src = item.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function prevPhoto() {
+            if (photoList.length === 0) return;
+            currentIndex = (currentIndex - 1 + photoList.length) % photoList.length;
+            lightboxImg.src = photoList[currentIndex].src;
+        }
+
+        function nextPhoto() {
+            if (photoList.length === 0) return;
+            currentIndex = (currentIndex + 1) % photoList.length;
+            lightboxImg.src = photoList[currentIndex].src;
+        }
+
+        galleryPhotos.forEach(photo => {
+            photo.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                updatePhotoList();
+                openLightbox(index);
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', prevPhoto);
+        lightboxNext.addEventListener('click', nextPhoto);
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') prevPhoto();
+            if (e.key === 'ArrowRight') nextPhoto();
         });
 
         // ========== ФОРМА ==========
