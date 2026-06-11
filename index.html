@@ -1,112 +1,44 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Алина & Артур — Приглашение на свадьбу</title>
 
-    <!-- Яндекс.Карты -->
     <script src="https://api-maps.yandex.ru/2.1/?apikey=7858b958-e5ed-42d4-a547-bc2bbcecf829&lang=ru_RU" type="text/javascript"></script>
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
 
         :root {
-            --bg: #fafaf8;
-            --text: #2c2c2c;
-            --muted: #8a8a8a;
-            --accent: #b8944b;
-            --accent-light: #d4c5a0;
-            --white: #ffffff;
-            --border: #e8e4db;
+            --bg: #fafaf8; --text: #2c2c2c; --muted: #8a8a8a;
+            --accent: #b8944b; --accent-light: #d4c5a0; --white: #ffffff; --border: #e8e4db;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Cormorant Garamond', serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            font-size: 22px;
-            position: relative;
-            overflow-x: hidden;
-            -webkit-user-select: none;
+            background: var(--bg); color: var(--text);
+            line-height: 1.7; font-size: 22px;
+            position: relative; overflow-x: hidden;
         }
 
-        .bg-lines {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0; opacity: 0.6;
-        }
+        .bg-lines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.6; }
         .bg-lines svg { width: 100%; height: 100%; }
-
         .content-wrapper { position: relative; z-index: 1; }
 
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
         .fade-in.initial-visible { opacity: 1; transform: translateY(0); transition: none; }
 
-        .hero {
-            min-height: 100vh; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; text-align: center;
-            padding: 40px 20px 60px; position: relative;
-        }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px 60px; position: relative; }
 
-        /* ========== ГЛАВНОЕ ФОТО (ТЕПЕРЬ КАК В СЛАЙДЕРЕ) ========== */
-        .main-photo-container {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto 40px;
-            padding: 0 20px;
-        }
-        .main-photo-frame {
-            width: 100%;
-            aspect-ratio: 4 / 5;
-            max-height: 650px;
-            border-radius: 8px;
-            overflow: hidden;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            position: relative;
-        }
-        .main-photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 8px;
-            opacity: 0.9;
-            display: block;
-        }
-        .main-photo-frame .placeholder-main {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            font-size: 18px;
-            color: var(--muted);
-            letter-spacing: 3px;
-            text-align: center;
-            flex-direction: column;
-            position: absolute;
-            top: 0; left: 0;
-        }
-        .main-photo-frame .placeholder-main i {
-            font-size: 60px;
-            color: var(--accent-light);
-            margin-bottom: 12px;
-        }
+        .main-photo-container { width: 100%; max-width: 500px; margin: 0 auto 40px; padding: 0 20px; }
+        .main-photo-frame { width: 100%; aspect-ratio: 4/5; max-height: 650px; border-radius: 8px; overflow: hidden; position: relative; }
+        .main-photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 8px; opacity: 0.9; display: block; }
 
         .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 400; letter-spacing: 6px; margin-bottom: 12px; color: var(--text); }
         .hero .subtitle { font-size: 24px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; }
@@ -115,121 +47,68 @@
         .hero .romantic-phrase { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-style: italic; color: var(--accent); letter-spacing: 2px; max-width: 700px; line-height: 1.6; margin-top: 30px; margin-bottom: 50px; }
 
         .calendar-btn {
-            display: inline-block; padding: 16px 36px; background: transparent; color: var(--accent);
-            border: 1px solid var(--accent); border-radius: 2px; font-family: 'Cormorant Garamond', serif;
+            display: inline-block; padding: 18px 40px; background: var(--accent); color: white;
+            border: none; border-radius: 4px; font-family: 'Cormorant Garamond', serif;
             font-size: 22px; letter-spacing: 3px; cursor: pointer; transition: all 0.3s ease;
             text-decoration: none; margin-top: 20px; margin-bottom: 60px;
             pointer-events: auto; position: relative; z-index: 10;
             -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+            box-shadow: 0 4px 15px rgba(184, 148, 75, 0.3);
         }
-        .calendar-btn:hover { background: var(--accent); color: white; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(184, 148, 75, 0.3); }
+        .calendar-btn:hover { background: #a07d3a; transform: translateY(-2px); box-shadow: 0 6px 25px rgba(184, 148, 75, 0.4); }
         .calendar-btn:active { transform: scale(0.97); }
 
-        /* ========== СЛАЙДЕР ========== */
         .slider-section { width: 100%; max-width: 700px; margin: 0 auto 30px; padding: 0 30px; position: relative; }
-
-        .slider-container {
-            position: relative; width: 100%; border-radius: 4px; overflow: hidden;
-            background: transparent; box-shadow: none; border: none;
-            cursor: grab; touch-action: pan-y;
-        }
-        .slider-container:active { cursor: grabbing; }
-        .slider-container.dragging { cursor: grabbing; }
-
+        .slider-container { position: relative; width: 100%; border-radius: 4px; overflow: hidden; cursor: grab; touch-action: pan-y; }
         .slider-track { display: flex; transition: none; will-change: transform; }
         .slider-track.animate { transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); }
-
         .slide-item { min-width: 100%; padding: 0; display: flex; align-items: center; justify-content: center; }
-
-        .slide-inner {
-            position: relative; width: 100%;
-            display: flex; align-items: center; justify-content: center;
-            aspect-ratio: 4 / 5; max-height: 650px;
-            background: transparent; border: none; box-shadow: none;
-            overflow: hidden; border-radius: 4px;
-        }
-
-        .slide-inner img {
-            width: 100%; height: 100%;
-            object-fit: cover; object-position: center;
-            border-radius: 4px; pointer-events: none; opacity: 0.9;
-        }
-
-        .slide-inner .placeholder-slide {
-            display: flex; align-items: center; justify-content: center;
-            width: 100%; height: 100%; font-size: 18px; color: var(--muted);
-            letter-spacing: 2px; text-align: center; flex-direction: column;
-            position: absolute; top: 0; left: 0; opacity: 0.9;
-        }
-        .slide-inner .placeholder-slide i { font-size: 60px; color: var(--accent-light); margin-bottom: 12px; }
+        .slide-inner { position: relative; width: 100%; display: flex; align-items: center; justify-content: center; aspect-ratio: 4/5; max-height: 650px; overflow: hidden; border-radius: 4px; }
+        .slide-inner img { width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 4px; pointer-events: none; opacity: 0.9; }
 
         .slider-counter { text-align: center; margin-top: 20px; font-size: 16px; letter-spacing: 3px; color: var(--muted); }
-        .slider-counter .current { color: var(--accent); font-weight: 600; font-size: 18px; transition: all 0.3s ease; }
-        .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
-        .slider-dots .dot-nav { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .slider-dots .dot-nav { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: all 0.4s ease; }
         .slider-dots .dot-nav.active { background: var(--accent); width: 24px; border-radius: 4px; }
-
-        .swipe-hint { text-align: center; margin-top: 12px; font-size: 13px; letter-spacing: 2px; color: var(--muted); opacity: 0.7; font-style: italic; }
-        .swipe-hint i { margin: 0 5px; animation: swipeHint 2s ease-in-out infinite; }
-        @keyframes swipeHint { 0%, 100% { transform: translateX(0); opacity: 0.5; } 50% { transform: translateX(8px); opacity: 1; } }
 
         .scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; cursor: pointer; }
         .scroll-hint span { display: block; width: 30px; height: 30px; border-right: 1px solid var(--accent); border-bottom: 1px solid var(--accent); transform: rotate(45deg); }
         @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(12px); } }
 
         .section { max-width: 800px; margin: 0 auto; padding: 80px 30px; }
-        .section-title { font-family: 'Playfair Display', serif; font-size: 36px; letter-spacing: 4px; text-align: center; color: var(--accent); margin-bottom: 50px; font-weight: 400; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 36px; letter-spacing: 4px; text-align: center; color: var(--accent); margin-bottom: 50px; }
         .section-line { width: 50px; height: 1px; background: var(--accent-light); margin: 0 auto 40px; }
 
         .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: center; }
-        .detail-card {
-            padding: 35px 30px; border: 1px solid var(--accent-light); border-radius: 6px;
-            background: linear-gradient(135deg, #fdfaf3 0%, #faf7ed 100%);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03), inset 0 0 0 1px rgba(255,255,255,0.8);
-            position: relative; overflow: hidden;
-        }
-        .detail-card::before { content: ''; position: absolute; top: -30px; right: -30px; width: 80px; height: 80px; border: 1px solid var(--accent-light); border-radius: 50%; opacity: 0.3; pointer-events: none; }
-        .detail-card::after { content: ''; position: absolute; bottom: -20px; left: -20px; width: 60px; height: 60px; border: 1px solid var(--accent-light); border-radius: 50%; opacity: 0.25; pointer-events: none; }
-        .detail-card .icon { font-size: 44px; margin-bottom: 18px; color: var(--accent); position: relative; z-index: 1; }
-        .detail-card .label { font-size: 14px; letter-spacing: 6px; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; position: relative; z-index: 1; font-weight: 600; }
-        .detail-card .time-block { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed var(--accent-light); position: relative; z-index: 1; }
+        .detail-card { padding: 35px 30px; border: 1px solid var(--accent-light); border-radius: 6px; background: linear-gradient(135deg, #fdfaf3 0%, #faf7ed 100%); position: relative; overflow: hidden; }
+        .detail-card .icon { font-size: 44px; margin-bottom: 18px; color: var(--accent); }
+        .detail-card .label { font-size: 14px; letter-spacing: 6px; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+        .detail-card .time-block { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed var(--accent-light); }
         .detail-card .time-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-        .detail-card .time-label { font-size: 15px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
-        .detail-card .time-value { font-size: 30px; letter-spacing: 3px; color: var(--text); font-family: 'Playfair Display', serif; font-weight: 400; }
-        .detail-card .value { font-size: 30px; letter-spacing: 3px; color: var(--text); font-family: 'Playfair Display', serif; position: relative; z-index: 1; margin-bottom: 8px; }
-        .detail-card .value-small { font-size: 22px; color: var(--accent); margin-top: 6px; letter-spacing: 2px; position: relative; z-index: 1; font-style: italic; }
+        .detail-card .time-label { font-size: 15px; letter-spacing: 3px; color: var(--muted); margin-bottom: 6px; }
+        .detail-card .time-value { font-size: 30px; letter-spacing: 3px; color: var(--text); font-family: 'Playfair Display', serif; }
+        .detail-card .value { font-size: 30px; letter-spacing: 3px; color: var(--text); font-family: 'Playfair Display', serif; }
+        .detail-card .value-small { font-size: 22px; color: var(--accent); margin-top: 6px; font-style: italic; }
 
-        .map-container { width: 100%; height: 350px; border-radius: 2px; overflow: hidden; border: 1px solid var(--border); background: var(--border); }
-        .map-address { text-align: center; margin-top: 20px; font-size: 21px; color: var(--muted); letter-spacing: 1px; }
+        .map-container { width: 100%; height: 350px; border-radius: 2px; overflow: hidden; border: 1px solid var(--border); }
+        .map-address { text-align: center; margin-top: 20px; font-size: 21px; color: var(--muted); }
 
         .rsvp-form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-        .rsvp-form input, .rsvp-form select, .rsvp-form textarea { width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 2px; font-family: 'Cormorant Garamond', serif; font-size: 22px; background: var(--white); color: var(--text); letter-spacing: 1px; transition: border-color 0.3s; outline: none; }
-        .rsvp-form input:focus, .rsvp-form select:focus, .rsvp-form textarea:focus { border-color: var(--accent); }
-        .rsvp-form textarea { resize: vertical; min-height: 100px; }
-        .rsvp-form select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a8a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 20px center; }
-        .rsvp-form .radio-group { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 5px 0; }
-        .rsvp-form .radio-group .radio-title { font-size: 20px; letter-spacing: 2px; color: var(--text); margin-bottom: 5px; font-weight: 500; }
-        .rsvp-form .radio-group label { display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 22px; letter-spacing: 1px; color: var(--text); padding: 8px 16px; border: 1px solid var(--border); border-radius: 4px; width: 100%; transition: all 0.3s ease; background: var(--white); }
-        .rsvp-form .radio-group label:hover { border-color: var(--accent-light); background: #fdfaf3; }
-        .rsvp-form .radio-group label:has(input:checked) { border-color: var(--accent); background: rgba(184, 148, 75, 0.08); }
-        .rsvp-form .radio-group input[type="radio"] { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
-        .rsvp-form button { padding: 16px 40px; background: var(--accent); color: white; border: none; border-radius: 2px; font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; transition: background 0.3s, transform 0.2s; pointer-events: auto; touch-action: manipulation; }
-        .rsvp-form button:hover { background: #a07d3a; transform: translateY(-2px); }
-        .rsvp-form button:active { transform: scale(0.97); }
-        .form-success { display: none; text-align: center; padding: 40px 20px; font-size: 26px; color: var(--accent); letter-spacing: 2px; }
+        .rsvp-form input, .rsvp-form select, .rsvp-form textarea { width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 2px; font-family: 'Cormorant Garamond', serif; font-size: 22px; background: var(--white); color: var(--text); outline: none; }
+        .rsvp-form .radio-group { display: flex; flex-direction: column; gap: 12px; }
+        .rsvp-form .radio-group label { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; font-size: 22px; }
+        .rsvp-form .radio-group input[type="radio"] { width: 20px; height: 20px; accent-color: var(--accent); }
+        .rsvp-form button { padding: 16px 40px; background: var(--accent); color: white; border: none; border-radius: 2px; font-size: 22px; letter-spacing: 4px; cursor: pointer; }
+        .form-success { display: none; text-align: center; padding: 40px 20px; font-size: 26px; color: var(--accent); }
         .form-success.active { display: block; }
-        .form-success .check { font-size: 58px; margin-bottom: 20px; }
 
-        .footer { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 19px; letter-spacing: 2px; }
+        .footer { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 19px; }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 34px; } .hero .date-large { font-size: 44px; }
             .details-grid { grid-template-columns: 1fr; }
             .section { padding: 50px 20px; }
-            .slide-inner { aspect-ratio: 4 / 5; max-height: 500px; }
             .main-photo-container { max-width: 380px; }
-            .main-photo-frame { max-height: 500px; }
-            .calendar-btn { padding: 14px 28px; font-size: 18px; }
         }
     </style>
 </head>
@@ -239,11 +118,6 @@
             <line x1="0" y1="120" x2="400" y2="80" stroke="#d4c5a0" stroke-width="1.2" opacity="0.7"/>
             <line x1="200" y1="300" x2="700" y2="250" stroke="#d4c5a0" stroke-width="0.8" opacity="0.6"/>
             <line x1="800" y1="100" x2="1200" y2="180" stroke="#d4c5a0" stroke-width="1" opacity="0.5"/>
-            <line x1="100" y1="500" x2="600" y2="550" stroke="#b8944b" stroke-width="0.8" opacity="0.5"/>
-            <line x1="900" y1="400" x2="1400" y2="350" stroke="#d4c5a0" stroke-width="1.2" opacity="0.6"/>
-            <line x1="0" y1="700" x2="500" y2="650" stroke="#b8944b" stroke-width="0.8" opacity="0.5"/>
-            <line x1="600" y1="800" x2="1100" y2="750" stroke="#d4c5a0" stroke-width="1" opacity="0.5"/>
-            <line x1="300" y1="900" x2="800" y2="880" stroke="#b8944b" stroke-width="0.8" opacity="0.6"/>
             <path d="M0 150 Q200 100 400 180 T800 160 T1200 200 T1440 170" stroke="#d4c5a0" stroke-width="1" fill="none" opacity="0.5"/>
             <path d="M0 450 Q300 400 500 480 T1000 440 T1440 500" stroke="#b8944b" stroke-width="0.8" fill="none" opacity="0.5"/>
         </svg>
@@ -251,13 +125,9 @@
 
     <div class="content-wrapper">
         <section class="hero" id="hero">
-            <!-- ГЛАВНОЕ ФОТО (формат как в слайдере: 4/5) -->
             <div class="main-photo-container fade-in initial-visible">
                 <div class="main-photo-frame">
-                    <img src="photo main.jpg" alt="Алина и Артур" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-main').style.display='flex';">
-                    <div class="placeholder-main" style="display: none;">
-                        <i class="fas fa-camera"></i><br>photo main.jpg
-                    </div>
+                    <img src="photo main.jpg" alt="Алина и Артур">
                 </div>
             </div>
 
@@ -266,15 +136,22 @@
             <div class="date-large fade-in initial-visible">01 · 08 · 2026</div>
             <p class="date-sub fade-in initial-visible">Сохраните дату</p>
             <p class="romantic-phrase fade-in initial-visible">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
-            <a class="calendar-btn fade-in initial-visible" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Свадьба+Алины+и+Артура+💍&dates=20260801T114500/20260801T130000&details=Сбор+гостей:+11:45%0AНачало+регистрации:+12:00%0A%0AМесто:+ЗАГС,+г.+Долинск,+ул.+Хабаровская,+13Б&location=г.+Долинск,+ул.+Хабаровская,+13,+корп.+Б" target="_blank" rel="noopener noreferrer">Нажми чтобы не забыть</a>
+            
+            <!-- КНОПКА ДЛЯ TELEGRAM -->
+            <a class="calendar-btn fade-in initial-visible" 
+               href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Свадьба+Алины+и+Артура+💍&dates=20260801T114500/20260801T130000&details=Сбор+гостей:+11:45%0AНачало+регистрации:+12:00%0A%0AМесто:+ЗАГС,+г.+Долинск,+ул.+Хабаровская,+13Б&location=г.+Долинск,+ул.+Хабаровская,+13,+корп.+Б" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               onclick="window.open(this.href, '_blank'); return false;">
+               Нажми чтобы не забыть
+            </a>
 
             <div class="slider-section fade-in" id="sliderSection">
                 <div class="slider-container" id="sliderContainer">
                     <div class="slider-track" id="sliderTrack"></div>
                 </div>
-                <div class="slider-counter"><span class="current" id="sliderCurrent">1</span> / <span id="sliderTotal">10</span></div>
+                <div class="slider-counter"><span id="sliderCurrent">1</span> / <span id="sliderTotal">10</span></div>
                 <div class="slider-dots" id="sliderDots"></div>
-                <div class="swipe-hint"><i class="fas fa-arrow-left"></i> листайте свайпом <i class="fas fa-arrow-right"></i></div>
             </div>
 
             <div class="scroll-hint" onclick="document.getElementById('details').scrollIntoView()">
@@ -286,13 +163,13 @@
             <h2 class="section-title">Детали</h2>
             <div class="section-line"></div>
             <div class="details-grid">
-                <div class="detail-card fade-in">
+                <div class="detail-card">
                     <div class="icon"><i class="far fa-clock"></i></div>
                     <div class="label">Время</div>
                     <div class="time-block"><div class="time-label">Сбор гостей</div><div class="time-value">11:45</div></div>
                     <div class="time-block"><div class="time-label">Начало регистрации</div><div class="time-value">12:00</div></div>
                 </div>
-                <div class="detail-card fade-in">
+                <div class="detail-card">
                     <div class="icon"><i class="far fa-calendar-alt"></i></div>
                     <div class="label">Дата</div>
                     <div class="value">1 августа 2026</div>
@@ -316,12 +193,12 @@
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="tel" name="phone" placeholder="Телефон">
                 <div class="radio-group">
-                    <span class="radio-title">Вы придёте?</span>
+                    <span>Вы придёте?</span>
                     <label><input type="radio" name="attending" value="Да" required> Да, с радостью!</label>
                     <label><input type="radio" name="attending" value="Нет"> К сожалению, нет</label>
                 </div>
                 <select name="guests"><option disabled selected>Количество гостей</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
-                <textarea name="message" placeholder="Пожелания или сообщение..."></textarea>
+                <textarea name="message" placeholder="Пожелания..."></textarea>
                 <button type="submit">Отправить</button>
             </form>
             <div class="form-success" id="formSuccess"><div class="check">✓</div>Спасибо! Ваш ответ получен.<br><span>Ждём вас 1 августа!</span></div>
@@ -337,14 +214,10 @@
                 if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) el.classList.add('visible');
             });
         }
-        function showInitialElements() {
-            document.querySelectorAll('.fade-in.initial-visible').forEach(el => el.classList.add('visible'));
-        }
+        document.querySelectorAll('.fade-in.initial-visible').forEach(el => el.classList.add('visible'));
         window.addEventListener('scroll', handleScroll);
-        window.addEventListener('load', () => { showInitialElements(); handleScroll(); });
-        setTimeout(() => { showInitialElements(); handleScroll(); }, 100);
+        window.addEventListener('load', handleScroll);
 
-        // ========== СЛАЙДЕР ==========
         const sliderTrack = document.getElementById('sliderTrack');
         const sliderCurrent = document.getElementById('sliderCurrent');
         const sliderTotal = document.getElementById('sliderTotal');
@@ -355,7 +228,7 @@
         sliderTotal.textContent = totalSlides;
         for (let i = 1; i <= totalSlides; i++) {
             const slide = document.createElement('div'); slide.classList.add('slide-item');
-            slide.innerHTML = `<div class="slide-inner"><img src="photo${i}.jpg" alt="Фото ${i}" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-slide').style.display='flex';"><div class="placeholder-slide" style="display:none;"><i class="fas fa-camera"></i><br>Фото ${i}</div></div>`;
+            slide.innerHTML = `<div class="slide-inner"><img src="photo${i}.jpg" alt="Фото ${i}"></div>`;
             sliderTrack.appendChild(slide);
         }
         for (let i = 0; i < totalSlides; i++) {
@@ -367,24 +240,24 @@
         const dots = document.querySelectorAll('.slider-dots .dot-nav');
 
         function updateSliderPosition(offset, animate = false) { sliderTrack.classList.toggle('animate', animate); sliderTrack.style.transform = `translateX(${offset}px)`; }
-        function goToSlide(index) { if (isAnimating) return; isAnimating = true; currentSlide = index; updateSliderPosition(-index * sliderTrack.parentElement.offsetWidth, true); dots.forEach((d, i) => d.classList.toggle('active', i === index)); sliderCurrent.style.transform = 'scale(1.4)'; sliderCurrent.textContent = index + 1; setTimeout(() => sliderCurrent.style.transform = 'scale(1)', 300); setTimeout(() => { isAnimating = false; }, 500); }
+        function goToSlide(index) { if (isAnimating) return; isAnimating = true; currentSlide = index; updateSliderPosition(-index * sliderTrack.parentElement.offsetWidth, true); dots.forEach((d, i) => d.classList.toggle('active', i === index)); sliderCurrent.textContent = index + 1; setTimeout(() => { isAnimating = false; }, 500); }
 
         const sliderContainer = document.getElementById('sliderContainer');
-        sliderContainer.addEventListener('mousedown', (e) => { if (isAnimating) return; isDragging = true; startX = e.clientX; currentX = startX; sliderTrack.classList.remove('animate'); sliderContainer.classList.add('dragging'); e.preventDefault(); });
-        window.addEventListener('mousemove', (e) => { if (!isDragging) return; currentX = e.clientX; updateSliderPosition(currentX - startX - (currentSlide * sliderContainer.offsetWidth), false); });
-        window.addEventListener('mouseup', () => { if (!isDragging) return; isDragging = false; sliderContainer.classList.remove('dragging'); finishSwipe(); });
-        sliderContainer.addEventListener('touchstart', (e) => { if (isAnimating) return; isDragging = true; startX = e.touches[0].clientX; currentX = startX; sliderTrack.classList.remove('animate'); }, { passive: true });
-        sliderContainer.addEventListener('touchmove', (e) => { if (!isDragging) return; currentX = e.touches[0].clientX; updateSliderPosition(currentX - startX - (currentSlide * sliderContainer.offsetWidth), false); }, { passive: true });
+        sliderContainer.addEventListener('mousedown', (e) => { if (isAnimating) return; isDragging = true; startX = e.clientX; sliderTrack.classList.remove('animate'); e.preventDefault(); });
+        window.addEventListener('mousemove', (e) => { if (!isDragging) return; updateSliderPosition(e.clientX - startX - (currentSlide * sliderContainer.offsetWidth), false); });
+        window.addEventListener('mouseup', () => { if (!isDragging) return; isDragging = false; finishSwipe(); });
+        sliderContainer.addEventListener('touchstart', (e) => { if (isAnimating) return; isDragging = true; startX = e.touches[0].clientX; sliderTrack.classList.remove('animate'); }, { passive: true });
+        sliderContainer.addEventListener('touchmove', (e) => { if (!isDragging) return; updateSliderPosition(e.touches[0].clientX - startX - (currentSlide * sliderContainer.offsetWidth), false); }, { passive: true });
         sliderContainer.addEventListener('touchend', () => { if (!isDragging) return; isDragging = false; finishSwipe(); });
 
-        function finishSwipe() { const w = sliderContainer.offsetWidth, diff = currentX - startX, threshold = w * 0.15; if (Math.abs(diff) > threshold) { if (diff < 0) goToSlide((currentSlide + 1) % totalSlides); else goToSlide((currentSlide - 1 + totalSlides) % totalSlides); } else goToSlide(currentSlide); }
+        function finishSwipe() { const w = sliderContainer.offsetWidth, diff = currentX - startX; if (Math.abs(diff) > w * 0.15) { if (diff < 0) goToSlide((currentSlide + 1) % totalSlides); else goToSlide((currentSlide - 1 + totalSlides) % totalSlides); } else goToSlide(currentSlide); }
         goToSlide(0);
 
         document.getElementById('rsvpForm').addEventListener('submit', function(e) {
             setTimeout(() => { this.style.display = 'none'; document.getElementById('formSuccess').classList.add('active'); }, 1000);
         });
 
-        function initMap() { if (typeof ymaps === 'undefined') { document.getElementById('yandexMap').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8a8a8a;">📍<br>г. Долинск, ул. Хабаровская, 13Б</div>'; return; } ymaps.ready(function() { const map = new ymaps.Map('yandexMap', { center: [47.322018, 142.793501], zoom: 17, controls: ['zoomControl'] }); map.geoObjects.add(new ymaps.Placemark([47.322018, 142.793501], { hintContent: 'ЗАГС', balloonContent: 'г. Долинск, ул. Хабаровская, 13Б' })); }); }
+        function initMap() { if (typeof ymaps === 'undefined') return; ymaps.ready(function() { const map = new ymaps.Map('yandexMap', { center: [47.322018, 142.793501], zoom: 17 }); map.geoObjects.add(new ymaps.Placemark([47.322018, 142.793501], { hintContent: 'ЗАГС', balloonContent: 'г. Долинск, ул. Хабаровская, 13Б' })); }); }
         window.addEventListener('load', () => setTimeout(initMap, 500));
     </script>
 </body>
