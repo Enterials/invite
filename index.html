@@ -65,6 +65,57 @@
             padding: 40px 20px 60px; position: relative;
         }
 
+        /* ========== ГЛАВНОЕ ФОТО ВМЕСТО А & А ========== */
+        .main-photo-container {
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 1.2s ease;
+        }
+        .main-photo-frame {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            max-height: 500px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: rgba(250, 250, 248, 0.3);
+            border: 1px solid rgba(212, 197, 160, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+            position: relative;
+        }
+        .main-photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0.9;
+            display: block;
+        }
+        .main-photo-frame .placeholder-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            font-size: 16px;
+            color: var(--muted);
+            letter-spacing: 2px;
+            text-align: center;
+            flex-direction: column;
+            position: absolute;
+            top: 0; left: 0;
+        }
+        .main-photo-frame .placeholder-main i {
+            font-size: 50px;
+            color: var(--accent-light);
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 400; letter-spacing: 6px; margin-bottom: 12px; color: var(--text); }
         .hero .subtitle { font-size: 24px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; }
         .hero .date-large { font-family: 'Playfair Display', serif; font-size: 62px; letter-spacing: 8px; color: var(--accent); font-weight: 300; }
@@ -80,7 +131,7 @@
         .calendar-btn:hover { background: var(--accent); color: white; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(184, 148, 75, 0.3); }
         .calendar-btn:active { transform: translateY(0); }
 
-        /* ========== СЛАЙДЕР (БЕЗ РАМКИ, ФОТО 90% ПРОЗРАЧНОСТИ) ========== */
+        /* ========== СЛАЙДЕР (БЕЗ РАМКИ, ФОТО 90%) ========== */
         .slider-section { width: 100%; max-width: 700px; margin: 0 auto 30px; padding: 0 30px; position: relative; }
 
         .slider-container {
@@ -141,38 +192,6 @@
             font-size: 60px; color: var(--accent-light); margin-bottom: 12px;
         }
 
-        /* Монограмма под фото */
-        .slider-monogram {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 25px;
-            animation: fadeInUp 1.2s ease;
-        }
-        .slider-monogram .letter {
-            font-family: 'Playfair Display', serif;
-            font-size: 52px;
-            font-weight: 400;
-            color: var(--accent);
-            line-height: 1;
-            letter-spacing: 4px;
-        }
-        .slider-monogram .dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            margin: 0 3px;
-        }
-        .slider-monogram .ampersand-small {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            color: var(--accent-light);
-            font-style: italic;
-            margin: 0 4px;
-        }
-
         .slider-counter { text-align: center; margin-top: 20px; font-size: 16px; letter-spacing: 3px; color: var(--muted); }
         .slider-counter .current { color: var(--accent); font-weight: 600; font-size: 18px; transition: all 0.3s ease; }
         .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
@@ -188,10 +207,6 @@
         @keyframes swipeHint {
             0%, 100% { transform: translateX(0); opacity: 0.5; }
             50% { transform: translateX(8px); opacity: 1; }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; cursor: pointer; }
@@ -247,14 +262,13 @@
         .form-success .check { font-size: 58px; margin-bottom: 20px; }
 
         .footer { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 19px; letter-spacing: 2px; }
-        .footer .monogram-small { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--accent-light); letter-spacing: 3px; margin-bottom: 10px; }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 34px; } .hero .date-large { font-size: 44px; }
             .details-grid { grid-template-columns: 1fr; }
             .section { padding: 50px 20px; }
             .slide-inner { aspect-ratio: 4 / 5; max-height: 500px; }
-            .slider-monogram .letter { font-size: 40px; }
+            .main-photo-container { max-width: 300px; }
         }
     </style>
 </head>
@@ -276,6 +290,16 @@
 
     <div class="content-wrapper">
         <section class="hero" id="hero">
+            <!-- ГЛАВНОЕ ФОТО -->
+            <div class="main-photo-container fade-in">
+                <div class="main-photo-frame">
+                    <img src="photo main.jpg" alt="Алина и Артур" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-main').style.display='flex';">
+                    <div class="placeholder-main" style="display: none;">
+                        <i class="fas fa-camera"></i><br>photo main.jpg
+                    </div>
+                </div>
+            </div>
+
             <h1 class="fade-in fade-in-delay-1">Алина &amp; Артур</h1>
             <p class="subtitle fade-in fade-in-delay-2">Приглашают на регистрацию брака</p>
             <div class="date-large fade-in fade-in-delay-3">01 · 08 · 2026</div>
@@ -283,21 +307,11 @@
             <p class="romantic-phrase fade-in fade-in-delay-5">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
             <a class="calendar-btn fade-in fade-in-delay-5" id="calendarButton" href="#">Нажми чтобы не забыть :3</a>
 
-            <!-- СЛАЙДЕР + МОНОГРАММА -->
+            <!-- СЛАЙДЕР -->
             <div class="slider-section fade-in" id="sliderSection">
                 <div class="slider-container" id="sliderContainer">
                     <div class="slider-track" id="sliderTrack"></div>
                 </div>
-
-                <!-- Монограмма А & А под фото -->
-                <div class="slider-monogram">
-                    <span class="letter">А</span>
-                    <span class="dot"></span>
-                    <span class="ampersand-small">&amp;</span>
-                    <span class="dot"></span>
-                    <span class="letter">А</span>
-                </div>
-
                 <div class="slider-counter"><span class="current" id="sliderCurrent">1</span> / <span id="sliderTotal">10</span></div>
                 <div class="slider-dots" id="sliderDots"></div>
                 <div class="swipe-hint"><i class="fas fa-arrow-left"></i> листайте свайпом <i class="fas fa-arrow-right"></i></div>
@@ -345,7 +359,7 @@
             <div class="form-success" id="formSuccess"><div class="check">✓</div>Спасибо! Ваш ответ получен.<br><span>Ждём вас 1 августа!</span></div>
         </section>
 
-        <footer class="footer fade-in"><div class="monogram-small">А &amp; А</div>До встречи 1 августа 2026 года</footer>
+        <footer class="footer fade-in">До встречи 1 августа 2026 года</footer>
     </div>
 
     <script>
@@ -369,7 +383,7 @@
             link.click();
         });
 
-        // ========== ЗАЦИКЛЕННЫЙ СЛАЙДЕР ==========
+        // ========== СЛАЙДЕР ==========
         const sliderTrack = document.getElementById('sliderTrack');
         const sliderCurrent = document.getElementById('sliderCurrent');
         const sliderTotal = document.getElementById('sliderTotal');
