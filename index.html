@@ -48,7 +48,6 @@
 
         .content-wrapper { position: relative; z-index: 1; }
 
-        /* ========== АНИМАЦИЯ ПРИ СКРОЛЛЕ (ИСПРАВЛЕНО) ========== */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -58,17 +57,11 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* Элементы первого экрана видны сразу */
         .fade-in.initial-visible {
             opacity: 1;
             transform: translateY(0);
             transition: none;
         }
-        .fade-in-delay-1 { transition-delay: 0.1s; }
-        .fade-in-delay-2 { transition-delay: 0.2s; }
-        .fade-in-delay-3 { transition-delay: 0.3s; }
-        .fade-in-delay-4 { transition-delay: 0.4s; }
-        .fade-in-delay-5 { transition-delay: 0.5s; }
 
         .hero {
             min-height: 100vh; display: flex; flex-direction: column;
@@ -76,7 +69,6 @@
             padding: 40px 20px 60px; position: relative;
         }
 
-        /* ========== ГЛАВНОЕ ФОТО ========== */
         .main-photo-container {
             width: 100%;
             max-width: 1100px;
@@ -126,14 +118,20 @@
         .hero .date-sub { font-size: 20px; letter-spacing: 5px; color: var(--muted); text-transform: uppercase; margin-top: 8px; margin-bottom: 80px; }
         .hero .romantic-phrase { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-style: italic; color: var(--accent); letter-spacing: 2px; max-width: 700px; line-height: 1.6; margin-top: 30px; margin-bottom: 50px; }
 
+        /* ========== КНОПКА (КЛИКАБЕЛЬНА) ========== */
         .calendar-btn {
             display: inline-block; padding: 16px 36px; background: transparent; color: var(--accent);
             border: 1px solid var(--accent); border-radius: 2px; font-family: 'Cormorant Garamond', serif;
             font-size: 22px; letter-spacing: 3px; cursor: pointer; transition: all 0.3s ease;
             text-decoration: none; margin-top: 20px; margin-bottom: 60px;
+            pointer-events: auto;
+            position: relative;
+            z-index: 10;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         .calendar-btn:hover { background: var(--accent); color: white; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(184, 148, 75, 0.3); }
-        .calendar-btn:active { transform: translateY(0); }
+        .calendar-btn:active { transform: scale(0.97); }
 
         /* ========== СЛАЙДЕР ========== */
         .slider-section { width: 100%; max-width: 700px; margin: 0 auto 30px; padding: 0 30px; position: relative; }
@@ -250,17 +248,61 @@
         .map-container { width: 100%; height: 350px; border-radius: 2px; overflow: hidden; border: 1px solid var(--border); background: var(--border); }
         .map-address { text-align: center; margin-top: 20px; font-size: 21px; color: var(--muted); letter-spacing: 1px; }
 
+        /* ========== ФОРМА (ИСПРАВЛЕНА) ========== */
         .rsvp-form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
         .rsvp-form input, .rsvp-form select, .rsvp-form textarea { width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 2px; font-family: 'Cormorant Garamond', serif; font-size: 22px; background: var(--white); color: var(--text); letter-spacing: 1px; transition: border-color 0.3s; outline: none; }
         .rsvp-form input:focus, .rsvp-form select:focus, .rsvp-form textarea:focus { border-color: var(--accent); }
         .rsvp-form textarea { resize: vertical; min-height: 100px; }
         .rsvp-form select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a8a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 20px center; }
-        .rsvp-form .radio-group { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; }
-        .rsvp-form .radio-group label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 22px; letter-spacing: 1px; color: var(--text); }
-        .rsvp-form .radio-group input[type="radio"] { width: auto; accent-color: var(--accent); }
-        .rsvp-form button { padding: 16px 40px; background: var(--accent); color: white; border: none; border-radius: 2px; font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+
+        /* Радио-группа — выровнена */
+        .rsvp-form .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 5px 0;
+        }
+        .rsvp-form .radio-group .radio-title {
+            font-size: 20px;
+            letter-spacing: 2px;
+            color: var(--text);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .rsvp-form .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 22px;
+            letter-spacing: 1px;
+            color: var(--text);
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            width: 100%;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+        .rsvp-form .radio-group label:hover {
+            border-color: var(--accent-light);
+            background: #fdfaf3;
+        }
+        .rsvp-form .radio-group label:has(input:checked) {
+            border-color: var(--accent);
+            background: rgba(184, 148, 75, 0.08);
+        }
+        .rsvp-form .radio-group input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .rsvp-form button { padding: 16px 40px; background: var(--accent); color: white; border: none; border-radius: 2px; font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; transition: background 0.3s, transform 0.2s; pointer-events: auto; touch-action: manipulation; }
         .rsvp-form button:hover { background: #a07d3a; transform: translateY(-2px); }
-        .rsvp-form button:active { transform: translateY(0); }
+        .rsvp-form button:active { transform: scale(0.97); }
         .form-success { display: none; text-align: center; padding: 40px 20px; font-size: 26px; color: var(--accent); letter-spacing: 2px; }
         .form-success.active { display: block; }
         .form-success .check { font-size: 58px; margin-bottom: 20px; }
@@ -273,6 +315,7 @@
             .section { padding: 50px 20px; }
             .slide-inner { aspect-ratio: 4 / 5; max-height: 500px; }
             .main-photo-frame img { max-height: 350px; }
+            .calendar-btn { padding: 14px 28px; font-size: 18px; }
         }
     </style>
 </head>
@@ -294,7 +337,6 @@
 
     <div class="content-wrapper">
         <section class="hero" id="hero">
-            <!-- ГЛАВНОЕ ФОТО -->
             <div class="main-photo-container fade-in initial-visible">
                 <div class="main-photo-frame">
                     <img src="photo main.jpg" alt="Алина и Артур" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-main').style.display='flex';">
@@ -309,9 +351,8 @@
             <div class="date-large fade-in initial-visible">01 · 08 · 2026</div>
             <p class="date-sub fade-in initial-visible">Сохраните дату</p>
             <p class="romantic-phrase fade-in initial-visible">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
-            <a class="calendar-btn fade-in initial-visible" id="calendarButton" href="#">Нажми чтобы не забыть :3</a>
+            <a class="calendar-btn fade-in initial-visible" id="calendarButton" href="#" onclick="event.preventDefault(); document.getElementById('calendarButton').click();">Нажми чтобы не забыть</a>
 
-            <!-- СЛАЙДЕР (появляется при скролле) -->
             <div class="slider-section fade-in" id="sliderSection">
                 <div class="slider-container" id="sliderContainer">
                     <div class="slider-track" id="sliderTrack"></div>
@@ -359,7 +400,11 @@
                 <input type="text" name="name" placeholder="Ваше имя и фамилия" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="tel" name="phone" placeholder="Телефон">
-                <div class="radio-group"><span>Вы придёте?</span><label><input type="radio" name="attending" value="Да" required> Да, с радостью!</label><label><input type="radio" name="attending" value="Нет"> К сожалению, нет</label></div>
+                <div class="radio-group">
+                    <span class="radio-title">Вы придёте?</span>
+                    <label><input type="radio" name="attending" value="Да" required> Да, с радостью!</label>
+                    <label><input type="radio" name="attending" value="Нет"> К сожалению, нет</label>
+                </div>
                 <select name="guests"><option disabled selected>Количество гостей</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
                 <textarea name="message" placeholder="Пожелания или сообщение..."></textarea>
                 <button type="submit">Отправить</button>
@@ -371,45 +416,37 @@
     </div>
 
     <script>
-        // ========== АНИМАЦИЯ ПРИ СКРОЛЛЕ (ИСПРАВЛЕНО) ==========
         function handleScroll() {
-            const elements = document.querySelectorAll('.fade-in:not(.initial-visible)');
-            elements.forEach(el => {
+            document.querySelectorAll('.fade-in:not(.initial-visible)').forEach(el => {
                 const rect = el.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                // Элемент появляется когда его верхняя граница входит в нижние 85% экрана
-                if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
-                    el.classList.add('visible');
-                }
+                if (rect.top < window.innerHeight * 0.9 && rect.bottom > 0) el.classList.add('visible');
             });
         }
-
-        // При загрузке сразу показываем элементы первого экрана
         function showInitialElements() {
-            document.querySelectorAll('.fade-in.initial-visible').forEach(el => {
-                el.classList.add('visible');
-            });
+            document.querySelectorAll('.fade-in.initial-visible').forEach(el => el.classList.add('visible'));
         }
-
         window.addEventListener('scroll', handleScroll);
-        window.addEventListener('load', () => {
-            showInitialElements();
-            handleScroll(); // Проверяем, может что-то ещё видно
-        });
-        // На всякий случай через 100мс
-        setTimeout(() => {
-            showInitialElements();
-            handleScroll();
-        }, 100);
+        window.addEventListener('load', () => { showInitialElements(); handleScroll(); });
+        setTimeout(() => { showInitialElements(); handleScroll(); }, 100);
 
-        document.getElementById('calendarButton').addEventListener('click', function(e) {
+        // ========== КНОПКА КАЛЕНДАРЯ (КЛИКАБЕЛЬНА) ==========
+        const calendarBtn = document.getElementById('calendarButton');
+        calendarBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            const event = ['BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT','DTSTART:20260801T114500','DTEND:20260801T130000','SUMMARY:Свадьба Алины и Артура 💍','DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: ЗАГС, г. Долинск, ул. Хабаровская, 13Б','LOCATION:г. Долинск, ул. Хабаровская, 13Б','BEGIN:VALARM','TRIGGER:-PT24H','ACTION:DISPLAY','DESCRIPTION:Завтра свадьба! 💍','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
-            const blob = new Blob([event], { type: 'text/calendar;charset=utf-8' });
+            e.stopPropagation();
+            const icsData = ['BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT','DTSTART:20260801T114500','DTEND:20260801T130000','SUMMARY:Свадьба Алины и Артура 💍','DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: ЗАГС, г. Долинск, ул. Хабаровская, 13Б','LOCATION:г. Долинск, ул. Хабаровская, 13Б','BEGIN:VALARM','TRIGGER:-PT24H','ACTION:DISPLAY','DESCRIPTION:Завтра свадьба! 💍','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+            const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'Алина_и_Артур_свадьба.ics';
+            document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
+        });
+        calendarBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            calendarBtn.click();
         });
 
         // ========== СЛАЙДЕР ==========
@@ -423,13 +460,11 @@
         let startX = 0, currentX = 0, isDragging = false;
 
         sliderTotal.textContent = totalSlides;
-
         for (let i = 1; i <= totalSlides; i++) {
             const slide = document.createElement('div'); slide.classList.add('slide-item');
             slide.innerHTML = `<div class="slide-inner"><img src="photo${i}.jpg" alt="Фото ${i}" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-slide').style.display='flex';"><div class="placeholder-slide" style="display:none;"><i class="fas fa-camera"></i><br>Фото ${i}</div></div>`;
             sliderTrack.appendChild(slide);
         }
-
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('span'); dot.classList.add('dot-nav');
             if (i === 0) dot.classList.add('active');
@@ -438,72 +473,18 @@
         }
         const dots = document.querySelectorAll('.slider-dots .dot-nav');
 
-        function updateSliderPosition(offset, animate = false) {
-            sliderTrack.classList.toggle('animate', animate);
-            sliderTrack.style.transform = `translateX(${offset}px)`;
-        }
-
-        function goToSlide(index) {
-            if (isAnimating) return;
-            isAnimating = true;
-            currentSlide = index;
-            updateSliderPosition(-index * sliderTrack.parentElement.offsetWidth, true);
-            dots.forEach((d, i) => d.classList.toggle('active', i === index));
-            sliderCurrent.style.transform = 'scale(1.4)';
-            sliderCurrent.textContent = index + 1;
-            setTimeout(() => sliderCurrent.style.transform = 'scale(1)', 300);
-            setTimeout(() => { isAnimating = false; }, 500);
-        }
+        function updateSliderPosition(offset, animate = false) { sliderTrack.classList.toggle('animate', animate); sliderTrack.style.transform = `translateX(${offset}px)`; }
+        function goToSlide(index) { if (isAnimating) return; isAnimating = true; currentSlide = index; updateSliderPosition(-index * sliderTrack.parentElement.offsetWidth, true); dots.forEach((d, i) => d.classList.toggle('active', i === index)); sliderCurrent.style.transform = 'scale(1.4)'; sliderCurrent.textContent = index + 1; setTimeout(() => sliderCurrent.style.transform = 'scale(1)', 300); setTimeout(() => { isAnimating = false; }, 500); }
 
         const sliderContainer = document.getElementById('sliderContainer');
+        sliderContainer.addEventListener('mousedown', (e) => { if (isAnimating) return; isDragging = true; startX = e.clientX; currentX = startX; sliderTrack.classList.remove('animate'); sliderContainer.classList.add('dragging'); e.preventDefault(); });
+        window.addEventListener('mousemove', (e) => { if (!isDragging) return; currentX = e.clientX; updateSliderPosition(currentX - startX - (currentSlide * sliderContainer.offsetWidth), false); });
+        window.addEventListener('mouseup', () => { if (!isDragging) return; isDragging = false; sliderContainer.classList.remove('dragging'); finishSwipe(); });
+        sliderContainer.addEventListener('touchstart', (e) => { if (isAnimating) return; isDragging = true; startX = e.touches[0].clientX; currentX = startX; sliderTrack.classList.remove('animate'); }, { passive: true });
+        sliderContainer.addEventListener('touchmove', (e) => { if (!isDragging) return; currentX = e.touches[0].clientX; updateSliderPosition(currentX - startX - (currentSlide * sliderContainer.offsetWidth), false); }, { passive: true });
+        sliderContainer.addEventListener('touchend', () => { if (!isDragging) return; isDragging = false; finishSwipe(); });
 
-        sliderContainer.addEventListener('mousedown', (e) => {
-            if (isAnimating) return;
-            isDragging = true; startX = e.clientX; currentX = startX;
-            sliderTrack.classList.remove('animate');
-            sliderContainer.classList.add('dragging');
-            e.preventDefault();
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            currentX = e.clientX;
-            updateSliderPosition(currentX - startX - (currentSlide * sliderContainer.offsetWidth), false);
-        });
-
-        window.addEventListener('mouseup', () => {
-            if (!isDragging) return;
-            isDragging = false;
-            sliderContainer.classList.remove('dragging');
-            finishSwipe();
-        });
-
-        sliderContainer.addEventListener('touchstart', (e) => {
-            if (isAnimating) return;
-            isDragging = true; startX = e.touches[0].clientX; currentX = startX;
-            sliderTrack.classList.remove('animate');
-        }, { passive: true });
-
-        sliderContainer.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            currentX = e.touches[0].clientX;
-            updateSliderPosition(currentX - startX - (currentSlide * sliderContainer.offsetWidth), false);
-        }, { passive: true });
-
-        sliderContainer.addEventListener('touchend', () => {
-            if (!isDragging) return;
-            isDragging = false;
-            finishSwipe();
-        });
-
-        function finishSwipe() {
-            const w = sliderContainer.offsetWidth, diff = currentX - startX, threshold = w * 0.15;
-            if (Math.abs(diff) > threshold) {
-                if (diff < 0) goToSlide((currentSlide + 1) % totalSlides);
-                else goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
-            } else goToSlide(currentSlide);
-        }
-
+        function finishSwipe() { const w = sliderContainer.offsetWidth, diff = currentX - startX, threshold = w * 0.15; if (Math.abs(diff) > threshold) { if (diff < 0) goToSlide((currentSlide + 1) % totalSlides); else goToSlide((currentSlide - 1 + totalSlides) % totalSlides); } else goToSlide(currentSlide); }
         goToSlide(0);
 
         // ========== ФОРМА ==========
@@ -512,16 +493,7 @@
         });
 
         // ========== КАРТА ==========
-        function initMap() {
-            if (typeof ymaps === 'undefined') {
-                document.getElementById('yandexMap').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8a8a8a;">📍<br>г. Долинск, ул. Хабаровская, 13Б</div>';
-                return;
-            }
-            ymaps.ready(function() {
-                const map = new ymaps.Map('yandexMap', { center: [47.322018, 142.793501], zoom: 17, controls: ['zoomControl'] });
-                map.geoObjects.add(new ymaps.Placemark([47.322018, 142.793501], { hintContent: 'ЗАГС', balloonContent: 'г. Долинск, ул. Хабаровская, 13Б' }));
-            });
-        }
+        function initMap() { if (typeof ymaps === 'undefined') { document.getElementById('yandexMap').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8a8a8a;">📍<br>г. Долинск, ул. Хабаровская, 13Б</div>'; return; } ymaps.ready(function() { const map = new ymaps.Map('yandexMap', { center: [47.322018, 142.793501], zoom: 17, controls: ['zoomControl'] }); map.geoObjects.add(new ymaps.Placemark([47.322018, 142.793501], { hintContent: 'ЗАГС', balloonContent: 'г. Долинск, ул. Хабаровская, 13Б' })); }); }
         window.addEventListener('load', () => setTimeout(initMap, 500));
     </script>
 </body>
