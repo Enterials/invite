@@ -38,7 +38,48 @@
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             font-size: 22px;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* ========== ФОН С ЛИНИЯМИ ========== */
+        .bg-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.25;
+        }
+        .bg-lines svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ ========== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Задержки для разных элементов */
+        .fade-in-delay-1 { transition-delay: 0.1s; }
+        .fade-in-delay-2 { transition-delay: 0.2s; }
+        .fade-in-delay-3 { transition-delay: 0.3s; }
+        .fade-in-delay-4 { transition-delay: 0.4s; }
+        .fade-in-delay-5 { transition-delay: 0.5s; }
 
         .hero {
             min-height: 100vh;
@@ -57,7 +98,6 @@
             justify-content: center;
             gap: 8px;
             margin-bottom: 50px;
-            animation: fadeInUp 1.2s ease;
         }
         .monogram .letter {
             font-family: 'Playfair Display', serif;
@@ -89,7 +129,6 @@
             letter-spacing: 6px;
             margin-bottom: 12px;
             color: var(--text);
-            animation: fadeInUp 1.2s ease 0.15s both;
         }
         .hero .subtitle {
             font-size: 24px;
@@ -97,7 +136,6 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 40px;
-            animation: fadeInUp 1.2s ease 0.3s both;
         }
         .hero .date-large {
             font-family: 'Playfair Display', serif;
@@ -105,7 +143,6 @@
             letter-spacing: 8px;
             color: var(--accent);
             font-weight: 300;
-            animation: fadeInUp 1.2s ease 0.45s both;
         }
         .hero .date-sub {
             font-size: 20px;
@@ -114,7 +151,6 @@
             text-transform: uppercase;
             margin-top: 8px;
             margin-bottom: 80px;
-            animation: fadeInUp 1.2s ease 0.5s both;
         }
         .hero .romantic-phrase {
             font-family: 'Cormorant Garamond', serif;
@@ -122,7 +158,6 @@
             font-style: italic;
             color: var(--accent);
             letter-spacing: 2px;
-            animation: fadeInUp 1.2s ease 0.65s both;
             max-width: 700px;
             line-height: 1.6;
             margin-top: 30px;
@@ -142,7 +177,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            animation: fadeInUp 1.2s ease 0.8s both;
             margin-top: 20px;
             margin-bottom: 60px;
         }
@@ -162,7 +196,6 @@
             max-width: 700px;
             margin: 0 auto 80px;
             padding: 0 30px;
-            animation: fadeInUp 1.2s ease 0.95s both;
             position: relative;
         }
 
@@ -290,10 +323,6 @@
             transform: rotate(45deg);
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
         @keyframes bounce {
             0%, 100% { transform: translateX(-50%) translateY(0); }
             50% { transform: translateX(-50%) translateY(12px); }
@@ -499,23 +528,58 @@
 </head>
 <body>
 
+    <!-- ФОН С ХАОТИЧНЫМИ ЛИНИЯМИ -->
+    <div class="bg-lines">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
+            <!-- Случайные линии -->
+            <line x1="0" y1="120" x2="400" y2="80" stroke="#d4c5a0" stroke-width="0.5" opacity="0.6"/>
+            <line x1="200" y1="300" x2="700" y2="250" stroke="#d4c5a0" stroke-width="0.3" opacity="0.5"/>
+            <line x1="800" y1="100" x2="1200" y2="180" stroke="#d4c5a0" stroke-width="0.4" opacity="0.4"/>
+            <line x1="100" y1="500" x2="600" y2="550" stroke="#b8944b" stroke-width="0.3" opacity="0.3"/>
+            <line x1="900" y1="400" x2="1400" y2="350" stroke="#d4c5a0" stroke-width="0.5" opacity="0.5"/>
+            <line x1="0" y1="700" x2="500" y2="650" stroke="#b8944b" stroke-width="0.3" opacity="0.4"/>
+            <line x1="600" y1="800" x2="1100" y2="750" stroke="#d4c5a0" stroke-width="0.4" opacity="0.3"/>
+            <line x1="300" y1="900" x2="800" y2="880" stroke="#b8944b" stroke-width="0.3" opacity="0.5"/>
+            <!-- Диагональные -->
+            <line x1="100" y1="0" x2="500" y2="400" stroke="#d4c5a0" stroke-width="0.3" opacity="0.4"/>
+            <line x1="800" y1="0" x2="1200" y2="500" stroke="#b8944b" stroke-width="0.3" opacity="0.3"/>
+            <line x1="0" y1="300" x2="600" y2="800" stroke="#d4c5a0" stroke-width="0.2" opacity="0.5"/>
+            <line x1="1000" y1="200" x2="1440" y2="600" stroke="#b8944b" stroke-width="0.3" opacity="0.4"/>
+            <!-- Волнистые -->
+            <path d="M0 150 Q200 100 400 180 T800 160 T1200 200 T1440 170" stroke="#d4c5a0" stroke-width="0.4" fill="none" opacity="0.4"/>
+            <path d="M0 450 Q300 400 500 480 T1000 440 T1440 500" stroke="#b8944b" stroke-width="0.3" fill="none" opacity="0.3"/>
+            <path d="M0 600 Q250 550 450 620 T900 580 T1440 630" stroke="#d4c5a0" stroke-width="0.3" fill="none" opacity="0.4"/>
+            <!-- Короткие штрихи -->
+            <line x1="150" y1="200" x2="250" y2="190" stroke="#d4c5a0" stroke-width="0.5" opacity="0.5"/>
+            <line x1="500" y1="350" x2="580" y2="340" stroke="#b8944b" stroke-width="0.4" opacity="0.4"/>
+            <line x1="850" y1="150" x2="950" y2="160" stroke="#d4c5a0" stroke-width="0.5" opacity="0.5"/>
+            <line x1="1100" y1="450" x2="1200" y2="440" stroke="#b8944b" stroke-width="0.4" opacity="0.4"/>
+            <line x1="50" y1="550" x2="180" y2="560" stroke="#d4c5a0" stroke-width="0.4" opacity="0.5"/>
+            <line x1="700" y1="700" x2="820" y2="690" stroke="#b8944b" stroke-width="0.5" opacity="0.4"/>
+            <line x1="950" y1="850" x2="1080" y2="840" stroke="#d4c5a0" stroke-width="0.4" opacity="0.5"/>
+        </svg>
+    </div>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <div class="content-wrapper">
+
     <section class="hero" id="hero">
-        <div class="monogram">
+        <div class="monogram fade-in">
             <span class="letter">А</span>
             <span class="dot"></span>
             <span class="ampersand-small">&amp;</span>
             <span class="dot"></span>
             <span class="letter">А</span>
         </div>
-        <h1>Алина &amp; Артур</h1>
-        <p class="subtitle">Приглашают на регистрацию брака</p>
-        <div class="date-large">01 · 08 · 2026</div>
-        <p class="date-sub">Сохраните дату</p>
-        <p class="romantic-phrase">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
-        <a class="calendar-btn" id="calendarButton" href="#" download="Алина_и_Артур_свадьба.ics">Нажми чтобы не забыть :3</a>
+        <h1 class="fade-in fade-in-delay-1">Алина &amp; Артур</h1>
+        <p class="subtitle fade-in fade-in-delay-2">Приглашают на регистрацию брака</p>
+        <div class="date-large fade-in fade-in-delay-3">01 · 08 · 2026</div>
+        <p class="date-sub fade-in fade-in-delay-4">Сохраните дату</p>
+        <p class="romantic-phrase fade-in fade-in-delay-5">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
+        <a class="calendar-btn fade-in fade-in-delay-5" id="calendarButton" href="#" download="Алина_и_Артур_свадьба.ics">Нажми чтобы не забыть :3</a>
 
         <!-- СЛАЙДЕР-ГАЛЕРЕЯ НА 11 ФОТО -->
-        <div class="slider-section" id="sliderSection">
+        <div class="slider-section fade-in" id="sliderSection">
             <div class="slider-container" id="sliderContainer">
                 <img src="C:/Users/aleks/Desktop/priglashenie/photo1.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo1.jpg" alt="Фото 1" style="display: block;" onerror="this.style.display='none'; document.getElementById('placeholderSlide').style.display='flex'; document.getElementById('placeholderSlide').innerHTML='📷<br>Фото 1 (не найдено)';">
                 <img src="C:/Users/aleks/Desktop/priglashenie/photo2.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo2.jpg" alt="Фото 2" style="display: none;" onerror="this.style.display='none';">
@@ -549,17 +613,17 @@
         </div>
     </section>
 
-    <section class="section" id="details">
+    <section class="section fade-in" id="details">
         <h2 class="section-title">Детали</h2>
         <div class="section-line"></div>
         <div class="details-grid">
-            <div class="detail-card">
+            <div class="detail-card fade-in fade-in-delay-1">
                 <div class="icon">🕐</div>
                 <div class="label">Время</div>
                 <div class="value">12:00</div>
                 <div class="value-small">Сбор гостей</div>
             </div>
-            <div class="detail-card">
+            <div class="detail-card fade-in fade-in-delay-2">
                 <div class="icon">📅</div>
                 <div class="label">Дата</div>
                 <div class="value">1 августа 2026</div>
@@ -568,7 +632,7 @@
         </div>
     </section>
 
-    <section class="section" id="map">
+    <section class="section fade-in" id="map">
         <h2 class="section-title">Место проведения</h2>
         <div class="section-line"></div>
         <div class="map-container" id="yandexMap"></div>
@@ -578,7 +642,7 @@
         </p>
     </section>
 
-    <section class="section" id="rsvp">
+    <section class="section fade-in" id="rsvp">
         <h2 class="section-title">Подтвердите присутствие</h2>
         <div class="section-line"></div>
         <form class="rsvp-form" id="rsvpForm" action="https://formspree.io/f/xvznpvqd" method="POST">
@@ -607,12 +671,31 @@
         </div>
     </section>
 
-    <footer class="footer">
+    <footer class="footer fade-in">
         <div class="monogram-small">А &amp; А</div>
         До встречи 1 августа 2026 года
     </footer>
 
+    </div><!-- конец content-wrapper -->
+
     <script>
+        // ========== АНИМАЦИЯ ПРИ СКРОЛЛЕ ==========
+        function handleScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight * 0.85 && rect.bottom > 0) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll);
+        // Запускаем сразу для видимых элементов
+        setTimeout(handleScroll, 100);
+
         // ========== КНОПКА КАЛЕНДАРЯ ==========
         document.getElementById('calendarButton').addEventListener('click', function(e) {
             e.preventDefault();
@@ -653,7 +736,6 @@
 
         sliderTotal.textContent = totalSlides;
 
-        // Создаём точки для 11 слайдов
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('span');
             dot.classList.add('dot-nav');
@@ -664,7 +746,6 @@
         const dots = document.querySelectorAll('.slider-dots .dot-nav');
 
         function goToSlide(index) {
-            // Скрываем все слайды
             slides.forEach(s => s.style.display = 'none');
             placeholderSlide.style.display = 'none';
 
@@ -674,7 +755,6 @@
             if (src && src.trim() !== '') {
                 currentSlideElement.src = src;
                 currentSlideElement.style.display = 'block';
-                // Если фото не загрузилось — покажем заглушку
                 currentSlideElement.onerror = function() {
                     this.style.display = 'none';
                     placeholderSlide.style.display = 'flex';
@@ -685,9 +765,7 @@
                 placeholderSlide.innerHTML = '📷<br>Фото ' + (index + 1);
             }
 
-            // Обновляем точки
             dots.forEach((d, i) => d.classList.toggle('active', i === index));
-            // Обновляем счётчик
             sliderCurrent.textContent = index + 1;
             currentSlide = index;
         }
@@ -702,7 +780,6 @@
             goToSlide(newIndex);
         });
 
-        // Клавиатура
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowLeft') {
                 const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
@@ -714,7 +791,6 @@
             }
         });
 
-        // Инициализация
         goToSlide(0);
 
         // ========== ФОРМА ==========
