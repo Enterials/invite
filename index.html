@@ -156,113 +156,123 @@
             transform: translateY(0);
         }
 
-        /* ========== ГАЛЕРЕЯ ========== */
-        .gallery-section {
+        /* ========== ГАЛЕРЕЯ-СЛАЙДЕР ========== */
+        .slider-section {
             width: 100%;
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto 80px;
             padding: 0 30px;
             animation: fadeInUp 1.2s ease 0.95s both;
-        }
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-        .gallery .photo {
-            aspect-ratio: 3 / 4;
-            background: var(--border);
-            border-radius: 2px;
-            overflow: hidden;
             position: relative;
-            cursor: pointer;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
-        .gallery .photo:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            max-height: 750px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: var(--border);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
         }
-        .gallery .photo img {
+
+        .slider-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: opacity 0.4s ease;
         }
-        .gallery .photo.placeholder {
+
+        .slider-container .placeholder-slide {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            width: 100%;
+            height: 100%;
+            font-size: 18px;
             color: var(--muted);
             letter-spacing: 2px;
             text-align: center;
-            padding: 10px;
             flex-direction: column;
+            background: var(--white);
         }
-        .gallery .photo.placeholder::before {
+        .slider-container .placeholder-slide::before {
             content: '📷';
-            font-size: 36px;
+            font-size: 60px;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
-        /* Лайтбокс */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .lightbox.active {
-            display: flex;
-        }
-        .lightbox img {
-            max-width: 90%;
-            max-height: 80vh;
-            border-radius: 2px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-        .lightbox .close {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            font-size: 45px;
-            color: white;
-            cursor: pointer;
-            font-family: sans-serif;
-            line-height: 1;
-            transition: opacity 0.3s;
-        }
-        .lightbox .close:hover {
-            opacity: 0.7;
-        }
-        .lightbox .nav {
+        /* Кнопки навигации */
+        .slider-nav {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 55px;
-            color: white;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 50%;
             cursor: pointer;
-            font-family: sans-serif;
-            padding: 20px;
-            transition: opacity 0.3s;
-            user-select: none;
+            font-size: 28px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
         }
-        .lightbox .nav:hover {
-            opacity: 0.7;
+        .slider-nav:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 6px 20px rgba(184, 148, 75, 0.3);
         }
-        .lightbox .nav.prev {
-            left: 20px;
+        .slider-nav.prev {
+            left: -25px;
         }
-        .lightbox .nav.next {
-            right: 20px;
+        .slider-nav.next {
+            right: -25px;
+        }
+
+        /* Счётчик */
+        .slider-counter {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            letter-spacing: 3px;
+            color: var(--muted);
+        }
+        .slider-counter .current {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        /* Точки */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .slider-dots .dot-nav {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .slider-dots .dot-nav.active {
+            background: var(--accent);
+            width: 24px;
+            border-radius: 4px;
         }
 
         .scroll-hint {
@@ -468,7 +478,10 @@
             .monogram .letter { font-size: 58px; }
             .hero .romantic-phrase { font-size: 26px; }
             .calendar-btn { font-size: 18px; padding: 14px 28px; }
-            .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .slider-container { aspect-ratio: 3 / 4; max-height: 550px; }
+            .slider-nav { width: 40px; height: 40px; font-size: 22px; }
+            .slider-nav.prev { left: -20px; }
+            .slider-nav.next { right: -20px; }
             .details-grid { grid-template-columns: 1fr; gap: 20px; }
             .section { padding: 50px 20px; }
             .rsvp-form .radio-group { flex-direction: column; gap: 12px; align-items: flex-start; }
@@ -479,7 +492,10 @@
             .monogram .letter { font-size: 44px; }
             .hero .romantic-phrase { font-size: 22px; }
             .calendar-btn { font-size: 16px; padding: 12px 24px; letter-spacing: 2px; }
-            .gallery { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .slider-container { aspect-ratio: 3 / 4; max-height: 420px; }
+            .slider-nav { width: 36px; height: 36px; font-size: 20px; }
+            .slider-nav.prev { left: -16px; }
+            .slider-nav.next { right: -16px; }
         }
     </style>
 </head>
@@ -500,30 +516,44 @@
         <p class="romantic-phrase">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
         <a class="calendar-btn" id="calendarButton" href="#" download="Алина_и_Артур_свадьба.ics">Нажми чтобы не забыть :3</a>
 
-        <!-- ГАЛЕРЕЯ -->
-        <div class="gallery-section">
-            <div class="gallery" id="galleryGrid">
-                <div class="photo placeholder" data-src="" data-index="0">Фото 1</div>
-                <div class="photo placeholder" data-src="" data-index="1">Фото 2</div>
-                <div class="photo placeholder" data-src="" data-index="2">Фото 3</div>
-                <div class="photo placeholder" data-src="" data-index="3">Фото 4</div>
-                <div class="photo placeholder" data-src="" data-index="4">Фото 5</div>
-                <div class="photo placeholder" data-src="" data-index="5">Фото 6</div>
+        <!-- СЛАЙДЕР-ГАЛЕРЕЯ НА 10 ФОТО -->
+        <div class="slider-section" id="sliderSection">
+            <div class="slider-container" id="sliderContainer">
+                <!-- Слайды (замени data-src на свои фото) -->
+                <img src="" data-src="photo1.jpg" alt="Фото 1" style="display: block;">
+                <img src="" data-src="photo2.jpg" alt="Фото 2" style="display: none;">
+                <img src="" data-src="photo3.jpg" alt="Фото 3" style="display: none;">
+                <img src="" data-src="photo4.jpg" alt="Фото 4" style="display: none;">
+                <img src="" data-src="photo5.jpg" alt="Фото 5" style="display: none;">
+                <img src="" data-src="photo6.jpg" alt="Фото 6" style="display: none;">
+                <img src="" data-src="photo7.jpg" alt="Фото 7" style="display: none;">
+                <img src="" data-src="photo8.jpg" alt="Фото 8" style="display: none;">
+                <img src="" data-src="photo9.jpg" alt="Фото 9" style="display: none;">
+                <img src="" data-src="photo10.jpg" alt="Фото 10" style="display: none;">
+                
+                <!-- Заглушка (показывается если нет фото) -->
+                <div class="placeholder-slide" id="placeholderSlide" style="display: flex;">
+                    Фото 1
+                </div>
             </div>
+
+            <!-- Кнопки навигации -->
+            <button class="slider-nav prev" id="sliderPrev">&#10094;</button>
+            <button class="slider-nav next" id="sliderNext">&#10095;</button>
+
+            <!-- Счётчик -->
+            <div class="slider-counter">
+                <span class="current" id="sliderCurrent">1</span> / <span id="sliderTotal">10</span>
+            </div>
+
+            <!-- Точки -->
+            <div class="slider-dots" id="sliderDots"></div>
         </div>
 
         <div class="scroll-hint" onclick="document.getElementById('details').scrollIntoView()">
             <span></span>
         </div>
     </section>
-
-    <!-- ЛАЙТБОКС -->
-    <div class="lightbox" id="lightbox">
-        <span class="close" id="lightboxClose">&times;</span>
-        <span class="nav prev" id="lightboxPrev">&lsaquo;</span>
-        <img src="" alt="Фото" id="lightboxImg">
-        <span class="nav next" id="lightboxNext">&rsaquo;</span>
-    </div>
 
     <section class="section" id="details">
         <h2 class="section-title">Детали</h2>
@@ -592,7 +622,6 @@
         // ========== КНОПКА КАЛЕНДАРЯ ==========
         document.getElementById('calendarButton').addEventListener('click', function(e) {
             e.preventDefault();
-
             const event = [
                 'BEGIN:VCALENDAR',
                 'VERSION:2.0',
@@ -610,7 +639,6 @@
                 'END:VEVENT',
                 'END:VCALENDAR'
             ].join('\r\n');
-
             const blob = new Blob([event], { type: 'text/calendar;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -618,80 +646,76 @@
             link.click();
         });
 
-        // ========== ЛАЙТБОКС ==========
-        const galleryPhotos = document.querySelectorAll('.gallery .photo');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const lightboxClose = document.getElementById('lightboxClose');
-        const lightboxPrev = document.getElementById('lightboxPrev');
-        const lightboxNext = document.getElementById('lightboxNext');
-        let currentIndex = 0;
-        let photoList = [];
+        // ========== СЛАЙДЕР ==========
+        const slides = document.querySelectorAll('#sliderContainer img');
+        const placeholderSlide = document.getElementById('placeholderSlide');
+        const sliderPrev = document.getElementById('sliderPrev');
+        const sliderNext = document.getElementById('sliderNext');
+        const sliderCurrent = document.getElementById('sliderCurrent');
+        const sliderTotal = document.getElementById('sliderTotal');
+        const sliderDots = document.getElementById('sliderDots');
+        let currentSlide = 0;
+        const totalSlides = 10;
 
-        function updatePhotoList() {
-            photoList = [];
-            galleryPhotos.forEach((photo, i) => {
-                const img = photo.querySelector('img');
-                const src = img ? img.getAttribute('src') : photo.getAttribute('data-src');
-                if (src && src.trim() !== '' && !photo.classList.contains('placeholder')) {
-                    photoList.push({ element: photo, src: src, index: i });
-                }
-            });
+        sliderTotal.textContent = totalSlides;
+
+        // Создаём точки
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('span');
+            dot.classList.add('dot-nav');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            sliderDots.appendChild(dot);
         }
-        updatePhotoList();
+        const dots = document.querySelectorAll('.slider-dots .dot-nav');
 
-        function openLightbox(index) {
-            if (photoList.length === 0) return;
-            const item = photoList.find(p => p.index === index);
-            if (!item) return;
-            currentIndex = photoList.indexOf(item);
-            lightboxImg.src = item.src;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function prevPhoto() {
-            if (photoList.length === 0) return;
-            currentIndex = (currentIndex - 1 + photoList.length) % photoList.length;
-            lightboxImg.src = photoList[currentIndex].src;
-        }
-
-        function nextPhoto() {
-            if (photoList.length === 0) return;
-            currentIndex = (currentIndex + 1) % photoList.length;
-            lightboxImg.src = photoList[currentIndex].src;
+        function goToSlide(index) {
+            // Скрываем все слайды
+            slides.forEach(s => s.style.display = 'none');
+            // Показываем нужный
+            if (slides[index].getAttribute('data-src') && slides[index].getAttribute('data-src').trim() !== '') {
+                slides[index].src = slides[index].getAttribute('data-src');
+                slides[index].style.display = 'block';
+                placeholderSlide.style.display = 'none';
+            } else {
+                placeholderSlide.style.display = 'flex';
+                placeholderSlide.innerHTML = '📷<br>Фото ' + (index + 1);
+            }
+            // Обновляем точки
+            dots.forEach((d, i) => d.classList.toggle('active', i === index));
+            // Обновляем счётчик
+            sliderCurrent.textContent = index + 1;
+            currentSlide = index;
         }
 
-        galleryPhotos.forEach(photo => {
-            photo.addEventListener('click', function() {
-                const index = parseInt(this.getAttribute('data-index'));
-                updatePhotoList();
-                openLightbox(index);
-            });
+        sliderPrev.addEventListener('click', () => {
+            const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(newIndex);
         });
 
-        lightboxClose.addEventListener('click', closeLightbox);
-        lightboxPrev.addEventListener('click', prevPhoto);
-        lightboxNext.addEventListener('click', nextPhoto);
-        lightbox.addEventListener('click', function(e) {
-            if (e.target === lightbox) closeLightbox();
+        sliderNext.addEventListener('click', () => {
+            const newIndex = (currentSlide + 1) % totalSlides;
+            goToSlide(newIndex);
         });
+
+        // Клавиатура
         document.addEventListener('keydown', function(e) {
-            if (!lightbox.classList.contains('active')) return;
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft') prevPhoto();
-            if (e.key === 'ArrowRight') nextPhoto();
+            if (e.key === 'ArrowLeft') {
+                const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+                goToSlide(newIndex);
+            }
+            if (e.key === 'ArrowRight') {
+                const newIndex = (currentSlide + 1) % totalSlides;
+                goToSlide(newIndex);
+            }
         });
+
+        // Инициализация — показываем первый слайд
+        goToSlide(0);
 
         // ========== ФОРМА ==========
         const rsvpForm = document.getElementById('rsvpForm');
         const formSuccess = document.getElementById('formSuccess');
-
         rsvpForm.addEventListener('submit', function(e) {
             setTimeout(function() {
                 rsvpForm.style.display = 'none';
@@ -727,7 +751,6 @@
                 map.geoObjects.add(placemark);
             });
         }
-
         window.addEventListener('load', function() {
             setTimeout(initMap, 500);
         });
