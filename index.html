@@ -188,6 +188,7 @@
         }
         .calendar-btn:active { transform: translateY(0); }
 
+        /* ========== СЛАЙДЕР ========== */
         .slider-section {
             width: 100%;
             max-width: 700px;
@@ -199,27 +200,37 @@
         .slider-container {
             position: relative;
             width: 100%;
-            aspect-ratio: 3 / 4;
-            max-height: 750px;
             border-radius: 4px;
             overflow: hidden;
-            background: var(--border);
+            background: var(--white);
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
-            perspective: 1000px;
+            border: 1px solid var(--border);
+        }
+
+        .slider-inner {
+            position: relative;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+            background: var(--white);
         }
 
         .slider-container img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 650px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
             transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             transform: scale(0.92);
             filter: blur(8px);
             display: none;
+            border-radius: 2px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
 
         .slider-container img.active {
@@ -231,26 +242,21 @@
         }
 
         .slider-container .placeholder-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 100%;
+            min-height: 400px;
             font-size: 18px;
             color: var(--muted);
             letter-spacing: 2px;
             text-align: center;
             flex-direction: column;
             background: var(--white);
-            z-index: 3;
             transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             transform: scale(0.92);
             filter: blur(8px);
-            display: none;
         }
         .slider-container .placeholder-slide.active {
             opacity: 1;
@@ -258,14 +264,10 @@
             filter: blur(0);
             display: flex;
         }
-        .slider-container .placeholder-slide::before {
-            content: '\f030';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
+        .slider-container .placeholder-slide i {
             font-size: 60px;
-            display: block;
-            margin-bottom: 12px;
             color: var(--accent-light);
+            margin-bottom: 12px;
         }
 
         .particles {
@@ -298,7 +300,7 @@
             transform: translateY(-50%);
             width: 50px;
             height: 50px;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--border);
             border-radius: 50%;
             cursor: pointer;
@@ -311,7 +313,7 @@
             z-index: 10;
             font-family: 'Playfair Display', serif;
             line-height: 1;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
         .slider-nav:hover {
             background: var(--accent);
@@ -400,7 +402,6 @@
             margin: 0 auto 40px;
         }
 
-        /* ========== ДЕТАЛИ (ОБНОВЛЁННЫЕ) ========== */
         .details-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -585,7 +586,8 @@
             .monogram .letter { font-size: 58px; }
             .hero .romantic-phrase { font-size: 26px; }
             .calendar-btn { font-size: 18px; padding: 14px 28px; }
-            .slider-container { aspect-ratio: 3 / 4; max-height: 550px; }
+            .slider-inner { min-height: 350px; padding: 15px; }
+            .slider-container img { max-height: 450px; }
             .slider-nav { width: 40px; height: 40px; font-size: 22px; }
             .slider-nav.prev { left: -20px; }
             .slider-nav.next { right: -20px; }
@@ -599,7 +601,8 @@
             .monogram .letter { font-size: 44px; }
             .hero .romantic-phrase { font-size: 22px; }
             .calendar-btn { font-size: 16px; padding: 12px 24px; letter-spacing: 2px; }
-            .slider-container { aspect-ratio: 3 / 4; max-height: 420px; }
+            .slider-inner { min-height: 280px; padding: 10px; }
+            .slider-container img { max-height: 350px; }
             .slider-nav { width: 36px; height: 36px; font-size: 20px; }
             .slider-nav.prev { left: -16px; }
             .slider-nav.next { right: -16px; }
@@ -661,19 +664,21 @@
         <div class="slider-section fade-in" id="sliderSection">
             <div class="slider-container" id="sliderContainer">
                 <div class="particles" id="particles"></div>
-                <img src="photo1.jpg" alt="Фото 1" class="active" onerror="this.onerror=null; this.style.display='none'; document.getElementById('placeholderSlide').classList.add('active'); document.getElementById('placeholderSlide').innerHTML='<i class=\'fas fa-camera\'></i><br>Фото 1';">
-                <img src="photo2.jpg" alt="Фото 2" onerror="this.onerror=null; this.style.display='none';">
-                <img src="photo3.jpg" alt="Фото 3" onerror="this.onerror=null; this.style.display='none';">
-                <img src="photo4.jpg" alt="Фото 4" onerror="this.onerror=null; this.style.display='none';">
-                <img src="photo5.jpg" alt="Фото 5" onerror="this.onerror=null; this.style.display='none';">
-                <img src="photo6.jpg" alt="Фото 6" onerror="this.onerror=null; this.style.display='none';">
-                <img src="photo7.jpg" alt="Фото 7" onerror="this.onerror=null; this.style.display='none';">
-                <img src="photo8.jpg" alt="Фото 8" onerror="this.onerror=null; this.style.display='none';">
-                <img src="photo9.jpg" alt="Фото 9" onerror="this.onerror=null; this.style.display='none';">
-                <img src="photo10.jpg" alt="Фото 10" onerror="this.onerror=null; this.style.display='none';">
+                <div class="slider-inner">
+                    <img src="photo1.jpg" alt="Фото 1" class="active" onerror="this.onerror=null; this.style.display='none'; document.getElementById('placeholderSlide').classList.add('active');">
+                    <img src="photo2.jpg" alt="Фото 2" onerror="this.onerror=null; this.style.display='none';">
+                    <img src="photo3.jpg" alt="Фото 3" onerror="this.onerror=null; this.style.display='none';">
+                    <img src="photo4.jpg" alt="Фото 4" onerror="this.onerror=null; this.style.display='none';">
+                    <img src="photo5.jpg" alt="Фото 5" onerror="this.onerror=null; this.style.display='none';">
+                    <img src="photo6.jpg" alt="Фото 6" onerror="this.onerror=null; this.style.display='none';">
+                    <img src="photo7.jpg" alt="Фото 7" onerror="this.onerror=null; this.style.display='none';">
+                    <img src="photo8.jpg" alt="Фото 8" onerror="this.onerror=null; this.style.display='none';">
+                    <img src="photo9.jpg" alt="Фото 9" onerror="this.onerror=null; this.style.display='none';">
+                    <img src="photo10.jpg" alt="Фото 10" onerror="this.onerror=null; this.style.display='none';">
 
-                <div class="placeholder-slide" id="placeholderSlide">
-                    <i class="fas fa-camera"></i><br>Фото 1
+                    <div class="placeholder-slide" id="placeholderSlide">
+                        <i class="fas fa-camera"></i><br>Фото 1
+                    </div>
                 </div>
             </div>
 
@@ -692,12 +697,11 @@
         </div>
     </section>
 
-    <!-- ДЕТАЛИ (ОБНОВЛЁННЫЕ) -->
+    <!-- ДЕТАЛИ -->
     <section class="section fade-in" id="details">
         <h2 class="section-title">Детали</h2>
         <div class="section-line"></div>
         <div class="details-grid">
-            <!-- Карточка ВРЕМЯ -->
             <div class="detail-card fade-in fade-in-delay-1">
                 <div class="icon">
                     <i class="far fa-clock"></i>
@@ -712,7 +716,6 @@
                     <div class="time-value">12:00</div>
                 </div>
             </div>
-            <!-- Карточка ДАТА -->
             <div class="detail-card fade-in fade-in-delay-2">
                 <div class="icon">
                     <i class="far fa-calendar-alt"></i>
@@ -813,7 +816,7 @@
         });
 
         // ========== СЛАЙДЕР ==========
-        const slides = document.querySelectorAll('#sliderContainer img');
+        const slides = document.querySelectorAll('#sliderContainer .slider-inner img');
         const placeholderSlide = document.getElementById('placeholderSlide');
         const particlesContainer = document.getElementById('particles');
         const sliderPrev = document.getElementById('sliderPrev');
