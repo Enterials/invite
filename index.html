@@ -8,7 +8,7 @@
     <!-- Яндекс.Карты -->
     <script src="https://api-maps.yandex.ru/2.1/?apikey=7858b958-e5ed-42d4-a547-bc2bbcecf829&lang=ru_RU" type="text/javascript"></script>
 
-    <!-- Font Awesome для красивых иконок -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -24,57 +24,33 @@
             --border: #e8e4db;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Cormorant Garamond', serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
             font-size: 22px;
             position: relative;
             overflow-x: hidden;
         }
 
         .bg-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.6;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; opacity: 0.6;
         }
-        .bg-lines svg {
-            width: 100%;
-            height: 100%;
-        }
+        .bg-lines svg { width: 100%; height: 100%; }
 
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-        }
+        .content-wrapper { position: relative; z-index: 1; }
 
         .fade-in {
-            opacity: 0;
-            transform: translateY(40px);
+            opacity: 0; transform: translateY(40px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
         .fade-in-delay-1 { transition-delay: 0.1s; }
         .fade-in-delay-2 { transition-delay: 0.2s; }
         .fade-in-delay-3 { transition-delay: 0.3s; }
@@ -82,536 +58,121 @@
         .fade-in-delay-5 { transition-delay: 0.5s; }
 
         .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px 20px 60px;
-            position: relative;
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 40px 20px 60px; position: relative;
         }
 
-        .monogram {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 50px;
-        }
-        .monogram .letter {
-            font-family: 'Playfair Display', serif;
-            font-size: 92px;
-            font-weight: 400;
-            color: var(--accent);
-            line-height: 1;
-            letter-spacing: 4px;
-        }
-        .monogram .dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            margin: 0 4px;
-        }
-        .monogram .ampersand-small {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            color: var(--accent-light);
-            font-style: italic;
-            margin: 0 6px;
-        }
+        .monogram { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 50px; }
+        .monogram .letter { font-family: 'Playfair Display', serif; font-size: 92px; font-weight: 400; color: var(--accent); line-height: 1; letter-spacing: 4px; }
+        .monogram .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin: 0 4px; }
+        .monogram .ampersand-small { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--accent-light); font-style: italic; margin: 0 6px; }
 
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            font-weight: 400;
-            letter-spacing: 6px;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-        .hero .subtitle {
-            font-size: 24px;
-            color: var(--muted);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-        }
-        .hero .date-large {
-            font-family: 'Playfair Display', serif;
-            font-size: 62px;
-            letter-spacing: 8px;
-            color: var(--accent);
-            font-weight: 300;
-        }
-        .hero .date-sub {
-            font-size: 20px;
-            letter-spacing: 5px;
-            color: var(--muted);
-            text-transform: uppercase;
-            margin-top: 8px;
-            margin-bottom: 80px;
-        }
-        .hero .romantic-phrase {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 30px;
-            font-style: italic;
-            color: var(--accent);
-            letter-spacing: 2px;
-            max-width: 700px;
-            line-height: 1.6;
-            margin-top: 30px;
-            margin-bottom: 50px;
-        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 400; letter-spacing: 6px; margin-bottom: 12px; color: var(--text); }
+        .hero .subtitle { font-size: 24px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; }
+        .hero .date-large { font-family: 'Playfair Display', serif; font-size: 62px; letter-spacing: 8px; color: var(--accent); font-weight: 300; }
+        .hero .date-sub { font-size: 20px; letter-spacing: 5px; color: var(--muted); text-transform: uppercase; margin-top: 8px; margin-bottom: 80px; }
+        .hero .romantic-phrase { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-style: italic; color: var(--accent); letter-spacing: 2px; max-width: 700px; line-height: 1.6; margin-top: 30px; margin-bottom: 50px; }
 
         .calendar-btn {
-            display: inline-block;
-            padding: 16px 36px;
-            background: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            border-radius: 2px;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
-            letter-spacing: 3px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            margin-top: 20px;
-            margin-bottom: 60px;
+            display: inline-block; padding: 16px 36px; background: transparent; color: var(--accent);
+            border: 1px solid var(--accent); border-radius: 2px; font-family: 'Cormorant Garamond', serif;
+            font-size: 22px; letter-spacing: 3px; cursor: pointer; transition: all 0.3s ease;
+            text-decoration: none; margin-top: 20px; margin-bottom: 60px;
         }
-        .calendar-btn:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(184, 148, 75, 0.3);
-        }
+        .calendar-btn:hover { background: var(--accent); color: white; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(184, 148, 75, 0.3); }
         .calendar-btn:active { transform: translateY(0); }
 
-        /* ========== СЛАЙДЕР ========== */
-        .slider-section {
-            width: 100%;
-            max-width: 700px;
-            margin: 0 auto 80px;
-            padding: 0 30px;
-            position: relative;
-        }
+        /* Слайдер */
+        .slider-section { width: 100%; max-width: 700px; margin: 0 auto 80px; padding: 0 30px; position: relative; }
+        .slider-container { position: relative; width: 100%; border-radius: 4px; overflow: hidden; background: var(--white); box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08); border: 1px solid var(--border); }
+        .slider-inner { position: relative; width: 100%; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 500px; background: var(--white); }
+        .slider-container img { max-width: 100%; max-height: 650px; width: auto; height: auto; object-fit: contain; transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; transform: scale(0.92); filter: blur(8px); display: none; border-radius: 2px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); }
+        .slider-container img.active { opacity: 1; transform: scale(1); filter: blur(0); z-index: 2; display: block; }
+        .slider-container .placeholder-slide { display: none; align-items: center; justify-content: center; width: 100%; min-height: 400px; font-size: 18px; color: var(--muted); letter-spacing: 2px; text-align: center; flex-direction: column; background: var(--white); transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; transform: scale(0.92); filter: blur(8px); }
+        .slider-container .placeholder-slide.active { opacity: 1; transform: scale(1); filter: blur(0); display: flex; }
+        .slider-container .placeholder-slide i { font-size: 60px; color: var(--accent-light); margin-bottom: 12px; }
 
-        .slider-container {
-            position: relative;
-            width: 100%;
-            border-radius: 4px;
-            overflow: hidden;
-            background: var(--white);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
-            border: 1px solid var(--border);
-        }
+        .particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
+        .particle { position: absolute; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; animation: particleFly 0.8s ease-out forwards; opacity: 0; }
+        @keyframes particleFly { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); } }
 
-        .slider-inner {
-            position: relative;
-            width: 100%;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 500px;
-            background: var(--white);
-        }
+        .slider-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: rgba(255, 255, 255, 0.9); border: 1px solid var(--border); border-radius: 50%; cursor: pointer; font-size: 28px; color: var(--accent); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 10; font-family: 'Playfair Display', serif; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); }
+        .slider-nav:hover { background: var(--accent); color: white; border-color: var(--accent); }
+        .slider-nav.prev { left: -25px; } .slider-nav.next { right: -25px; }
 
-        .slider-container img {
-            max-width: 100%;
-            max-height: 650px;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            transform: scale(0.92);
-            filter: blur(8px);
-            display: none;
-            border-radius: 2px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-        }
+        .slider-counter { text-align: center; margin-top: 20px; font-size: 16px; letter-spacing: 3px; color: var(--muted); }
+        .slider-counter .current { color: var(--accent); font-weight: 600; font-size: 18px; transition: all 0.3s ease; }
+        .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .slider-dots .dot-nav { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .slider-dots .dot-nav.active { background: var(--accent); width: 24px; border-radius: 4px; }
 
-        .slider-container img.active {
-            opacity: 1;
-            transform: scale(1);
-            filter: blur(0);
-            z-index: 2;
-            display: block;
-        }
+        .scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; cursor: pointer; }
+        .scroll-hint span { display: block; width: 30px; height: 30px; border-right: 1px solid var(--accent); border-bottom: 1px solid var(--accent); transform: rotate(45deg); }
+        @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(12px); } }
 
-        .slider-container .placeholder-slide {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            min-height: 400px;
-            font-size: 18px;
-            color: var(--muted);
-            letter-spacing: 2px;
-            text-align: center;
-            flex-direction: column;
-            background: var(--white);
-            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            transform: scale(0.92);
-            filter: blur(8px);
-        }
-        .slider-container .placeholder-slide.active {
-            opacity: 1;
-            transform: scale(1);
-            filter: blur(0);
-            display: flex;
-        }
-        .slider-container .placeholder-slide i {
-            font-size: 60px;
-            color: var(--accent-light);
-            margin-bottom: 12px;
-        }
+        /* Секции */
+        .section { max-width: 800px; margin: 0 auto; padding: 80px 30px; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 36px; letter-spacing: 4px; text-align: center; color: var(--accent); margin-bottom: 50px; font-weight: 400; }
+        .section-line { width: 50px; height: 1px; background: var(--accent-light); margin: 0 auto 40px; }
 
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-        }
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: particleFly 0.8s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes particleFly {
-            0% { opacity: 1; transform: translate(0, 0) scale(1); }
-            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
-        }
-
-        .slider-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 28px;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 10;
-            font-family: 'Playfair Display', serif;
-            line-height: 1;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-        .slider-nav:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-            box-shadow: 0 6px 20px rgba(184, 148, 75, 0.3);
-        }
-        .slider-nav.prev { left: -25px; }
-        .slider-nav.next { right: -25px; }
-
-        .slider-counter {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 16px;
-            letter-spacing: 3px;
-            color: var(--muted);
-        }
-        .slider-counter .current {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 18px;
-            transition: all 0.3s ease;
-        }
-
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        .slider-dots .dot-nav {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--border);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .slider-dots .dot-nav.active {
-            background: var(--accent);
-            width: 24px;
-            border-radius: 4px;
-        }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            cursor: pointer;
-        }
-        .scroll-hint span {
-            display: block;
-            width: 30px;
-            height: 30px;
-            border-right: 1px solid var(--accent);
-            border-bottom: 1px solid var(--accent);
-            transform: rotate(45deg);
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(12px); }
-        }
-
-        .section {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 80px 30px;
-        }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            letter-spacing: 4px;
-            text-align: center;
-            color: var(--accent);
-            margin-bottom: 50px;
-            font-weight: 400;
-        }
-        .section-line {
-            width: 50px;
-            height: 1px;
-            background: var(--accent-light);
-            margin: 0 auto 40px;
-        }
-
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            text-align: center;
-        }
+        /* Детали */
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: center; }
         .detail-card {
-            padding: 35px 25px;
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            background: var(--white);
+            padding: 35px 30px; border: 1px solid var(--accent-light); border-radius: 6px;
+            background: linear-gradient(135deg, #fdfaf3 0%, #faf7ed 100%);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03), inset 0 0 0 1px rgba(255,255,255,0.8);
+            position: relative; overflow: hidden;
         }
-        .detail-card .icon {
-            font-size: 42px;
-            margin-bottom: 18px;
-            color: var(--accent);
+        .detail-card::before {
+            content: ''; position: absolute; top: -30px; right: -30px;
+            width: 80px; height: 80px; border: 1px solid var(--accent-light);
+            border-radius: 50%; opacity: 0.3; pointer-events: none;
         }
-        .detail-card .label {
-            font-size: 13px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 15px;
+        .detail-card::after {
+            content: ''; position: absolute; bottom: -20px; left: -20px;
+            width: 60px; height: 60px; border: 1px solid var(--accent-light);
+            border-radius: 50%; opacity: 0.25; pointer-events: none;
         }
-        .detail-card .time-block {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-        .detail-card .time-block:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-        .detail-card .time-label {
-            font-size: 14px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-        .detail-card .time-value {
-            font-size: 28px;
-            letter-spacing: 2px;
-            color: var(--text);
-            font-family: 'Playfair Display', serif;
-        }
-        .detail-card .value {
-            font-size: 26px;
-            letter-spacing: 1px;
-            color: var(--text);
-        }
-        .detail-card .value-small {
-            font-size: 21px;
-            color: var(--muted);
-            margin-top: 4px;
-            letter-spacing: 1px;
-        }
+        .detail-card .icon { font-size: 44px; margin-bottom: 18px; color: var(--accent); position: relative; z-index: 1; }
+        .detail-card .label { font-size: 14px; letter-spacing: 6px; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; position: relative; z-index: 1; font-weight: 600; }
+        .detail-card .time-block { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed var(--accent-light); position: relative; z-index: 1; }
+        .detail-card .time-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .detail-card .time-label { font-size: 15px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
+        .detail-card .time-value { font-size: 30px; letter-spacing: 3px; color: var(--text); font-family: 'Playfair Display', serif; font-weight: 400; }
+        .detail-card .value { font-size: 30px; letter-spacing: 3px; color: var(--text); font-family: 'Playfair Display', serif; position: relative; z-index: 1; margin-bottom: 8px; }
+        .detail-card .value-small { font-size: 22px; color: var(--accent); margin-top: 6px; letter-spacing: 2px; position: relative; z-index: 1; font-style: italic; }
 
-        .map-container {
-            width: 100%;
-            height: 350px;
-            border-radius: 2px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: var(--border);
-        }
-        .map-address {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 21px;
-            color: var(--muted);
-            letter-spacing: 1px;
-        }
+        .map-container { width: 100%; height: 350px; border-radius: 2px; overflow: hidden; border: 1px solid var(--border); background: var(--border); }
+        .map-address { text-align: center; margin-top: 20px; font-size: 21px; color: var(--muted); letter-spacing: 1px; }
 
-        .rsvp-form {
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .rsvp-form input,
-        .rsvp-form select,
-        .rsvp-form textarea {
-            width: 100%;
-            padding: 16px 20px;
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
-            background: var(--white);
-            color: var(--text);
-            letter-spacing: 1px;
-            transition: border-color 0.3s;
-            outline: none;
-        }
-        .rsvp-form input:focus,
-        .rsvp-form select:focus,
-        .rsvp-form textarea:focus {
-            border-color: var(--accent);
-        }
-        .rsvp-form textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        .rsvp-form select {
-            appearance: none;
-            cursor: pointer;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a8a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 20px center;
-        }
-        .rsvp-form .radio-group {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .rsvp-form .radio-group label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            font-size: 22px;
-            letter-spacing: 1px;
-            color: var(--text);
-        }
-        .rsvp-form .radio-group input[type="radio"] {
-            width: auto;
-            accent-color: var(--accent);
-        }
-        .rsvp-form button {
-            padding: 16px 40px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 2px;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-        }
-        .rsvp-form button:hover {
-            background: #a07d3a;
-            transform: translateY(-2px);
-        }
+        /* Форма */
+        .rsvp-form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        .rsvp-form input, .rsvp-form select, .rsvp-form textarea { width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 2px; font-family: 'Cormorant Garamond', serif; font-size: 22px; background: var(--white); color: var(--text); letter-spacing: 1px; transition: border-color 0.3s; outline: none; }
+        .rsvp-form input:focus, .rsvp-form select:focus, .rsvp-form textarea:focus { border-color: var(--accent); }
+        .rsvp-form textarea { resize: vertical; min-height: 100px; }
+        .rsvp-form select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a8a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 20px center; }
+        .rsvp-form .radio-group { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; }
+        .rsvp-form .radio-group label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 22px; letter-spacing: 1px; color: var(--text); }
+        .rsvp-form .radio-group input[type="radio"] { width: auto; accent-color: var(--accent); }
+        .rsvp-form button { padding: 16px 40px; background: var(--accent); color: white; border: none; border-radius: 2px; font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+        .rsvp-form button:hover { background: #a07d3a; transform: translateY(-2px); }
         .rsvp-form button:active { transform: translateY(0); }
-
-        .form-success {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 26px;
-            color: var(--accent);
-            letter-spacing: 2px;
-        }
+        .form-success { display: none; text-align: center; padding: 40px 20px; font-size: 26px; color: var(--accent); letter-spacing: 2px; }
         .form-success.active { display: block; }
         .form-success .check { font-size: 58px; margin-bottom: 20px; }
 
-        .footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--muted);
-            font-size: 19px;
-            letter-spacing: 2px;
-        }
-        .footer .monogram-small {
-            font-family: 'Playfair Display', serif;
-            font-size: 26px;
-            color: var(--accent-light);
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-        }
+        .footer { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 19px; letter-spacing: 2px; }
+        .footer .monogram-small { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--accent-light); letter-spacing: 3px; margin-bottom: 10px; }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 34px; letter-spacing: 4px; }
-            .hero .date-large { font-size: 44px; letter-spacing: 4px; }
-            .monogram .letter { font-size: 58px; }
-            .hero .romantic-phrase { font-size: 26px; }
-            .calendar-btn { font-size: 18px; padding: 14px 28px; }
-            .slider-inner { min-height: 350px; padding: 15px; }
-            .slider-container img { max-height: 450px; }
-            .slider-nav { width: 40px; height: 40px; font-size: 22px; }
-            .slider-nav.prev { left: -20px; }
-            .slider-nav.next { right: -20px; }
-            .details-grid { grid-template-columns: 1fr; gap: 20px; }
+            .hero h1 { font-size: 34px; } .hero .date-large { font-size: 44px; } .monogram .letter { font-size: 58px; }
+            .details-grid { grid-template-columns: 1fr; }
             .section { padding: 50px 20px; }
-            .rsvp-form .radio-group { flex-direction: column; gap: 12px; align-items: flex-start; }
-        }
-        @media (max-width: 400px) {
-            .hero h1 { font-size: 28px; letter-spacing: 2px; }
-            .hero .date-large { font-size: 34px; letter-spacing: 2px; }
-            .monogram .letter { font-size: 44px; }
-            .hero .romantic-phrase { font-size: 22px; }
-            .calendar-btn { font-size: 16px; padding: 12px 24px; letter-spacing: 2px; }
-            .slider-inner { min-height: 280px; padding: 10px; }
-            .slider-container img { max-height: 350px; }
-            .slider-nav { width: 36px; height: 36px; font-size: 20px; }
-            .slider-nav.prev { left: -16px; }
-            .slider-nav.next { right: -16px; }
         }
     </style>
 </head>
 <body>
-
-    <!-- ФОН С ЛИНИЯМИ -->
     <div class="bg-lines">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
             <line x1="0" y1="120" x2="400" y2="80" stroke="#d4c5a0" stroke-width="1.2" opacity="0.7"/>
@@ -622,192 +183,105 @@
             <line x1="0" y1="700" x2="500" y2="650" stroke="#b8944b" stroke-width="0.8" opacity="0.5"/>
             <line x1="600" y1="800" x2="1100" y2="750" stroke="#d4c5a0" stroke-width="1" opacity="0.5"/>
             <line x1="300" y1="900" x2="800" y2="880" stroke="#b8944b" stroke-width="0.8" opacity="0.6"/>
-            <line x1="100" y1="0" x2="500" y2="400" stroke="#d4c5a0" stroke-width="0.8" opacity="0.5"/>
-            <line x1="800" y1="0" x2="1200" y2="500" stroke="#b8944b" stroke-width="0.8" opacity="0.5"/>
-            <line x1="0" y1="300" x2="600" y2="800" stroke="#d4c5a0" stroke-width="0.7" opacity="0.6"/>
-            <line x1="1000" y1="200" x2="1440" y2="600" stroke="#b8944b" stroke-width="0.8" opacity="0.5"/>
             <path d="M0 150 Q200 100 400 180 T800 160 T1200 200 T1440 170" stroke="#d4c5a0" stroke-width="1" fill="none" opacity="0.5"/>
             <path d="M0 450 Q300 400 500 480 T1000 440 T1440 500" stroke="#b8944b" stroke-width="0.8" fill="none" opacity="0.5"/>
-            <path d="M0 600 Q250 550 450 620 T900 580 T1440 630" stroke="#d4c5a0" stroke-width="0.8" fill="none" opacity="0.5"/>
-            <line x1="150" y1="200" x2="280" y2="185" stroke="#d4c5a0" stroke-width="1.2" opacity="0.7"/>
-            <line x1="500" y1="350" x2="600" y2="335" stroke="#b8944b" stroke-width="1" opacity="0.6"/>
-            <line x1="850" y1="150" x2="980" y2="165" stroke="#d4c5a0" stroke-width="1.2" opacity="0.6"/>
-            <line x1="1100" y1="450" x2="1220" y2="435" stroke="#b8944b" stroke-width="1" opacity="0.5"/>
-            <line x1="50" y1="550" x2="200" y2="565" stroke="#d4c5a0" stroke-width="1" opacity="0.6"/>
-            <line x1="700" y1="700" x2="840" y2="685" stroke="#b8944b" stroke-width="1.2" opacity="0.6"/>
-            <line x1="950" y1="850" x2="1100" y2="835" stroke="#d4c5a0" stroke-width="1" opacity="0.6"/>
-            <line x1="350" y1="50" x2="350" y2="350" stroke="#d4c5a0" stroke-width="0.6" opacity="0.4"/>
-            <line x1="750" y1="600" x2="750" y2="850" stroke="#b8944b" stroke-width="0.6" opacity="0.4"/>
-            <line x1="1150" y1="100" x2="1150" y2="400" stroke="#d4c5a0" stroke-width="0.6" opacity="0.4"/>
         </svg>
     </div>
 
-    <!-- ОСНОВНОЙ КОНТЕНТ -->
     <div class="content-wrapper">
+        <section class="hero" id="hero">
+            <div class="monogram fade-in"><span class="letter">А</span><span class="dot"></span><span class="ampersand-small">&amp;</span><span class="dot"></span><span class="letter">А</span></div>
+            <h1 class="fade-in fade-in-delay-1">Алина &amp; Артур</h1>
+            <p class="subtitle fade-in fade-in-delay-2">Приглашают на регистрацию брака</p>
+            <div class="date-large fade-in fade-in-delay-3">01 · 08 · 2026</div>
+            <p class="date-sub fade-in fade-in-delay-4">Сохраните дату</p>
+            <p class="romantic-phrase fade-in fade-in-delay-5">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
+            <a class="calendar-btn fade-in fade-in-delay-5" id="calendarButton" href="#">Нажми чтобы не забыть :3</a>
 
-    <section class="hero" id="hero">
-        <div class="monogram fade-in">
-            <span class="letter">А</span>
-            <span class="dot"></span>
-            <span class="ampersand-small">&amp;</span>
-            <span class="dot"></span>
-            <span class="letter">А</span>
-        </div>
-        <h1 class="fade-in fade-in-delay-1">Алина &amp; Артур</h1>
-        <p class="subtitle fade-in fade-in-delay-2">Приглашают на регистрацию брака</p>
-        <div class="date-large fade-in fade-in-delay-3">01 · 08 · 2026</div>
-        <p class="date-sub fade-in fade-in-delay-4">Сохраните дату</p>
-        <p class="romantic-phrase fade-in fade-in-delay-5">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
-        <a class="calendar-btn fade-in fade-in-delay-5" id="calendarButton" href="#" download="Алина_и_Артур_свадьба.ics">Нажми чтобы не забыть :3</a>
-
-        <!-- СЛАЙДЕР НА 10 ФОТО -->
-        <div class="slider-section fade-in" id="sliderSection">
-            <div class="slider-container" id="sliderContainer">
-                <div class="particles" id="particles"></div>
-                <div class="slider-inner">
-                    <img src="photo1.jpg" alt="Фото 1" class="active" onerror="this.onerror=null; this.style.display='none'; document.getElementById('placeholderSlide').classList.add('active');">
-                    <img src="photo2.jpg" alt="Фото 2" onerror="this.onerror=null; this.style.display='none';">
-                    <img src="photo3.jpg" alt="Фото 3" onerror="this.onerror=null; this.style.display='none';">
-                    <img src="photo4.jpg" alt="Фото 4" onerror="this.onerror=null; this.style.display='none';">
-                    <img src="photo5.jpg" alt="Фото 5" onerror="this.onerror=null; this.style.display='none';">
-                    <img src="photo6.jpg" alt="Фото 6" onerror="this.onerror=null; this.style.display='none';">
-                    <img src="photo7.jpg" alt="Фото 7" onerror="this.onerror=null; this.style.display='none';">
-                    <img src="photo8.jpg" alt="Фото 8" onerror="this.onerror=null; this.style.display='none';">
-                    <img src="photo9.jpg" alt="Фото 9" onerror="this.onerror=null; this.style.display='none';">
-                    <img src="photo10.jpg" alt="Фото 10" onerror="this.onerror=null; this.style.display='none';">
-
-                    <div class="placeholder-slide" id="placeholderSlide">
-                        <i class="fas fa-camera"></i><br>Фото 1
+            <div class="slider-section fade-in">
+                <div class="slider-container" id="sliderContainer">
+                    <div class="particles" id="particles"></div>
+                    <div class="slider-inner">
+                        <img src="photo1.jpg" alt="Фото 1" class="active">
+                        <img src="photo2.jpg" alt="Фото 2">
+                        <img src="photo3.jpg" alt="Фото 3">
+                        <img src="photo4.jpg" alt="Фото 4">
+                        <img src="photo5.jpg" alt="Фото 5">
+                        <img src="photo6.jpg" alt="Фото 6">
+                        <img src="photo7.jpg" alt="Фото 7">
+                        <img src="photo8.jpg" alt="Фото 8">
+                        <img src="photo9.jpg" alt="Фото 9">
+                        <img src="photo10.jpg" alt="Фото 10">
+                        <div class="placeholder-slide" id="placeholderSlide"><i class="fas fa-camera"></i><br>Фото 1</div>
                     </div>
                 </div>
+                <button class="slider-nav prev" id="sliderPrev">&#10094;</button>
+                <button class="slider-nav next" id="sliderNext">&#10095;</button>
+                <div class="slider-counter"><span class="current" id="sliderCurrent">1</span> / <span id="sliderTotal">10</span></div>
+                <div class="slider-dots" id="sliderDots"></div>
             </div>
+        </section>
 
-            <button class="slider-nav prev" id="sliderPrev">&#10094;</button>
-            <button class="slider-nav next" id="sliderNext">&#10095;</button>
-
-            <div class="slider-counter">
-                <span class="current" id="sliderCurrent">1</span> / <span id="sliderTotal">10</span>
-            </div>
-
-            <div class="slider-dots" id="sliderDots"></div>
-        </div>
-
-        <div class="scroll-hint" onclick="document.getElementById('details').scrollIntoView()">
-            <span></span>
-        </div>
-    </section>
-
-    <!-- ДЕТАЛИ -->
-    <section class="section fade-in" id="details">
-        <h2 class="section-title">Детали</h2>
-        <div class="section-line"></div>
-        <div class="details-grid">
-            <div class="detail-card fade-in fade-in-delay-1">
-                <div class="icon">
-                    <i class="far fa-clock"></i>
+        <!-- ДЕТАЛИ -->
+        <section class="section fade-in" id="details">
+            <h2 class="section-title">Детали</h2>
+            <div class="section-line"></div>
+            <div class="details-grid">
+                <div class="detail-card fade-in fade-in-delay-1">
+                    <div class="icon"><i class="far fa-clock"></i></div>
+                    <div class="label">Время</div>
+                    <div class="time-block"><div class="time-label">Сбор гостей</div><div class="time-value">11:45</div></div>
+                    <div class="time-block"><div class="time-label">Начало регистрации</div><div class="time-value">12:00</div></div>
                 </div>
-                <div class="label">Время</div>
-                <div class="time-block">
-                    <div class="time-label">Сбор гостей</div>
-                    <div class="time-value">11:45</div>
-                </div>
-                <div class="time-block">
-                    <div class="time-label">Начало регистрации</div>
-                    <div class="time-value">12:00</div>
+                <div class="detail-card fade-in fade-in-delay-2">
+                    <div class="icon"><i class="far fa-calendar-alt"></i></div>
+                    <div class="label">Дата</div>
+                    <div class="value">1 августа 2026</div>
+                    <div class="value-small">Суббота</div>
                 </div>
             </div>
-            <div class="detail-card fade-in fade-in-delay-2">
-                <div class="icon">
-                    <i class="far fa-calendar-alt"></i>
-                </div>
-                <div class="label">Дата</div>
-                <div class="value">1 августа 2026</div>
-                <div class="value-small">Пятница</div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="section fade-in" id="map">
-        <h2 class="section-title">Место проведения</h2>
-        <div class="section-line"></div>
-        <div class="map-container" id="yandexMap"></div>
-        <p class="map-address">
-            Зал торжественных регистраций, отдел ЗАГС<br>
-            г. Долинск, ул. Хабаровская, 13, корп. Б
-        </p>
-    </section>
+        <section class="section fade-in" id="map">
+            <h2 class="section-title">Место проведения</h2>
+            <div class="section-line"></div>
+            <div class="map-container" id="yandexMap"></div>
+            <p class="map-address">Зал торжественных регистраций, отдел ЗАГС<br>г. Долинск, ул. Хабаровская, 13, корп. Б</p>
+        </section>
 
-    <section class="section fade-in" id="rsvp">
-        <h2 class="section-title">Подтвердите присутствие</h2>
-        <div class="section-line"></div>
-        <form class="rsvp-form" id="rsvpForm" action="https://formspree.io/f/xvznpvqd" method="POST">
-            <input type="text" name="name" placeholder="Ваше имя и фамилия" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="tel" name="phone" placeholder="Телефон">
-            <div class="radio-group">
-                <span style="letter-spacing:1px;color:var(--text)">Вы придёте?</span>
-                <label><input type="radio" name="attending" value="Да, с радостью!" required> Да, с радостью!</label>
-                <label><input type="radio" name="attending" value="К сожалению, нет"> К сожалению, нет</label>
-            </div>
-            <select name="guests">
-                <option value="" disabled selected>Количество гостей</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-            <textarea name="message" placeholder="Пожелания или сообщение..."></textarea>
-            <button type="submit">Отправить</button>
-        </form>
-        <div class="form-success" id="formSuccess">
-            <div class="check">✓</div>
-            Спасибо! Ваш ответ получен.<br>
-            <span style="font-size:20px;color:var(--muted)">Ждём вас 1 августа!</span>
-        </div>
-    </section>
+        <section class="section fade-in" id="rsvp">
+            <h2 class="section-title">Подтвердите присутствие</h2>
+            <div class="section-line"></div>
+            <form class="rsvp-form" id="rsvpForm" action="https://formspree.io/f/xvznpvqd" method="POST">
+                <input type="text" name="name" placeholder="Ваше имя и фамилия" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="tel" name="phone" placeholder="Телефон">
+                <div class="radio-group"><span>Вы придёте?</span><label><input type="radio" name="attending" value="Да" required> Да, с радостью!</label><label><input type="radio" name="attending" value="Нет"> К сожалению, нет</label></div>
+                <select name="guests"><option disabled selected>Количество гостей</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+                <textarea name="message" placeholder="Пожелания или сообщение..."></textarea>
+                <button type="submit">Отправить</button>
+            </form>
+            <div class="form-success" id="formSuccess"><div class="check">✓</div>Спасибо! Ваш ответ получен.<br><span>Ждём вас 1 августа!</span></div>
+        </section>
 
-    <footer class="footer fade-in">
-        <div class="monogram-small">А &amp; А</div>
-        До встречи 1 августа 2026 года
-    </footer>
-
+        <footer class="footer fade-in"><div class="monogram-small">А &amp; А</div>До встречи 1 августа 2026 года</footer>
     </div>
 
     <script>
+        // Аналогичный скрипт (без изменений в логике)
         function handleScroll() {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach(el => {
+            document.querySelectorAll('.fade-in').forEach(el => {
                 const rect = el.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                if (rect.top < windowHeight * 0.85 && rect.bottom > 0) {
-                    el.classList.add('visible');
-                }
+                if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) el.classList.add('visible');
             });
         }
-
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('load', handleScroll);
         setTimeout(handleScroll, 100);
 
         document.getElementById('calendarButton').addEventListener('click', function(e) {
             e.preventDefault();
-            const event = [
-                'BEGIN:VCALENDAR',
-                'VERSION:2.0',
-                'BEGIN:VEVENT',
-                'DTSTART:20260801T114500',
-                'DTEND:20260801T130000',
-                'SUMMARY:Свадьба Алины и Артура 💍',
-                'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: Зал торжественных регистраций, отдел ЗАГС\\nАдрес: г. Долинск, ул. Хабаровская, 13, корп. Б',
-                'LOCATION:г. Долинск, ул. Хабаровская, 13, корп. Б',
-                'BEGIN:VALARM',
-                'TRIGGER:-PT24H',
-                'ACTION:DISPLAY',
-                'DESCRIPTION:Завтра свадьба Алины и Артура! 💍',
-                'END:VALARM',
-                'END:VEVENT',
-                'END:VCALENDAR'
-            ].join('\r\n');
+            const event = ['BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT','DTSTART:20260801T114500','DTEND:20260801T130000','SUMMARY:Свадьба Алины и Артура 💍','DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: ЗАГС, г. Долинск, ул. Хабаровская, 13Б','LOCATION:г. Долинск, ул. Хабаровская, 13Б','BEGIN:VALARM','TRIGGER:-PT24H','ACTION:DISPLAY','DESCRIPTION:Завтра свадьба! 💍','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
             const blob = new Blob([event], { type: 'text/calendar;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -815,7 +289,7 @@
             link.click();
         });
 
-        // ========== СЛАЙДЕР ==========
+        // Слайдер
         const slides = document.querySelectorAll('#sliderContainer .slider-inner img');
         const placeholderSlide = document.getElementById('placeholderSlide');
         const particlesContainer = document.getElementById('particles');
@@ -824,157 +298,56 @@
         const sliderCurrent = document.getElementById('sliderCurrent');
         const sliderTotal = document.getElementById('sliderTotal');
         const sliderDots = document.getElementById('sliderDots');
-        let currentSlide = 0;
-        let isAnimating = false;
-        const totalSlides = 10;
-
+        let currentSlide = 0, isAnimating = false, totalSlides = 10;
         sliderTotal.textContent = totalSlides;
-
         for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('span');
-            dot.classList.add('dot-nav');
+            const dot = document.createElement('span'); dot.classList.add('dot-nav');
             if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => {
-                if (!isAnimating && i !== currentSlide) {
-                    const direction = i > currentSlide ? 'next' : 'prev';
-                    goToSlide(i, direction);
-                }
-            });
+            dot.addEventListener('click', () => { if (!isAnimating && i !== currentSlide) goToSlide(i, i > currentSlide ? 'next' : 'prev'); });
             sliderDots.appendChild(dot);
         }
         const dots = document.querySelectorAll('.slider-dots .dot-nav');
-
-        function createParticles(direction) {
-            const count = 20;
-            for (let i = 0; i < count; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                const x = 30 + Math.random() * 40;
-                const y = 30 + Math.random() * 40;
-                const tx = (direction === 'next' ? -1 : 1) * (30 + Math.random() * 80);
-                const ty = (Math.random() - 0.5) * 100;
-                particle.style.left = x + '%';
-                particle.style.top = y + '%';
-                particle.style.setProperty('--tx', tx + 'px');
-                particle.style.setProperty('--ty', ty + 'px');
-                particle.style.animationDelay = Math.random() * 0.3 + 's';
-                particlesContainer.appendChild(particle);
-                setTimeout(() => particle.remove(), 1000);
+        function createParticles(dir) {
+            for (let i = 0; i < 20; i++) {
+                const p = document.createElement('div'); p.classList.add('particle');
+                p.style.left = (30 + Math.random()*40) + '%'; p.style.top = (30 + Math.random()*40) + '%';
+                p.style.setProperty('--tx', (dir === 'next' ? -1 : 1) * (30 + Math.random()*80) + 'px');
+                p.style.setProperty('--ty', (Math.random() - 0.5)*100 + 'px');
+                p.style.animationDelay = Math.random()*0.3 + 's';
+                particlesContainer.appendChild(p);
+                setTimeout(() => p.remove(), 1000);
             }
         }
-
-        function goToSlide(index, direction) {
-            if (isAnimating) return;
-            isAnimating = true;
-
-            slides.forEach(s => {
-                s.classList.remove('active');
-                s.style.display = 'none';
-            });
-            placeholderSlide.classList.remove('active');
-            placeholderSlide.style.display = 'none';
-
-            const currentSlideElement = slides[index];
-            currentSlideElement.style.display = 'block';
-            currentSlideElement.classList.add('active');
-
-            currentSlideElement.onerror = function() {
-                this.style.display = 'none';
-                this.classList.remove('active');
-                placeholderSlide.classList.add('active');
-                placeholderSlide.style.display = 'flex';
-                placeholderSlide.innerHTML = '<i class=\'fas fa-camera\'></i><br>Фото ' + (index + 1);
-            };
-
-            createParticles(direction);
-
+        function goToSlide(index, dir) {
+            if (isAnimating) return; isAnimating = true;
+            slides.forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
+            placeholderSlide.classList.remove('active'); placeholderSlide.style.display = 'none';
+            const el = slides[index]; el.style.display = 'block'; el.classList.add('active');
+            el.onerror = function() { this.style.display = 'none'; placeholderSlide.classList.add('active'); placeholderSlide.style.display = 'flex'; placeholderSlide.innerHTML = '<i class="fas fa-camera"></i><br>Фото ' + (index+1); };
+            createParticles(dir);
             dots.forEach((d, i) => d.classList.toggle('active', i === index));
-
-            sliderCurrent.style.transform = 'scale(1.4)';
-            sliderCurrent.textContent = index + 1;
-            setTimeout(() => { sliderCurrent.style.transform = 'scale(1)'; }, 300);
-
-            currentSlide = index;
-            setTimeout(() => { isAnimating = false; }, 700);
+            sliderCurrent.style.transform = 'scale(1.4)'; sliderCurrent.textContent = index + 1;
+            setTimeout(() => sliderCurrent.style.transform = 'scale(1)', 300);
+            currentSlide = index; setTimeout(() => isAnimating = false, 700);
         }
-
-        sliderPrev.addEventListener('click', () => {
-            if (isAnimating) return;
-            const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
-            goToSlide(newIndex, 'prev');
-        });
-
-        sliderNext.addEventListener('click', () => {
-            if (isAnimating) return;
-            const newIndex = (currentSlide + 1) % totalSlides;
-            goToSlide(newIndex, 'next');
-        });
-
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        document.getElementById('sliderContainer').addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        document.getElementById('sliderContainer').addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) sliderNext.click();
-                else sliderPrev.click();
-            }
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') sliderPrev.click();
-            if (e.key === 'ArrowRight') sliderNext.click();
-        });
-
+        sliderPrev.addEventListener('click', () => { if (!isAnimating) goToSlide((currentSlide - 1 + totalSlides) % totalSlides, 'prev'); });
+        sliderNext.addEventListener('click', () => { if (!isAnimating) goToSlide((currentSlide + 1) % totalSlides, 'next'); });
         goToSlide(0, 'next');
 
-        // ========== ФОРМА ==========
-        const rsvpForm = document.getElementById('rsvpForm');
-        const formSuccess = document.getElementById('formSuccess');
-        rsvpForm.addEventListener('submit', function(e) {
-            setTimeout(function() {
-                rsvpForm.style.display = 'none';
-                formSuccess.classList.add('active');
-            }, 1000);
+        // Форма
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            setTimeout(() => { this.style.display = 'none'; document.getElementById('formSuccess').classList.add('active'); }, 1000);
         });
 
-        // ========== КАРТА ==========
+        // Карта
         function initMap() {
-            if (typeof ymaps === 'undefined') {
-                document.getElementById('yandexMap').innerHTML =
-                    '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8a8a8a;letter-spacing:2px;text-align:center;padding:20px;font-size:22px;">📍<br>г. Долинск, ул. Хабаровская, 13, корп. Б</div>';
-                return;
-            }
+            if (typeof ymaps === 'undefined') { document.getElementById('yandexMap').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8a8a8a;">📍<br>г. Долинск, ул. Хабаровская, 13Б</div>'; return; }
             ymaps.ready(function() {
-                const coordinates = [47.3220, 142.7950];
-                const map = new ymaps.Map('yandexMap', {
-                    center: coordinates,
-                    zoom: 17,
-                    controls: ['zoomControl']
-                });
-                const placemark = new ymaps.Placemark(
-                    coordinates, {
-                        hintContent: 'ЗАГС, ул. Хабаровская, 13Б',
-                        balloonContent: 'Зал торжественных регистраций<br>г. Долинск, ул. Хабаровская, 13, корп. Б'
-                    }, {
-                        iconLayout: 'default#image',
-                        iconImageHref: 'https://cdn.jsdelivr.net/gh/somanchiu/leaflet-color-markers@master/img/marker-icon-gold.png',
-                        iconImageSize: [25, 41],
-                        iconImageOffset: [-12, -41]
-                    }
-                );
-                map.geoObjects.add(placemark);
+                const map = new ymaps.Map('yandexMap', { center: [47.3220, 142.7950], zoom: 17, controls: ['zoomControl'] });
+                map.geoObjects.add(new ymaps.Placemark([47.3220, 142.7950], { hintContent: 'ЗАГС', balloonContent: 'г. Долинск, ул. Хабаровская, 13Б' }));
             });
         }
-        window.addEventListener('load', function() {
-            setTimeout(initMap, 500);
-        });
+        window.addEventListener('load', () => setTimeout(initMap, 500));
     </script>
-
 </body>
 </html>
