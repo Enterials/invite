@@ -253,7 +253,6 @@
             <p class="romantic-phrase fade-in fade-in-delay-5">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
             <a class="calendar-btn fade-in fade-in-delay-5" id="calendarButton" href="#">Нажми чтобы не забыть :3</a>
 
-            <!-- СЛАЙДЕР СО СВАЙПОМ -->
             <div class="slider-section fade-in" id="sliderSection">
                 <div class="slider-container" id="sliderContainer">
                     <div class="slider-track" id="sliderTrack"></div>
@@ -264,7 +263,6 @@
             </div>
         </section>
 
-        <!-- ДЕТАЛИ -->
         <section class="section fade-in" id="details">
             <h2 class="section-title">Детали</h2>
             <div class="section-line"></div>
@@ -341,7 +339,6 @@
         let startX = 0;
         let currentX = 0;
         let isDragging = false;
-        let dragOffset = 0;
 
         sliderTotal.textContent = totalSlides;
 
@@ -398,7 +395,7 @@
         window.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             currentX = e.clientX;
-            dragOffset = currentX - startX - (currentSlide * sliderContainer.offsetWidth);
+            const dragOffset = currentX - startX - (currentSlide * sliderContainer.offsetWidth);
             updateSliderPosition(dragOffset, false);
         });
 
@@ -418,7 +415,7 @@
         sliderContainer.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             currentX = e.touches[0].clientX;
-            dragOffset = currentX - startX - (currentSlide * sliderContainer.offsetWidth);
+            const dragOffset = currentX - startX - (currentSlide * sliderContainer.offsetWidth);
             updateSliderPosition(dragOffset, false);
         }, { passive: true });
 
@@ -446,15 +443,15 @@
             setTimeout(() => { this.style.display = 'none'; document.getElementById('formSuccess').classList.add('active'); }, 1000);
         });
 
-        // ========== КАРТА (МЕТКА СМЕЩЕНА ПРАВЕЕ) ==========
+        // ========== КАРТА С ТОЧНЫМИ КООРДИНАТАМИ ==========
         function initMap() {
             if (typeof ymaps === 'undefined') {
                 document.getElementById('yandexMap').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8a8a8a;">📍<br>г. Долинск, ул. Хабаровская, 13Б</div>';
                 return;
             }
             ymaps.ready(function() {
-                // Координаты смещены правее (долгота 142.7990 вместо 142.7950)
-                const coordinates = [47.3220, 142.7990];
+                // Точные координаты: 47.322018, 142.793501
+                const coordinates = [47.322018, 142.793501];
                 const map = new ymaps.Map('yandexMap', {
                     center: coordinates,
                     zoom: 17,
