@@ -65,11 +65,6 @@
             padding: 40px 20px 60px; position: relative;
         }
 
-        .monogram { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 50px; }
-        .monogram .letter { font-family: 'Playfair Display', serif; font-size: 92px; font-weight: 400; color: var(--accent); line-height: 1; letter-spacing: 4px; }
-        .monogram .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin: 0 4px; }
-        .monogram .ampersand-small { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--accent-light); font-style: italic; margin: 0 6px; }
-
         .hero h1 { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 400; letter-spacing: 6px; margin-bottom: 12px; color: var(--text); }
         .hero .subtitle { font-size: 24px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; }
         .hero .date-large { font-family: 'Playfair Display', serif; font-size: 62px; letter-spacing: 8px; color: var(--accent); font-weight: 300; }
@@ -85,8 +80,8 @@
         .calendar-btn:hover { background: var(--accent); color: white; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(184, 148, 75, 0.3); }
         .calendar-btn:active { transform: translateY(0); }
 
-        /* ========== СЛАЙДЕР (ЗАЦИКЛЕН) ========== */
-        .slider-section { width: 100%; max-width: 700px; margin: 0 auto 80px; padding: 0 30px; position: relative; }
+        /* ========== СЛАЙДЕР (БЕЗ РАМКИ, ФОТО 90% ПРОЗРАЧНОСТИ) ========== */
+        .slider-section { width: 100%; max-width: 700px; margin: 0 auto 30px; padding: 0 30px; position: relative; }
 
         .slider-container {
             position: relative; width: 100%; border-radius: 4px; overflow: hidden;
@@ -106,23 +101,22 @@
 
         .slide-item {
             min-width: 100%;
-            padding: 20px;
+            padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .slide-inner {
-            position: relative; width: 100%; padding: 20px;
+            position: relative; width: 100%;
             display: flex; align-items: center; justify-content: center;
             aspect-ratio: 4 / 5;
             max-height: 650px;
-            background: rgba(250, 250, 248, 0.5);
-            border-radius: 6px;
-            border: 1px solid rgba(212, 197, 160, 0.2);
-            box-shadow: 0 0 0 1px rgba(184, 148, 75, 0.08), 0 4px 20px rgba(0, 0, 0, 0.04);
-            backdrop-filter: blur(2px);
+            background: transparent;
+            border: none;
+            box-shadow: none;
             overflow: hidden;
+            border-radius: 4px;
         }
 
         .slide-inner img {
@@ -130,8 +124,9 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
-            border-radius: 2px;
+            border-radius: 4px;
             pointer-events: none;
+            opacity: 0.9;
         }
 
         .slide-inner .placeholder-slide {
@@ -140,9 +135,42 @@
             font-size: 18px; color: var(--muted); letter-spacing: 2px;
             text-align: center; flex-direction: column;
             position: absolute; top: 0; left: 0;
+            opacity: 0.9;
         }
         .slide-inner .placeholder-slide i {
             font-size: 60px; color: var(--accent-light); margin-bottom: 12px;
+        }
+
+        /* Монограмма под фото */
+        .slider-monogram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+            animation: fadeInUp 1.2s ease;
+        }
+        .slider-monogram .letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 400;
+            color: var(--accent);
+            line-height: 1;
+            letter-spacing: 4px;
+        }
+        .slider-monogram .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin: 0 3px;
+        }
+        .slider-monogram .ampersand-small {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--accent-light);
+            font-style: italic;
+            margin: 0 4px;
         }
 
         .slider-counter { text-align: center; margin-top: 20px; font-size: 16px; letter-spacing: 3px; color: var(--muted); }
@@ -160,6 +188,10 @@
         @keyframes swipeHint {
             0%, 100% { transform: translateX(0); opacity: 0.5; }
             50% { transform: translateX(8px); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; cursor: pointer; }
@@ -218,10 +250,11 @@
         .footer .monogram-small { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--accent-light); letter-spacing: 3px; margin-bottom: 10px; }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 34px; } .hero .date-large { font-size: 44px; } .monogram .letter { font-size: 58px; }
+            .hero h1 { font-size: 34px; } .hero .date-large { font-size: 44px; }
             .details-grid { grid-template-columns: 1fr; }
             .section { padding: 50px 20px; }
-            .slide-inner { padding: 15px; aspect-ratio: 4 / 5; max-height: 500px; }
+            .slide-inner { aspect-ratio: 4 / 5; max-height: 500px; }
+            .slider-monogram .letter { font-size: 40px; }
         }
     </style>
 </head>
@@ -243,7 +276,6 @@
 
     <div class="content-wrapper">
         <section class="hero" id="hero">
-            <div class="monogram fade-in"><span class="letter">А</span><span class="dot"></span><span class="ampersand-small">&amp;</span><span class="dot"></span><span class="letter">А</span></div>
             <h1 class="fade-in fade-in-delay-1">Алина &amp; Артур</h1>
             <p class="subtitle fade-in fade-in-delay-2">Приглашают на регистрацию брака</p>
             <div class="date-large fade-in fade-in-delay-3">01 · 08 · 2026</div>
@@ -251,10 +283,21 @@
             <p class="romantic-phrase fade-in fade-in-delay-5">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
             <a class="calendar-btn fade-in fade-in-delay-5" id="calendarButton" href="#">Нажми чтобы не забыть :3</a>
 
+            <!-- СЛАЙДЕР + МОНОГРАММА -->
             <div class="slider-section fade-in" id="sliderSection">
                 <div class="slider-container" id="sliderContainer">
                     <div class="slider-track" id="sliderTrack"></div>
                 </div>
+
+                <!-- Монограмма А & А под фото -->
+                <div class="slider-monogram">
+                    <span class="letter">А</span>
+                    <span class="dot"></span>
+                    <span class="ampersand-small">&amp;</span>
+                    <span class="dot"></span>
+                    <span class="letter">А</span>
+                </div>
+
                 <div class="slider-counter"><span class="current" id="sliderCurrent">1</span> / <span id="sliderTotal">10</span></div>
                 <div class="slider-dots" id="sliderDots"></div>
                 <div class="swipe-hint"><i class="fas fa-arrow-left"></i> листайте свайпом <i class="fas fa-arrow-right"></i></div>
@@ -338,14 +381,12 @@
 
         sliderTotal.textContent = totalSlides;
 
-        // Создаём слайды
         for (let i = 1; i <= totalSlides; i++) {
             const slide = document.createElement('div'); slide.classList.add('slide-item');
             slide.innerHTML = `<div class="slide-inner"><img src="photo${i}.jpg" alt="Фото ${i}" onerror="this.style.display='none'; this.parentElement.querySelector('.placeholder-slide').style.display='flex';"><div class="placeholder-slide" style="display:none;"><i class="fas fa-camera"></i><br>Фото ${i}</div></div>`;
             sliderTrack.appendChild(slide);
         }
 
-        // Точки
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('span'); dot.classList.add('dot-nav');
             if (i === 0) dot.classList.add('active');
@@ -363,8 +404,7 @@
             if (isAnimating) return;
             isAnimating = true;
             currentSlide = index;
-            const offset = -index * sliderTrack.parentElement.offsetWidth;
-            updateSliderPosition(offset, true);
+            updateSliderPosition(-index * sliderTrack.parentElement.offsetWidth, true);
             dots.forEach((d, i) => d.classList.toggle('active', i === index));
             sliderCurrent.style.transform = 'scale(1.4)';
             sliderCurrent.textContent = index + 1;
@@ -385,8 +425,7 @@
         window.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             currentX = e.clientX;
-            const dragOffset = currentX - startX - (currentSlide * sliderContainer.offsetWidth);
-            updateSliderPosition(dragOffset, false);
+            updateSliderPosition(currentX - startX - (currentSlide * sliderContainer.offsetWidth), false);
         });
 
         window.addEventListener('mouseup', () => {
@@ -405,8 +444,7 @@
         sliderContainer.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             currentX = e.touches[0].clientX;
-            const dragOffset = currentX - startX - (currentSlide * sliderContainer.offsetWidth);
-            updateSliderPosition(dragOffset, false);
+            updateSliderPosition(currentX - startX - (currentSlide * sliderContainer.offsetWidth), false);
         }, { passive: true });
 
         sliderContainer.addEventListener('touchend', () => {
@@ -416,26 +454,13 @@
         });
 
         function finishSwipe() {
-            const w = sliderContainer.offsetWidth;
-            const diff = currentX - startX;
-            const threshold = w * 0.15;
-
+            const w = sliderContainer.offsetWidth, diff = currentX - startX, threshold = w * 0.15;
             if (Math.abs(diff) > threshold) {
-                if (diff < 0) {
-                    // Свайп влево — следующий слайд (с зацикливанием)
-                    const newIndex = (currentSlide + 1) % totalSlides;
-                    goToSlide(newIndex);
-                } else {
-                    // Свайп вправо — предыдущий слайд (с зацикливанием)
-                    const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
-                    goToSlide(newIndex);
-                }
-            } else {
-                goToSlide(currentSlide);
-            }
+                if (diff < 0) goToSlide((currentSlide + 1) % totalSlides);
+                else goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+            } else goToSlide(currentSlide);
         }
 
-        // Инициализация
         goToSlide(0);
 
         // ========== ФОРМА ==========
