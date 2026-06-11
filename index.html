@@ -8,6 +8,9 @@
     <!-- Яндекс.Карты -->
     <script src="https://api-maps.yandex.ru/2.1/?apikey=7858b958-e5ed-42d4-a547-bc2bbcecf829&lang=ru_RU" type="text/javascript"></script>
 
+    <!-- Font Awesome для красивых иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
 
@@ -256,10 +259,13 @@
             display: flex;
         }
         .slider-container .placeholder-slide::before {
-            content: '📷';
+            content: '\f030';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
             font-size: 60px;
             display: block;
             margin-bottom: 12px;
+            color: var(--accent-light);
         }
 
         .particles {
@@ -394,6 +400,7 @@
             margin: 0 auto 40px;
         }
 
+        /* ========== ДЕТАЛИ (ОБНОВЛЁННЫЕ) ========== */
         .details-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -401,18 +408,46 @@
             text-align: center;
         }
         .detail-card {
-            padding: 30px 20px;
+            padding: 35px 25px;
             border: 1px solid var(--border);
             border-radius: 2px;
             background: var(--white);
         }
-        .detail-card .icon { font-size: 40px; margin-bottom: 15px; }
+        .detail-card .icon {
+            font-size: 42px;
+            margin-bottom: 18px;
+            color: var(--accent);
+        }
         .detail-card .label {
-            font-size: 17px;
-            letter-spacing: 4px;
+            font-size: 13px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 15px;
+        }
+        .detail-card .time-block {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .detail-card .time-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .detail-card .time-label {
+            font-size: 14px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .detail-card .time-value {
+            font-size: 28px;
+            letter-spacing: 2px;
+            color: var(--text);
+            font-family: 'Playfair Display', serif;
         }
         .detail-card .value {
             font-size: 26px;
@@ -626,20 +661,19 @@
         <div class="slider-section fade-in" id="sliderSection">
             <div class="slider-container" id="sliderContainer">
                 <div class="particles" id="particles"></div>
-                <!-- Все фото загружаются из корня репозитория -->
-                <img src="photo1.jpg" alt="Фото 1" class="active" onerror="this.onerror=null; this.src=''; document.getElementById('placeholderSlide').classList.add('active'); document.getElementById('placeholderSlide').innerHTML='📷<br>Фото 1 (загрузите фото в репозиторий)';">
-                <img src="photo2.jpg" alt="Фото 2" onerror="this.onerror=null; this.src='';">
-                <img src="photo3.jpg" alt="Фото 3" onerror="this.onerror=null; this.src='';">
-                <img src="photo4.jpg" alt="Фото 4" onerror="this.onerror=null; this.src='';">
-                <img src="photo5.jpg" alt="Фото 5" onerror="this.onerror=null; this.src='';">
-                <img src="photo6.jpg" alt="Фото 6" onerror="this.onerror=null; this.src='';">
-                <img src="photo7.jpg" alt="Фото 7" onerror="this.onerror=null; this.src='';">
-                <img src="photo8.jpg" alt="Фото 8" onerror="this.onerror=null; this.src='';">
-                <img src="photo9.jpg" alt="Фото 9" onerror="this.onerror=null; this.src='';">
-                <img src="photo10.jpg" alt="Фото 10" onerror="this.onerror=null; this.src='';">
+                <img src="photo1.jpg" alt="Фото 1" class="active" onerror="this.onerror=null; this.style.display='none'; document.getElementById('placeholderSlide').classList.add('active'); document.getElementById('placeholderSlide').innerHTML='<i class=\'fas fa-camera\'></i><br>Фото 1';">
+                <img src="photo2.jpg" alt="Фото 2" onerror="this.onerror=null; this.style.display='none';">
+                <img src="photo3.jpg" alt="Фото 3" onerror="this.onerror=null; this.style.display='none';">
+                <img src="photo4.jpg" alt="Фото 4" onerror="this.onerror=null; this.style.display='none';">
+                <img src="photo5.jpg" alt="Фото 5" onerror="this.onerror=null; this.style.display='none';">
+                <img src="photo6.jpg" alt="Фото 6" onerror="this.onerror=null; this.style.display='none';">
+                <img src="photo7.jpg" alt="Фото 7" onerror="this.onerror=null; this.style.display='none';">
+                <img src="photo8.jpg" alt="Фото 8" onerror="this.onerror=null; this.style.display='none';">
+                <img src="photo9.jpg" alt="Фото 9" onerror="this.onerror=null; this.style.display='none';">
+                <img src="photo10.jpg" alt="Фото 10" onerror="this.onerror=null; this.style.display='none';">
 
                 <div class="placeholder-slide" id="placeholderSlide">
-                    📷<br>Фото 1
+                    <i class="fas fa-camera"></i><br>Фото 1
                 </div>
             </div>
 
@@ -658,18 +692,31 @@
         </div>
     </section>
 
+    <!-- ДЕТАЛИ (ОБНОВЛЁННЫЕ) -->
     <section class="section fade-in" id="details">
         <h2 class="section-title">Детали</h2>
         <div class="section-line"></div>
         <div class="details-grid">
+            <!-- Карточка ВРЕМЯ -->
             <div class="detail-card fade-in fade-in-delay-1">
-                <div class="icon">🕐</div>
+                <div class="icon">
+                    <i class="far fa-clock"></i>
+                </div>
                 <div class="label">Время</div>
-                <div class="value">12:00</div>
-                <div class="value-small">Сбор гостей</div>
+                <div class="time-block">
+                    <div class="time-label">Сбор гостей</div>
+                    <div class="time-value">11:45</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">Начало регистрации</div>
+                    <div class="time-value">12:00</div>
+                </div>
             </div>
+            <!-- Карточка ДАТА -->
             <div class="detail-card fade-in fade-in-delay-2">
-                <div class="icon">📅</div>
+                <div class="icon">
+                    <i class="far fa-calendar-alt"></i>
+                </div>
                 <div class="label">Дата</div>
                 <div class="value">1 августа 2026</div>
                 <div class="value-small">Пятница</div>
@@ -745,10 +792,10 @@
                 'BEGIN:VCALENDAR',
                 'VERSION:2.0',
                 'BEGIN:VEVENT',
-                'DTSTART:20260801T120000',
+                'DTSTART:20260801T114500',
                 'DTEND:20260801T130000',
                 'SUMMARY:Свадьба Алины и Артура 💍',
-                'DESCRIPTION:Регистрация брака Алины и Артура\\n\\nМесто: Зал торжественных регистраций, отдел ЗАГС\\nАдрес: г. Долинск, ул. Хабаровская, 13, корп. Б\\nВремя: 12:00',
+                'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: Зал торжественных регистраций, отдел ЗАГС\\nАдрес: г. Долинск, ул. Хабаровская, 13, корп. Б',
                 'LOCATION:г. Долинск, ул. Хабаровская, 13, корп. Б',
                 'BEGIN:VALARM',
                 'TRIGGER:-PT24H',
@@ -817,20 +864,23 @@
             if (isAnimating) return;
             isAnimating = true;
 
-            slides.forEach(s => s.classList.remove('active'));
+            slides.forEach(s => {
+                s.classList.remove('active');
+                s.style.display = 'none';
+            });
             placeholderSlide.classList.remove('active');
             placeholderSlide.style.display = 'none';
 
             const currentSlideElement = slides[index];
-            currentSlideElement.classList.add('active');
             currentSlideElement.style.display = 'block';
+            currentSlideElement.classList.add('active');
 
             currentSlideElement.onerror = function() {
                 this.style.display = 'none';
                 this.classList.remove('active');
                 placeholderSlide.classList.add('active');
                 placeholderSlide.style.display = 'flex';
-                placeholderSlide.innerHTML = '📷<br>Фото ' + (index + 1) + ' (загрузите фото в репозиторий)';
+                placeholderSlide.innerHTML = '<i class=\'fas fa-camera\'></i><br>Фото ' + (index + 1);
             };
 
             createParticles(direction);
