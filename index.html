@@ -205,7 +205,6 @@
             margin-bottom: 12px;
         }
 
-        /* Кнопки навигации */
         .slider-nav {
             position: absolute;
             top: 50%;
@@ -240,7 +239,6 @@
             right: -25px;
         }
 
-        /* Счётчик */
         .slider-counter {
             text-align: center;
             margin-top: 20px;
@@ -254,12 +252,12 @@
             font-size: 18px;
         }
 
-        /* Точки */
         .slider-dots {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
         .slider-dots .dot-nav {
             width: 8px;
@@ -516,37 +514,33 @@
         <p class="romantic-phrase">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
         <a class="calendar-btn" id="calendarButton" href="#" download="Алина_и_Артур_свадьба.ics">Нажми чтобы не забыть :3</a>
 
-        <!-- СЛАЙДЕР-ГАЛЕРЕЯ НА 10 ФОТО -->
+        <!-- СЛАЙДЕР-ГАЛЕРЕЯ НА 11 ФОТО -->
         <div class="slider-section" id="sliderSection">
             <div class="slider-container" id="sliderContainer">
-                <!-- Слайды (замени data-src на свои фото) -->
-                <img src="" data-src="photo1.jpg" alt="Фото 1" style="display: block;">
-                <img src="" data-src="photo2.jpg" alt="Фото 2" style="display: none;">
-                <img src="" data-src="photo3.jpg" alt="Фото 3" style="display: none;">
-                <img src="" data-src="photo4.jpg" alt="Фото 4" style="display: none;">
-                <img src="" data-src="photo5.jpg" alt="Фото 5" style="display: none;">
-                <img src="" data-src="photo6.jpg" alt="Фото 6" style="display: none;">
-                <img src="" data-src="photo7.jpg" alt="Фото 7" style="display: none;">
-                <img src="" data-src="photo8.jpg" alt="Фото 8" style="display: none;">
-                <img src="" data-src="photo9.jpg" alt="Фото 9" style="display: none;">
-                <img src="" data-src="photo10.jpg" alt="Фото 10" style="display: none;">
-                
-                <!-- Заглушка (показывается если нет фото) -->
-                <div class="placeholder-slide" id="placeholderSlide" style="display: flex;">
-                    Фото 1
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo1.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo1.jpg" alt="Фото 1" style="display: block;" onerror="this.style.display='none'; document.getElementById('placeholderSlide').style.display='flex'; document.getElementById('placeholderSlide').innerHTML='📷<br>Фото 1 (не найдено)';">
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo2.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo2.jpg" alt="Фото 2" style="display: none;" onerror="this.style.display='none';">
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo3.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo3.jpg" alt="Фото 3" style="display: none;" onerror="this.style.display='none';">
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo4.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo4.jpg" alt="Фото 4" style="display: none;" onerror="this.style.display='none';">
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo5.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo5.jpg" alt="Фото 5" style="display: none;" onerror="this.style.display='none';">
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo6.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo6.jpg" alt="Фото 6" style="display: none;" onerror="this.style.display='none';">
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo7.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo7.jpg" alt="Фото 7" style="display: none;" onerror="this.style.display='none';">
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo8.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo8.jpg" alt="Фото 8" style="display: none;" onerror="this.style.display='none';">
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo9.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo9.jpg" alt="Фото 9" style="display: none;" onerror="this.style.display='none';">
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo10.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo10.jpg" alt="Фото 10" style="display: none;" onerror="this.style.display='none';">
+                <img src="C:/Users/aleks/Desktop/priglashenie/photo11.jpg" data-src="C:/Users/aleks/Desktop/priglashenie/photo11.jpg" alt="Фото 11" style="display: none;" onerror="this.style.display='none';">
+
+                <div class="placeholder-slide" id="placeholderSlide" style="display: none;">
+                    📷<br>Фото 1
                 </div>
             </div>
 
-            <!-- Кнопки навигации -->
             <button class="slider-nav prev" id="sliderPrev">&#10094;</button>
             <button class="slider-nav next" id="sliderNext">&#10095;</button>
 
-            <!-- Счётчик -->
             <div class="slider-counter">
-                <span class="current" id="sliderCurrent">1</span> / <span id="sliderTotal">10</span>
+                <span class="current" id="sliderCurrent">1</span> / <span id="sliderTotal">11</span>
             </div>
 
-            <!-- Точки -->
             <div class="slider-dots" id="sliderDots"></div>
         </div>
 
@@ -646,7 +640,7 @@
             link.click();
         });
 
-        // ========== СЛАЙДЕР ==========
+        // ========== СЛАЙДЕР (11 фото) ==========
         const slides = document.querySelectorAll('#sliderContainer img');
         const placeholderSlide = document.getElementById('placeholderSlide');
         const sliderPrev = document.getElementById('sliderPrev');
@@ -655,11 +649,11 @@
         const sliderTotal = document.getElementById('sliderTotal');
         const sliderDots = document.getElementById('sliderDots');
         let currentSlide = 0;
-        const totalSlides = 10;
+        const totalSlides = 11;
 
         sliderTotal.textContent = totalSlides;
 
-        // Создаём точки
+        // Создаём точки для 11 слайдов
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('span');
             dot.classList.add('dot-nav');
@@ -672,15 +666,25 @@
         function goToSlide(index) {
             // Скрываем все слайды
             slides.forEach(s => s.style.display = 'none');
-            // Показываем нужный
-            if (slides[index].getAttribute('data-src') && slides[index].getAttribute('data-src').trim() !== '') {
-                slides[index].src = slides[index].getAttribute('data-src');
-                slides[index].style.display = 'block';
-                placeholderSlide.style.display = 'none';
+            placeholderSlide.style.display = 'none';
+
+            const currentSlideElement = slides[index];
+            const src = currentSlideElement.getAttribute('data-src');
+
+            if (src && src.trim() !== '') {
+                currentSlideElement.src = src;
+                currentSlideElement.style.display = 'block';
+                // Если фото не загрузилось — покажем заглушку
+                currentSlideElement.onerror = function() {
+                    this.style.display = 'none';
+                    placeholderSlide.style.display = 'flex';
+                    placeholderSlide.innerHTML = '📷<br>Фото ' + (index + 1) + ' (не найдено)';
+                };
             } else {
                 placeholderSlide.style.display = 'flex';
                 placeholderSlide.innerHTML = '📷<br>Фото ' + (index + 1);
             }
+
             // Обновляем точки
             dots.forEach((d, i) => d.classList.toggle('active', i === index));
             // Обновляем счётчик
@@ -710,7 +714,7 @@
             }
         });
 
-        // Инициализация — показываем первый слайд
+        // Инициализация
         goToSlide(0);
 
         // ========== ФОРМА ==========
