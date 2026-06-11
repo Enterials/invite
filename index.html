@@ -42,7 +42,7 @@
             overflow-x: hidden;
         }
 
-        /* ========== ФОН С ЛИНИЯМИ (ИСПРАВЛЕНО) ========== */
+        /* ========== ФОН С ЛИНИЯМИ ========== */
         .bg-lines {
             position: fixed;
             top: 0;
@@ -189,7 +189,7 @@
             transform: translateY(0);
         }
 
-        /* ========== ГАЛЕРЕЯ-СЛАЙДЕР ========== */
+        /* ========== СЛАЙДЕР С ПЛАВНОЙ АНИМАЦИЕЙ ========== */
         .slider-section {
             width: 100%;
             max-width: 700px;
@@ -207,17 +207,54 @@
             overflow: hidden;
             background: var(--border);
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+            perspective: 1000px;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
         }
 
         .slider-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
-            transition: opacity 0.4s ease;
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: scale(0.92);
+            filter: blur(8px);
+        }
+
+        .slider-container img.active {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+            z-index: 2;
+        }
+
+        .slider-container img.prev {
+            opacity: 0;
+            transform: translateX(-30%) scale(0.9);
+            filter: blur(4px);
+            z-index: 1;
+        }
+
+        .slider-container img.next {
+            opacity: 0;
+            transform: translateX(30%) scale(0.9);
+            filter: blur(4px);
+            z-index: 1;
         }
 
         .slider-container .placeholder-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -229,12 +266,53 @@
             text-align: center;
             flex-direction: column;
             background: var(--white);
+            z-index: 3;
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: scale(0.92);
+            filter: blur(8px);
+        }
+        .slider-container .placeholder-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
         }
         .slider-container .placeholder-slide::before {
             content: '📷';
             font-size: 60px;
             display: block;
             margin-bottom: 12px;
+        }
+
+        /* Частицы при переключении */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: particleFly 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes particleFly {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
         }
 
         .slider-nav {
@@ -278,6 +356,7 @@
             color: var(--accent);
             font-weight: 600;
             font-size: 18px;
+            transition: all 0.3s ease;
         }
 
         .slider-dots {
@@ -293,7 +372,7 @@
             border-radius: 50%;
             background: var(--border);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .slider-dots .dot-nav.active {
             background: var(--accent);
@@ -523,10 +602,9 @@
 </head>
 <body>
 
-    <!-- ФОН С ЛИНИЯМИ (ТЕПЕРЬ ЗАМЕТНЫЕ) -->
+    <!-- ФОН С ЛИНИЯМИ -->
     <div class="bg-lines">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
-            <!-- Прямые линии -->
             <line x1="0" y1="120" x2="400" y2="80" stroke="#d4c5a0" stroke-width="1.2" opacity="0.7"/>
             <line x1="200" y1="300" x2="700" y2="250" stroke="#d4c5a0" stroke-width="0.8" opacity="0.6"/>
             <line x1="800" y1="100" x2="1200" y2="180" stroke="#d4c5a0" stroke-width="1" opacity="0.5"/>
@@ -535,16 +613,13 @@
             <line x1="0" y1="700" x2="500" y2="650" stroke="#b8944b" stroke-width="0.8" opacity="0.5"/>
             <line x1="600" y1="800" x2="1100" y2="750" stroke="#d4c5a0" stroke-width="1" opacity="0.5"/>
             <line x1="300" y1="900" x2="800" y2="880" stroke="#b8944b" stroke-width="0.8" opacity="0.6"/>
-            <!-- Диагональные -->
             <line x1="100" y1="0" x2="500" y2="400" stroke="#d4c5a0" stroke-width="0.8" opacity="0.5"/>
             <line x1="800" y1="0" x2="1200" y2="500" stroke="#b8944b" stroke-width="0.8" opacity="0.5"/>
             <line x1="0" y1="300" x2="600" y2="800" stroke="#d4c5a0" stroke-width="0.7" opacity="0.6"/>
             <line x1="1000" y1="200" x2="1440" y2="600" stroke="#b8944b" stroke-width="0.8" opacity="0.5"/>
-            <!-- Волнистые -->
             <path d="M0 150 Q200 100 400 180 T800 160 T1200 200 T1440 170" stroke="#d4c5a0" stroke-width="1" fill="none" opacity="0.5"/>
             <path d="M0 450 Q300 400 500 480 T1000 440 T1440 500" stroke="#b8944b" stroke-width="0.8" fill="none" opacity="0.5"/>
             <path d="M0 600 Q250 550 450 620 T900 580 T1440 630" stroke="#d4c5a0" stroke-width="0.8" fill="none" opacity="0.5"/>
-            <!-- Короткие штрихи -->
             <line x1="150" y1="200" x2="280" y2="185" stroke="#d4c5a0" stroke-width="1.2" opacity="0.7"/>
             <line x1="500" y1="350" x2="600" y2="335" stroke="#b8944b" stroke-width="1" opacity="0.6"/>
             <line x1="850" y1="150" x2="980" y2="165" stroke="#d4c5a0" stroke-width="1.2" opacity="0.6"/>
@@ -552,7 +627,6 @@
             <line x1="50" y1="550" x2="200" y2="565" stroke="#d4c5a0" stroke-width="1" opacity="0.6"/>
             <line x1="700" y1="700" x2="840" y2="685" stroke="#b8944b" stroke-width="1.2" opacity="0.6"/>
             <line x1="950" y1="850" x2="1100" y2="835" stroke="#d4c5a0" stroke-width="1" opacity="0.6"/>
-            <!-- Дополнительные пересекающиеся -->
             <line x1="350" y1="50" x2="350" y2="350" stroke="#d4c5a0" stroke-width="0.6" opacity="0.4"/>
             <line x1="750" y1="600" x2="750" y2="850" stroke="#b8944b" stroke-width="0.6" opacity="0.4"/>
             <line x1="1150" y1="100" x2="1150" y2="400" stroke="#d4c5a0" stroke-width="0.6" opacity="0.4"/>
@@ -580,18 +654,19 @@
         <!-- СЛАЙДЕР-ГАЛЕРЕЯ НА 10 ФОТО -->
         <div class="slider-section fade-in" id="sliderSection">
             <div class="slider-container" id="sliderContainer">
-                <img src="photo1.jpg" data-src="photo1.jpg" alt="Фото 1" style="display: block;" onerror="this.style.display='none'; document.getElementById('placeholderSlide').style.display='flex'; document.getElementById('placeholderSlide').innerHTML='📷<br>Фото 1 (не найдено)';">
-                <img src="photo2.jpg" data-src="photo2.jpg" alt="Фото 2" style="display: none;" onerror="this.style.display='none';">
-                <img src="photo3.jpg" data-src="photo3.jpg" alt="Фото 3" style="display: none;" onerror="this.style.display='none';">
-                <img src="photo4.jpg" data-src="photo4.jpg" alt="Фото 4" style="display: none;" onerror="this.style.display='none';">
-                <img src="photo5.jpg" data-src="photo5.jpg" alt="Фото 5" style="display: none;" onerror="this.style.display='none';">
-                <img src="photo6.jpg" data-src="photo6.jpg" alt="Фото 6" style="display: none;" onerror="this.style.display='none';">
-                <img src="photo7.jpg" data-src="photo7.jpg" alt="Фото 7" style="display: none;" onerror="this.style.display='none';">
-                <img src="photo8.jpg" data-src="photo8.jpg" alt="Фото 8" style="display: none;" onerror="this.style.display='none';">
-                <img src="photo9.jpg" data-src="photo9.jpg" alt="Фото 9" style="display: none;" onerror="this.style.display='none';">
-                <img src="photo10.jpg" data-src="photo10.jpg" alt="Фото 10" style="display: none;" onerror="this.style.display='none';">
+                <div class="particles" id="particles"></div>
+                <img src="photo1.jpg" data-src="photo1.jpg" alt="Фото 1" class="active" onerror="this.style.display='none'; showPlaceholder(0);">
+                <img src="photo2.jpg" data-src="photo2.jpg" alt="Фото 2" onerror="this.style.display='none';">
+                <img src="photo3.jpg" data-src="photo3.jpg" alt="Фото 3" onerror="this.style.display='none';">
+                <img src="photo4.jpg" data-src="photo4.jpg" alt="Фото 4" onerror="this.style.display='none';">
+                <img src="photo5.jpg" data-src="photo5.jpg" alt="Фото 5" onerror="this.style.display='none';">
+                <img src="photo6.jpg" data-src="photo6.jpg" alt="Фото 6" onerror="this.style.display='none';">
+                <img src="photo7.jpg" data-src="photo7.jpg" alt="Фото 7" onerror="this.style.display='none';">
+                <img src="photo8.jpg" data-src="photo8.jpg" alt="Фото 8" onerror="this.style.display='none';">
+                <img src="photo9.jpg" data-src="photo9.jpg" alt="Фото 9" onerror="this.style.display='none';">
+                <img src="photo10.jpg" data-src="photo10.jpg" alt="Фото 10" onerror="this.style.display='none';">
 
-                <div class="placeholder-slide" id="placeholderSlide" style="display: none;">
+                <div class="placeholder-slide" id="placeholderSlide">
                     📷<br>Фото 1
                 </div>
             </div>
@@ -720,75 +795,154 @@
             link.click();
         });
 
-        // ========== СЛАЙДЕР (10 фото) ==========
+        // ========== СЛАЙДЕР С ПЛАВНОЙ АНИМАЦИЕЙ ==========
         const slides = document.querySelectorAll('#sliderContainer img');
         const placeholderSlide = document.getElementById('placeholderSlide');
+        const particlesContainer = document.getElementById('particles');
         const sliderPrev = document.getElementById('sliderPrev');
         const sliderNext = document.getElementById('sliderNext');
         const sliderCurrent = document.getElementById('sliderCurrent');
         const sliderTotal = document.getElementById('sliderTotal');
         const sliderDots = document.getElementById('sliderDots');
         let currentSlide = 0;
+        let isAnimating = false;
         const totalSlides = 10;
 
         sliderTotal.textContent = totalSlides;
 
+        // Создаём точки
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('span');
             dot.classList.add('dot-nav');
             if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(i));
+            dot.addEventListener('click', () => {
+                if (!isAnimating && i !== currentSlide) {
+                    const direction = i > currentSlide ? 'next' : 'prev';
+                    goToSlide(i, direction);
+                }
+            });
             sliderDots.appendChild(dot);
         }
         const dots = document.querySelectorAll('.slider-dots .dot-nav');
 
-        function goToSlide(index) {
-            slides.forEach(s => s.style.display = 'none');
+        // Создание частиц
+        function createParticles(direction) {
+            const count = 20;
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const x = 30 + Math.random() * 40;
+                const y = 30 + Math.random() * 40;
+                const tx = (direction === 'next' ? -1 : 1) * (30 + Math.random() * 80);
+                const ty = (Math.random() - 0.5) * 100;
+                particle.style.left = x + '%';
+                particle.style.top = y + '%';
+                particle.style.setProperty('--tx', tx + 'px');
+                particle.style.setProperty('--ty', ty + 'px');
+                particle.style.animationDelay = Math.random() * 0.3 + 's';
+                particlesContainer.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 1000);
+            }
+        }
+
+        function showPlaceholder(index) {
+            placeholderSlide.innerHTML = '📷<br>Фото ' + (index + 1) + ' (не найдено)';
+            placeholderSlide.classList.add('active');
+        }
+
+        function goToSlide(index, direction) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const oldSlide = slides[currentSlide];
+            const newSlide = slides[index];
+
+            // Сбрасываем все классы
+            slides.forEach(s => {
+                s.classList.remove('active', 'prev', 'next');
+                s.style.display = 'none';
+            });
+            placeholderSlide.classList.remove('active');
             placeholderSlide.style.display = 'none';
 
-            const currentSlideElement = slides[index];
-            const src = currentSlideElement.getAttribute('data-src');
-
+            // Показываем новый слайд
+            const src = newSlide.getAttribute('data-src');
             if (src && src.trim() !== '') {
-                currentSlideElement.src = src;
-                currentSlideElement.style.display = 'block';
-                currentSlideElement.onerror = function() {
+                newSlide.src = src;
+                newSlide.style.display = 'block';
+                newSlide.classList.add('active');
+
+                newSlide.onerror = function() {
                     this.style.display = 'none';
-                    placeholderSlide.style.display = 'flex';
-                    placeholderSlide.innerHTML = '📷<br>Фото ' + (index + 1) + ' (не найдено)';
+                    showPlaceholder(index);
+                    isAnimating = false;
                 };
             } else {
-                placeholderSlide.style.display = 'flex';
-                placeholderSlide.innerHTML = '📷<br>Фото ' + (index + 1);
+                showPlaceholder(index);
+                isAnimating = false;
             }
 
+            // Частицы
+            createParticles(direction);
+
+            // Обновляем точки
             dots.forEach((d, i) => d.classList.toggle('active', i === index));
+
+            // Обновляем счётчик с анимацией
+            sliderCurrent.style.transform = 'scale(1.4)';
             sliderCurrent.textContent = index + 1;
+            setTimeout(() => {
+                sliderCurrent.style.transform = 'scale(1)';
+            }, 300);
+
             currentSlide = index;
+
+            setTimeout(() => {
+                isAnimating = false;
+            }, 700);
         }
 
         sliderPrev.addEventListener('click', () => {
+            if (isAnimating) return;
             const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
-            goToSlide(newIndex);
+            goToSlide(newIndex, 'prev');
         });
 
         sliderNext.addEventListener('click', () => {
+            if (isAnimating) return;
             const newIndex = (currentSlide + 1) % totalSlides;
-            goToSlide(newIndex);
+            goToSlide(newIndex, 'next');
         });
 
+        // Свайп для мобильных
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.getElementById('sliderContainer').addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.getElementById('sliderContainer').addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    sliderNext.click();
+                } else {
+                    sliderPrev.click();
+                }
+            }
+        });
+
+        // Клавиатура
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
-                goToSlide(newIndex);
-            }
-            if (e.key === 'ArrowRight') {
-                const newIndex = (currentSlide + 1) % totalSlides;
-                goToSlide(newIndex);
-            }
+            if (e.key === 'ArrowLeft') sliderPrev.click();
+            if (e.key === 'ArrowRight') sliderNext.click();
         });
 
-        goToSlide(0);
+        // Инициализация
+        goToSlide(0, 'next');
 
         // ========== ФОРМА ==========
         const rsvpForm = document.getElementById('rsvpForm');
