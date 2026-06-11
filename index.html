@@ -36,7 +36,6 @@
             font-size: 22px;
             position: relative;
             overflow-x: hidden;
-            user-select: none;
             -webkit-user-select: none;
         }
 
@@ -118,7 +117,7 @@
         .hero .date-sub { font-size: 20px; letter-spacing: 5px; color: var(--muted); text-transform: uppercase; margin-top: 8px; margin-bottom: 80px; }
         .hero .romantic-phrase { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-style: italic; color: var(--accent); letter-spacing: 2px; max-width: 700px; line-height: 1.6; margin-top: 30px; margin-bottom: 50px; }
 
-        /* ========== КНОПКА (КЛИКАБЕЛЬНА) ========== */
+        /* ========== КНОПКА (ТЕПЕРЬ ОТКРЫВАЕТ ССЫЛКУ) ========== */
         .calendar-btn {
             display: inline-block; padding: 16px 36px; background: transparent; color: var(--accent);
             border: 1px solid var(--accent); border-radius: 2px; font-family: 'Cormorant Garamond', serif;
@@ -248,58 +247,17 @@
         .map-container { width: 100%; height: 350px; border-radius: 2px; overflow: hidden; border: 1px solid var(--border); background: var(--border); }
         .map-address { text-align: center; margin-top: 20px; font-size: 21px; color: var(--muted); letter-spacing: 1px; }
 
-        /* ========== ФОРМА (ИСПРАВЛЕНА) ========== */
         .rsvp-form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
         .rsvp-form input, .rsvp-form select, .rsvp-form textarea { width: 100%; padding: 16px 20px; border: 1px solid var(--border); border-radius: 2px; font-family: 'Cormorant Garamond', serif; font-size: 22px; background: var(--white); color: var(--text); letter-spacing: 1px; transition: border-color 0.3s; outline: none; }
         .rsvp-form input:focus, .rsvp-form select:focus, .rsvp-form textarea:focus { border-color: var(--accent); }
         .rsvp-form textarea { resize: vertical; min-height: 100px; }
         .rsvp-form select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a8a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 20px center; }
-
-        /* Радио-группа — выровнена */
-        .rsvp-form .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: flex-start;
-            padding: 5px 0;
-        }
-        .rsvp-form .radio-group .radio-title {
-            font-size: 20px;
-            letter-spacing: 2px;
-            color: var(--text);
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        .rsvp-form .radio-group label {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            font-size: 22px;
-            letter-spacing: 1px;
-            color: var(--text);
-            padding: 8px 16px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            width: 100%;
-            transition: all 0.3s ease;
-            background: var(--white);
-        }
-        .rsvp-form .radio-group label:hover {
-            border-color: var(--accent-light);
-            background: #fdfaf3;
-        }
-        .rsvp-form .radio-group label:has(input:checked) {
-            border-color: var(--accent);
-            background: rgba(184, 148, 75, 0.08);
-        }
-        .rsvp-form .radio-group input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--accent);
-            cursor: pointer;
-            flex-shrink: 0;
-        }
+        .rsvp-form .radio-group { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 5px 0; }
+        .rsvp-form .radio-group .radio-title { font-size: 20px; letter-spacing: 2px; color: var(--text); margin-bottom: 5px; font-weight: 500; }
+        .rsvp-form .radio-group label { display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 22px; letter-spacing: 1px; color: var(--text); padding: 8px 16px; border: 1px solid var(--border); border-radius: 4px; width: 100%; transition: all 0.3s ease; background: var(--white); }
+        .rsvp-form .radio-group label:hover { border-color: var(--accent-light); background: #fdfaf3; }
+        .rsvp-form .radio-group label:has(input:checked) { border-color: var(--accent); background: rgba(184, 148, 75, 0.08); }
+        .rsvp-form .radio-group input[type="radio"] { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
         .rsvp-form button { padding: 16px 40px; background: var(--accent); color: white; border: none; border-radius: 2px; font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; transition: background 0.3s, transform 0.2s; pointer-events: auto; touch-action: manipulation; }
         .rsvp-form button:hover { background: #a07d3a; transform: translateY(-2px); }
         .rsvp-form button:active { transform: scale(0.97); }
@@ -351,7 +309,9 @@
             <div class="date-large fade-in initial-visible">01 · 08 · 2026</div>
             <p class="date-sub fade-in initial-visible">Сохраните дату</p>
             <p class="romantic-phrase fade-in initial-visible">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
-            <a class="calendar-btn fade-in initial-visible" id="calendarButton" href="#" onclick="event.preventDefault(); document.getElementById('calendarButton').click();">Нажми чтобы не забыть</a>
+            
+            <!-- КНОПКА (открывает Google Календарь) -->
+            <a class="calendar-btn fade-in initial-visible" id="calendarButton" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Свадьба+Алины+и+Артура+💍&dates=20260801T114500/20260801T130000&details=Сбор+гостей:+11:45%0AНачало+регистрации:+12:00%0A%0AМесто:+ЗАГС,+г.+Долинск,+ул.+Хабаровская,+13Б&location=г.+Долинск,+ул.+Хабаровская,+13,+корп.+Б" target="_blank" rel="noopener noreferrer">Нажми чтобы не забыть</a>
 
             <div class="slider-section fade-in" id="sliderSection">
                 <div class="slider-container" id="sliderContainer">
@@ -428,26 +388,6 @@
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('load', () => { showInitialElements(); handleScroll(); });
         setTimeout(() => { showInitialElements(); handleScroll(); }, 100);
-
-        // ========== КНОПКА КАЛЕНДАРЯ (КЛИКАБЕЛЬНА) ==========
-        const calendarBtn = document.getElementById('calendarButton');
-        calendarBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const icsData = ['BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT','DTSTART:20260801T114500','DTEND:20260801T130000','SUMMARY:Свадьба Алины и Артура 💍','DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: ЗАГС, г. Долинск, ул. Хабаровская, 13Б','LOCATION:г. Долинск, ул. Хабаровская, 13Б','BEGIN:VALARM','TRIGGER:-PT24H','ACTION:DISPLAY','DESCRIPTION:Завтра свадьба! 💍','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
-            const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'Алина_и_Артур_свадьба.ics';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
-        calendarBtn.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            calendarBtn.click();
-        });
 
         // ========== СЛАЙДЕР ==========
         const sliderTrack = document.getElementById('sliderTrack');
