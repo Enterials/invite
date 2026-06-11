@@ -85,11 +85,31 @@
 
         /* Слайдер */
         .slider-section { width: 100%; max-width: 700px; margin: 0 auto 80px; padding: 0 30px; position: relative; }
-        .slider-container { position: relative; width: 100%; border-radius: 4px; overflow: hidden; background: var(--white); box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08); border: 1px solid var(--border); }
-        .slider-inner { position: relative; width: 100%; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 500px; background: var(--white); }
-        .slider-container img { max-width: 100%; max-height: 650px; width: auto; height: auto; object-fit: contain; transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; transform: scale(0.92); filter: blur(8px); display: none; border-radius: 2px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); }
+        .slider-container {
+            position: relative; width: 100%; border-radius: 4px; overflow: hidden;
+            background: transparent; box-shadow: none; border: none;
+        }
+        .slider-inner {
+            position: relative; width: 100%; padding: 25px;
+            display: flex; align-items: center; justify-content: center;
+            min-height: 500px;
+            background: rgba(250, 250, 248, 0.5);
+            border-radius: 6px;
+            border: 1px solid rgba(212, 197, 160, 0.2);
+            box-shadow: 0 0 0 1px rgba(184, 148, 75, 0.08), 0 4px 20px rgba(0, 0, 0, 0.04);
+            backdrop-filter: blur(2px);
+        }
+        .slider-container img {
+            max-width: 100%; max-height: 620px; width: auto; height: auto;
+            object-fit: contain;
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0; transform: scale(0.92); filter: blur(8px);
+            display: none;
+            border-radius: 2px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+        }
         .slider-container img.active { opacity: 1; transform: scale(1); filter: blur(0); z-index: 2; display: block; }
-        .slider-container .placeholder-slide { display: none; align-items: center; justify-content: center; width: 100%; min-height: 400px; font-size: 18px; color: var(--muted); letter-spacing: 2px; text-align: center; flex-direction: column; background: var(--white); transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; transform: scale(0.92); filter: blur(8px); }
+        .slider-container .placeholder-slide { display: none; align-items: center; justify-content: center; width: 100%; min-height: 400px; font-size: 18px; color: var(--muted); letter-spacing: 2px; text-align: center; flex-direction: column; transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; transform: scale(0.92); filter: blur(8px); }
         .slider-container .placeholder-slide.active { opacity: 1; transform: scale(1); filter: blur(0); display: flex; }
         .slider-container .placeholder-slide i { font-size: 60px; color: var(--accent-light); margin-bottom: 12px; }
 
@@ -169,6 +189,9 @@
             .hero h1 { font-size: 34px; } .hero .date-large { font-size: 44px; } .monogram .letter { font-size: 58px; }
             .details-grid { grid-template-columns: 1fr; }
             .section { padding: 50px 20px; }
+            .slider-inner { padding: 15px; min-height: 350px; }
+            .slider-nav { width: 40px; height: 40px; font-size: 22px; }
+            .slider-nav.prev { left: -20px; } .slider-nav.next { right: -20px; }
         }
     </style>
 </head>
@@ -268,7 +291,6 @@
     </div>
 
     <script>
-        // Аналогичный скрипт (без изменений в логике)
         function handleScroll() {
             document.querySelectorAll('.fade-in').forEach(el => {
                 const rect = el.getBoundingClientRect();
