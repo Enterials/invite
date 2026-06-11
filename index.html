@@ -42,7 +42,6 @@
             overflow-x: hidden;
         }
 
-        /* ========== ФОН С ЛИНИЯМИ ========== */
         .bg-lines {
             position: fixed;
             top: 0;
@@ -63,7 +62,6 @@
             z-index: 1;
         }
 
-        /* ========== АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ ========== */
         .fade-in {
             opacity: 0;
             transform: translateY(40px);
@@ -185,11 +183,8 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(184, 148, 75, 0.3);
         }
-        .calendar-btn:active {
-            transform: translateY(0);
-        }
+        .calendar-btn:active { transform: translateY(0); }
 
-        /* ========== СЛАЙДЕР С ПЛАВНОЙ АНИМАЦИЕЙ ========== */
         .slider-section {
             width: 100%;
             max-width: 700px;
@@ -210,13 +205,6 @@
             perspective: 1000px;
         }
 
-        .slider-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-        }
-
         .slider-container img {
             position: absolute;
             top: 0;
@@ -228,6 +216,7 @@
             opacity: 0;
             transform: scale(0.92);
             filter: blur(8px);
+            display: none;
         }
 
         .slider-container img.active {
@@ -235,20 +224,7 @@
             transform: scale(1);
             filter: blur(0);
             z-index: 2;
-        }
-
-        .slider-container img.prev {
-            opacity: 0;
-            transform: translateX(-30%) scale(0.9);
-            filter: blur(4px);
-            z-index: 1;
-        }
-
-        .slider-container img.next {
-            opacity: 0;
-            transform: translateX(30%) scale(0.9);
-            filter: blur(4px);
-            z-index: 1;
+            display: block;
         }
 
         .slider-container .placeholder-slide {
@@ -271,11 +247,13 @@
             opacity: 0;
             transform: scale(0.92);
             filter: blur(8px);
+            display: none;
         }
         .slider-container .placeholder-slide.active {
             opacity: 1;
             transform: scale(1);
             filter: blur(0);
+            display: flex;
         }
         .slider-container .placeholder-slide::before {
             content: '📷';
@@ -284,7 +262,6 @@
             margin-bottom: 12px;
         }
 
-        /* Частицы при переключении */
         .particles {
             position: absolute;
             top: 0;
@@ -305,14 +282,8 @@
         }
 
         @keyframes particleFly {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(0);
-            }
+            0% { opacity: 1; transform: translate(0, 0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
         }
 
         .slider-nav {
@@ -651,20 +622,21 @@
         <p class="romantic-phrase fade-in fade-in-delay-5">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
         <a class="calendar-btn fade-in fade-in-delay-5" id="calendarButton" href="#" download="Алина_и_Артур_свадьба.ics">Нажми чтобы не забыть :3</a>
 
-        <!-- СЛАЙДЕР-ГАЛЕРЕЯ НА 10 ФОТО -->
+        <!-- СЛАЙДЕР НА 10 ФОТО -->
         <div class="slider-section fade-in" id="sliderSection">
             <div class="slider-container" id="sliderContainer">
                 <div class="particles" id="particles"></div>
-                <img src="photo1.jpg" data-src="photo1.jpg" alt="Фото 1" class="active" onerror="this.style.display='none'; showPlaceholder(0);">
-                <img src="photo2.jpg" data-src="photo2.jpg" alt="Фото 2" onerror="this.style.display='none';">
-                <img src="photo3.jpg" data-src="photo3.jpg" alt="Фото 3" onerror="this.style.display='none';">
-                <img src="photo4.jpg" data-src="photo4.jpg" alt="Фото 4" onerror="this.style.display='none';">
-                <img src="photo5.jpg" data-src="photo5.jpg" alt="Фото 5" onerror="this.style.display='none';">
-                <img src="photo6.jpg" data-src="photo6.jpg" alt="Фото 6" onerror="this.style.display='none';">
-                <img src="photo7.jpg" data-src="photo7.jpg" alt="Фото 7" onerror="this.style.display='none';">
-                <img src="photo8.jpg" data-src="photo8.jpg" alt="Фото 8" onerror="this.style.display='none';">
-                <img src="photo9.jpg" data-src="photo9.jpg" alt="Фото 9" onerror="this.style.display='none';">
-                <img src="photo10.jpg" data-src="photo10.jpg" alt="Фото 10" onerror="this.style.display='none';">
+                <!-- Все фото загружаются из корня репозитория -->
+                <img src="photo1.jpg" alt="Фото 1" class="active" onerror="this.onerror=null; this.src=''; document.getElementById('placeholderSlide').classList.add('active'); document.getElementById('placeholderSlide').innerHTML='📷<br>Фото 1 (загрузите фото в репозиторий)';">
+                <img src="photo2.jpg" alt="Фото 2" onerror="this.onerror=null; this.src='';">
+                <img src="photo3.jpg" alt="Фото 3" onerror="this.onerror=null; this.src='';">
+                <img src="photo4.jpg" alt="Фото 4" onerror="this.onerror=null; this.src='';">
+                <img src="photo5.jpg" alt="Фото 5" onerror="this.onerror=null; this.src='';">
+                <img src="photo6.jpg" alt="Фото 6" onerror="this.onerror=null; this.src='';">
+                <img src="photo7.jpg" alt="Фото 7" onerror="this.onerror=null; this.src='';">
+                <img src="photo8.jpg" alt="Фото 8" onerror="this.onerror=null; this.src='';">
+                <img src="photo9.jpg" alt="Фото 9" onerror="this.onerror=null; this.src='';">
+                <img src="photo10.jpg" alt="Фото 10" onerror="this.onerror=null; this.src='';">
 
                 <div class="placeholder-slide" id="placeholderSlide">
                     📷<br>Фото 1
@@ -749,10 +721,9 @@
         До встречи 1 августа 2026 года
     </footer>
 
-    </div><!-- конец content-wrapper -->
+    </div>
 
     <script>
-        // ========== АНИМАЦИЯ ПРИ СКРОЛЛЕ ==========
         function handleScroll() {
             const elements = document.querySelectorAll('.fade-in');
             elements.forEach(el => {
@@ -768,7 +739,6 @@
         window.addEventListener('load', handleScroll);
         setTimeout(handleScroll, 100);
 
-        // ========== КНОПКА КАЛЕНДАРЯ ==========
         document.getElementById('calendarButton').addEventListener('click', function(e) {
             e.preventDefault();
             const event = [
@@ -795,7 +765,7 @@
             link.click();
         });
 
-        // ========== СЛАЙДЕР С ПЛАВНОЙ АНИМАЦИЕЙ ==========
+        // ========== СЛАЙДЕР ==========
         const slides = document.querySelectorAll('#sliderContainer img');
         const placeholderSlide = document.getElementById('placeholderSlide');
         const particlesContainer = document.getElementById('particles');
@@ -810,7 +780,6 @@
 
         sliderTotal.textContent = totalSlides;
 
-        // Создаём точки
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('span');
             dot.classList.add('dot-nav');
@@ -825,7 +794,6 @@
         }
         const dots = document.querySelectorAll('.slider-dots .dot-nav');
 
-        // Создание частиц
         function createParticles(direction) {
             const count = 20;
             for (let i = 0; i < count; i++) {
@@ -841,66 +809,40 @@
                 particle.style.setProperty('--ty', ty + 'px');
                 particle.style.animationDelay = Math.random() * 0.3 + 's';
                 particlesContainer.appendChild(particle);
-
                 setTimeout(() => particle.remove(), 1000);
             }
-        }
-
-        function showPlaceholder(index) {
-            placeholderSlide.innerHTML = '📷<br>Фото ' + (index + 1) + ' (не найдено)';
-            placeholderSlide.classList.add('active');
         }
 
         function goToSlide(index, direction) {
             if (isAnimating) return;
             isAnimating = true;
 
-            const oldSlide = slides[currentSlide];
-            const newSlide = slides[index];
-
-            // Сбрасываем все классы
-            slides.forEach(s => {
-                s.classList.remove('active', 'prev', 'next');
-                s.style.display = 'none';
-            });
+            slides.forEach(s => s.classList.remove('active'));
             placeholderSlide.classList.remove('active');
             placeholderSlide.style.display = 'none';
 
-            // Показываем новый слайд
-            const src = newSlide.getAttribute('data-src');
-            if (src && src.trim() !== '') {
-                newSlide.src = src;
-                newSlide.style.display = 'block';
-                newSlide.classList.add('active');
+            const currentSlideElement = slides[index];
+            currentSlideElement.classList.add('active');
+            currentSlideElement.style.display = 'block';
 
-                newSlide.onerror = function() {
-                    this.style.display = 'none';
-                    showPlaceholder(index);
-                    isAnimating = false;
-                };
-            } else {
-                showPlaceholder(index);
-                isAnimating = false;
-            }
+            currentSlideElement.onerror = function() {
+                this.style.display = 'none';
+                this.classList.remove('active');
+                placeholderSlide.classList.add('active');
+                placeholderSlide.style.display = 'flex';
+                placeholderSlide.innerHTML = '📷<br>Фото ' + (index + 1) + ' (загрузите фото в репозиторий)';
+            };
 
-            // Частицы
             createParticles(direction);
 
-            // Обновляем точки
             dots.forEach((d, i) => d.classList.toggle('active', i === index));
 
-            // Обновляем счётчик с анимацией
             sliderCurrent.style.transform = 'scale(1.4)';
             sliderCurrent.textContent = index + 1;
-            setTimeout(() => {
-                sliderCurrent.style.transform = 'scale(1)';
-            }, 300);
+            setTimeout(() => { sliderCurrent.style.transform = 'scale(1)'; }, 300);
 
             currentSlide = index;
-
-            setTimeout(() => {
-                isAnimating = false;
-            }, 700);
+            setTimeout(() => { isAnimating = false; }, 700);
         }
 
         sliderPrev.addEventListener('click', () => {
@@ -915,7 +857,6 @@
             goToSlide(newIndex, 'next');
         });
 
-        // Свайп для мобильных
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -927,21 +868,16 @@
             touchEndX = e.changedTouches[0].screenX;
             const diff = touchStartX - touchEndX;
             if (Math.abs(diff) > 50) {
-                if (diff > 0) {
-                    sliderNext.click();
-                } else {
-                    sliderPrev.click();
-                }
+                if (diff > 0) sliderNext.click();
+                else sliderPrev.click();
             }
         });
 
-        // Клавиатура
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowLeft') sliderPrev.click();
             if (e.key === 'ArrowRight') sliderNext.click();
         });
 
-        // Инициализация
         goToSlide(0, 'next');
 
         // ========== ФОРМА ==========
