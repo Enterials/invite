@@ -59,6 +59,139 @@
         .calendar-btn:hover { background: #a07d3a; transform: translateY(-2px); box-shadow: 0 6px 25px rgba(184, 148, 75, 0.4); }
         .calendar-btn:active { transform: scale(0.97); }
 
+        /* ========== СЕКРЕТНАЯ КНОПКА ========== */
+        .secret-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(184, 148, 75, 0.08);
+            border: 1px solid rgba(184, 148, 75, 0.1);
+            cursor: pointer;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            -webkit-tap-highlight-color: transparent;
+            backdrop-filter: blur(2px);
+            opacity: 0.5;
+        }
+        .secret-btn:hover {
+            background: rgba(184, 148, 75, 0.25);
+            border-color: rgba(184, 148, 75, 0.35);
+            opacity: 0.9;
+            transform: scale(1.15);
+        }
+        .secret-btn i {
+            font-size: 10px;
+            color: rgba(184, 148, 75, 0.5);
+            transition: all 0.3s ease;
+        }
+        .secret-btn:hover i { color: rgba(184, 148, 75, 0.9); }
+
+        /* ========== СЕКРЕТНОЕ МОДАЛЬНОЕ ОКНО ========== */
+        .secret-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.93);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .secret-overlay.active { display: flex; opacity: 1; }
+        .secret-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 36px;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            z-index: 1001;
+            font-family: sans-serif;
+            line-height: 1;
+        }
+        .secret-close:hover { color: white; }
+        .secret-title {
+            color: var(--accent-light);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        .secret-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 600px;
+            width: 90%;
+            padding: 10px;
+        }
+        .secret-grid .secret-photo {
+            aspect-ratio: 4/5;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.85;
+            background: rgba(255,255,255,0.03);
+        }
+        .secret-grid .secret-photo:hover { transform: scale(1.04); opacity: 1; }
+        .secret-grid .secret-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Лайтбокс для секретных фото */
+        .secret-lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.97);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+        }
+        .secret-lightbox.active { display: flex; }
+        .secret-lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .secret-lightbox .s-lightbox-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 40px; color: white;
+            cursor: pointer; z-index: 1101;
+            font-family: sans-serif;
+        }
+        .secret-lightbox .s-lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 50px; color: white;
+            cursor: pointer; padding: 20px;
+            font-family: sans-serif;
+            transition: opacity 0.3s;
+            z-index: 1101;
+        }
+        .secret-lightbox .s-lightbox-nav:hover { opacity: 0.7; }
+        .secret-lightbox .s-lightbox-nav.prev { left: 10px; }
+        .secret-lightbox .s-lightbox-nav.next { right: 10px; }
+
+        @media (max-width: 768px) {
+            .secret-btn { bottom: 25px; right: 25px; width: 26px; height: 26px; }
+            .secret-grid { gap: 10px; }
+        }
+
         .slider-section { width: 100%; max-width: 700px; margin: 0 auto 30px; padding: 0 30px; position: relative; }
         .slider-container { position: relative; width: 100%; border-radius: 4px; overflow: hidden; cursor: grab; touch-action: pan-y; }
         .slider-track { display: flex; transition: none; will-change: transform; }
@@ -114,6 +247,26 @@
     </style>
 </head>
 <body>
+    <!-- СЕКРЕТНАЯ КНОПКА -->
+    <button class="secret-btn" id="secretBtn" title="">
+        <i class="fas fa-circle"></i>
+    </button>
+
+    <!-- СЕКРЕТНОЕ МОДАЛЬНОЕ ОКНО -->
+    <div class="secret-overlay" id="secretOverlay">
+        <span class="secret-close" id="secretClose">&times;</span>
+        <div class="secret-title">только для своих</div>
+        <div class="secret-grid" id="secretGrid"></div>
+    </div>
+
+    <!-- ЛАЙТБОКС ДЛЯ СЕКРЕТНЫХ ФОТО -->
+    <div class="secret-lightbox" id="secretLightbox">
+        <span class="s-lightbox-close" id="sLightboxClose">&times;</span>
+        <span class="s-lightbox-nav prev" id="sLightboxPrev">&lsaquo;</span>
+        <img src="" alt="Фото" id="sLightboxImg">
+        <span class="s-lightbox-nav next" id="sLightboxNext">&rsaquo;</span>
+    </div>
+
     <div class="bg-lines">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
             <line x1="0" y1="120" x2="400" y2="80" stroke="#d4c5a0" stroke-width="1.2" opacity="0.7"/>
@@ -137,7 +290,6 @@
             <p class="date-sub fade-in initial-visible">Сохраните дату</p>
             <p class="romantic-phrase fade-in initial-visible">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
             
-            <!-- КНОПКА (открывает календарь с готовым событием) -->
             <a class="calendar-btn fade-in initial-visible" id="calendarButton" href="#">
                 Нажми чтобы не забыть
             </a>
@@ -217,52 +369,32 @@
         // ========== КНОПКА КАЛЕНДАРЯ ==========
         document.getElementById('calendarButton').addEventListener('click', function(e) {
             e.preventDefault();
-            
             const isIPhone = /iPhone|iPad|iPod/.test(navigator.userAgent);
-            
             if (isIPhone) {
-                // iPhone: открывает Apple Календарь с готовым событием
-                // Формат: calshow:DATE/TIME?title=...&location=...&notes=...
                 window.location.href = 'calshow:20260801T114500/20260801T130000' +
                     '?title=' + encodeURIComponent('Свадьба Алины и Артура 💍') +
                     '&location=' + encodeURIComponent('г. Долинск, ул. Хабаровская, 13, корп. Б') +
-                    '&notes=' + encodeURIComponent('Сбор гостей: 11:45. Начало регистрации: 12:00. ЗАГС, зал торжественных регистраций');
+                    '&notes=' + encodeURIComponent('Сбор гостей: 11:45. Начало регистрации: 12:00. ЗАГС');
             } else {
-                // Android и ПК: .ics файл с готовым событием
                 const icsContent = [
-                    'BEGIN:VCALENDAR',
-                    'VERSION:2.0',
-                    'PRODID:-//Wedding//RU',
-                    'BEGIN:VEVENT',
-                    'DTSTART;TZID=Asia/Sakhalin:20260801T114500',
-                    'DTEND;TZID=Asia/Sakhalin:20260801T130000',
+                    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding//RU','BEGIN:VEVENT',
+                    'DTSTART;TZID=Asia/Sakhalin:20260801T114500','DTEND;TZID=Asia/Sakhalin:20260801T130000',
                     'SUMMARY:Свадьба Алины и Артура 💍',
-                    'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: Зал торжественных регистраций, отдел ЗАГС\\nАдрес: г. Долинск, ул. Хабаровская, 13, корп. Б',
+                    'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: ЗАГС, г. Долинск, ул. Хабаровская, 13Б',
                     'LOCATION:г. Долинск, ул. Хабаровская, 13, корп. Б',
-                    'BEGIN:VALARM',
-                    'TRIGGER:-PT24H',
-                    'ACTION:DISPLAY',
-                    'DESCRIPTION:Завтра свадьба Алины и Артура! 💍',
-                    'END:VALARM',
-                    'END:VEVENT',
-                    'END:VCALENDAR'
+                    'BEGIN:VALARM','TRIGGER:-PT24H','ACTION:DISPLAY','DESCRIPTION:Завтра свадьба! 💍','END:VALARM',
+                    'END:VEVENT','END:VCALENDAR'
                 ].join('\r\n');
-                
                 const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
-                link.href = url;
-                link.download = 'svadba-alina-artur.ics';
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
-                setTimeout(() => {
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(url);
-                }, 1000);
+                link.href = url; link.download = 'svadba-alina-artur.ics'; link.style.display = 'none';
+                document.body.appendChild(link); link.click();
+                setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(url); }, 1000);
             }
         });
 
+        // ========== СЛАЙДЕР ==========
         const sliderTrack = document.getElementById('sliderTrack');
         const sliderCurrent = document.getElementById('sliderCurrent');
         const sliderTotal = document.getElementById('sliderTotal');
@@ -294,12 +426,55 @@
         function finishSwipe() { const w = sliderContainer.offsetWidth, diff = currentX - startX; if (Math.abs(diff) > w * 0.15) { if (diff < 0) goToSlide((currentSlide + 1) % totalSlides); else goToSlide((currentSlide - 1 + totalSlides) % totalSlides); } else goToSlide(currentSlide); }
         goToSlide(0);
 
+        // ========== ФОРМА ==========
         document.getElementById('rsvpForm').addEventListener('submit', function(e) {
             setTimeout(() => { this.style.display = 'none'; document.getElementById('formSuccess').classList.add('active'); }, 1000);
         });
 
+        // ========== КАРТА ==========
         function initMap() { if (typeof ymaps === 'undefined') return; ymaps.ready(function() { const map = new ymaps.Map('yandexMap', { center: [47.322018, 142.793501], zoom: 17 }); map.geoObjects.add(new ymaps.Placemark([47.322018, 142.793501], { hintContent: 'ЗАГС', balloonContent: 'г. Долинск, ул. Хабаровская, 13Б' })); }); }
         window.addEventListener('load', () => setTimeout(initMap, 500));
+
+        // ========== СЕКРЕТНАЯ КНОПКА + СЕКРЕТНЫЕ ФОТО ==========
+        const secretBtn = document.getElementById('secretBtn');
+        const secretOverlay = document.getElementById('secretOverlay');
+        const secretClose = document.getElementById('secretClose');
+        const secretGrid = document.getElementById('secretGrid');
+        const secretLightbox = document.getElementById('secretLightbox');
+        const sLightboxImg = document.getElementById('sLightboxImg');
+        const sLightboxClose = document.getElementById('sLightboxClose');
+        const sLightboxPrev = document.getElementById('sLightboxPrev');
+        const sLightboxNext = document.getElementById('sLightboxNext');
+
+        let secretPhotos = [];
+        let currentSecretIndex = 0;
+
+        for (let i = 1; i <= 4; i++) {
+            const photoName = 'photo s' + i + '.jpg';
+            secretPhotos.push(photoName);
+            const photoDiv = document.createElement('div');
+            photoDiv.classList.add('secret-photo');
+            photoDiv.innerHTML = `<img src="${photoName}" alt="Секретное фото ${i}" loading="lazy">`;
+            photoDiv.addEventListener('click', () => openSecretLightbox(i - 1));
+            secretGrid.appendChild(photoDiv);
+        }
+
+        secretBtn.addEventListener('click', () => { secretOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
+        secretClose.addEventListener('click', closeSecret);
+        secretOverlay.addEventListener('click', (e) => { if (e.target === secretOverlay) closeSecret(); });
+        function closeSecret() { secretOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+        function openSecretLightbox(index) { currentSecretIndex = index; sLightboxImg.src = secretPhotos[index]; secretLightbox.classList.add('active'); }
+        sLightboxClose.addEventListener('click', () => secretLightbox.classList.remove('active'));
+        secretLightbox.addEventListener('click', (e) => { if (e.target === secretLightbox) secretLightbox.classList.remove('active'); });
+        sLightboxPrev.addEventListener('click', () => { currentSecretIndex = (currentSecretIndex - 1 + secretPhotos.length) % secretPhotos.length; sLightboxImg.src = secretPhotos[currentSecretIndex]; });
+        sLightboxNext.addEventListener('click', () => { currentSecretIndex = (currentSecretIndex + 1) % secretPhotos.length; sLightboxImg.src = secretPhotos[currentSecretIndex]; });
+        document.addEventListener('keydown', (e) => {
+            if (!secretLightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') secretLightbox.classList.remove('active');
+            if (e.key === 'ArrowLeft') sLightboxPrev.click();
+            if (e.key === 'ArrowRight') sLightboxNext.click();
+        });
     </script>
 </body>
 </html>
