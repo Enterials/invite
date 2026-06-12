@@ -137,7 +137,7 @@
             <p class="date-sub fade-in initial-visible">Сохраните дату</p>
             <p class="romantic-phrase fade-in initial-visible">«Будем счастливы разделить с вами момент рождения нашей семьи»</p>
             
-            <!-- КНОПКА (Вариант 2: открывает календарь телефона) -->
+            <!-- КНОПКА (открывает календарь с готовым событием) -->
             <a class="calendar-btn fade-in initial-visible" id="calendarButton" href="#">
                 Нажми чтобы не забыть
             </a>
@@ -214,52 +214,40 @@
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('load', handleScroll);
 
-        // ========== КНОПКА КАЛЕНДАРЯ (Вариант 2) ==========
+        // ========== КНОПКА КАЛЕНДАРЯ ==========
         document.getElementById('calendarButton').addEventListener('click', function(e) {
             e.preventDefault();
             
-            const title = encodeURIComponent('Свадьба Алины и Артура 💍');
-            const location = encodeURIComponent('г. Долинск, ул. Хабаровская, 13, корп. Б');
-            const details = encodeURIComponent('Сбор гостей: 11:45. Начало регистрации: 12:00');
-            
-            // Определяем устройство
             const isIPhone = /iPhone|iPad|iPod/.test(navigator.userAgent);
-            const isAndroid = /Android/.test(navigator.userAgent);
             
             if (isIPhone) {
-                // Для iPhone — прямая ссылка в Apple Календарь
-                window.location.href = `calshow:20260801T114500/20260801T130000?title=${title}&location=${location}&notes=${details}`;
-            } else if (isAndroid) {
-                // Для Android — .ics файл
-                const icsContent = [
-                    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding//RU','BEGIN:VEVENT',
-                    'DTSTART:20260801T024500Z','DTEND:20260801T040000Z',
-                    'SUMMARY:Свадьба Алины и Артура 💍',
-                    'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: ЗАГС, г. Долинск, ул. Хабаровская, 13Б',
-                    'LOCATION:г. Долинск, ул. Хабаровская, 13, корп. Б',
-                    'BEGIN:VALARM','TRIGGER:-PT24H','ACTION:DISPLAY','DESCRIPTION:Завтра свадьба! 💍','END:VALARM',
-                    'END:VEVENT','END:VCALENDAR'
-                ].join('\r\n');
-                const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = 'svadba-alina-artur.ics';
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
-                setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(url); }, 1000);
+                // iPhone: открывает Apple Календарь с готовым событием
+                // Формат: calshow:DATE/TIME?title=...&location=...&notes=...
+                window.location.href = 'calshow:20260801T114500/20260801T130000' +
+                    '?title=' + encodeURIComponent('Свадьба Алины и Артура 💍') +
+                    '&location=' + encodeURIComponent('г. Долинск, ул. Хабаровская, 13, корп. Б') +
+                    '&notes=' + encodeURIComponent('Сбор гостей: 11:45. Начало регистрации: 12:00. ЗАГС, зал торжественных регистраций');
             } else {
-                // Для компьютера — .ics файл
+                // Android и ПК: .ics файл с готовым событием
                 const icsContent = [
-                    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding//RU','BEGIN:VEVENT',
-                    'DTSTART:20260801T024500Z','DTEND:20260801T040000Z',
+                    'BEGIN:VCALENDAR',
+                    'VERSION:2.0',
+                    'PRODID:-//Wedding//RU',
+                    'BEGIN:VEVENT',
+                    'DTSTART;TZID=Asia/Sakhalin:20260801T114500',
+                    'DTEND;TZID=Asia/Sakhalin:20260801T130000',
                     'SUMMARY:Свадьба Алины и Артура 💍',
-                    'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: ЗАГС, г. Долинск, ул. Хабаровская, 13Б',
+                    'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: Зал торжественных регистраций, отдел ЗАГС\\nАдрес: г. Долинск, ул. Хабаровская, 13, корп. Б',
                     'LOCATION:г. Долинск, ул. Хабаровская, 13, корп. Б',
-                    'BEGIN:VALARM','TRIGGER:-PT24H','ACTION:DISPLAY','DESCRIPTION:Завтра свадьба! 💍','END:VALARM',
-                    'END:VEVENT','END:VCALENDAR'
+                    'BEGIN:VALARM',
+                    'TRIGGER:-PT24H',
+                    'ACTION:DISPLAY',
+                    'DESCRIPTION:Завтра свадьба Алины и Артура! 💍',
+                    'END:VALARM',
+                    'END:VEVENT',
+                    'END:VCALENDAR'
                 ].join('\r\n');
+                
                 const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
@@ -268,7 +256,10 @@
                 link.style.display = 'none';
                 document.body.appendChild(link);
                 link.click();
-                setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(url); }, 1000);
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                }, 1000);
             }
         });
 
