@@ -62,130 +62,43 @@
         /* ========== СЕКРЕТНАЯ КНОПКА ========== */
         .secret-btn {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 30px;
-            height: 30px;
+            bottom: 40px; right: 40px;
+            width: 30px; height: 30px;
             border-radius: 50%;
             background: rgba(184, 148, 75, 0.08);
             border: 1px solid rgba(184, 148, 75, 0.1);
-            cursor: pointer;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            cursor: pointer; z-index: 999;
+            display: flex; align-items: center; justify-content: center;
             transition: all 0.4s ease;
             -webkit-tap-highlight-color: transparent;
             backdrop-filter: blur(2px);
             opacity: 0.5;
         }
-        .secret-btn:hover {
-            background: rgba(184, 148, 75, 0.25);
-            border-color: rgba(184, 148, 75, 0.35);
-            opacity: 0.9;
-            transform: scale(1.15);
-        }
-        .secret-btn i {
-            font-size: 10px;
-            color: rgba(184, 148, 75, 0.5);
-            transition: all 0.3s ease;
-        }
+        .secret-btn:hover { background: rgba(184, 148, 75, 0.25); border-color: rgba(184, 148, 75, 0.35); opacity: 0.9; transform: scale(1.15); }
+        .secret-btn i { font-size: 10px; color: rgba(184, 148, 75, 0.5); transition: all 0.3s ease; }
         .secret-btn:hover i { color: rgba(184, 148, 75, 0.9); }
 
-        /* ========== СЕКРЕТНОЕ МОДАЛЬНОЕ ОКНО ========== */
         .secret-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.93);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0, 0, 0, 0.93);
+            z-index: 1000; justify-content: center; align-items: center; flex-direction: column;
+            opacity: 0; transition: opacity 0.4s ease;
         }
         .secret-overlay.active { display: flex; opacity: 1; }
-        .secret-close {
-            position: absolute;
-            top: 20px; right: 30px;
-            font-size: 36px;
-            color: rgba(255, 255, 255, 0.6);
-            cursor: pointer;
-            z-index: 1001;
-            font-family: sans-serif;
-            line-height: 1;
-        }
+        .secret-close { position: absolute; top: 20px; right: 30px; font-size: 36px; color: rgba(255,255,255,0.6); cursor: pointer; z-index: 1001; font-family: sans-serif; }
         .secret-close:hover { color: white; }
-        .secret-title {
-            color: var(--accent-light);
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
-            letter-spacing: 4px;
-            margin-bottom: 30px;
-            text-align: center;
-            font-style: italic;
-            opacity: 0.8;
-        }
-        .secret-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            max-width: 600px;
-            width: 90%;
-            padding: 10px;
-        }
-        .secret-grid .secret-photo {
-            aspect-ratio: 4/5;
-            border-radius: 6px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            opacity: 0.85;
-            background: rgba(255,255,255,0.03);
-        }
-        .secret-grid .secret-photo:hover { transform: scale(1.04); opacity: 1; }
-        .secret-grid .secret-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .secret-title { color: var(--accent-light); font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 4px; margin-bottom: 30px; font-style: italic; opacity: 0.8; }
+        .secret-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 600px; width: 90%; padding: 10px; }
+        .secret-photo { aspect-ratio: 4/5; border-radius: 6px; overflow: hidden; cursor: pointer; transition: transform 0.3s; opacity: 0.85; }
+        .secret-photo:hover { transform: scale(1.04); opacity: 1; }
+        .secret-photo img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Лайтбокс для секретных фото */
-        .secret-lightbox {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.97);
-            z-index: 1100;
-            justify-content: center;
-            align-items: center;
-        }
+        .secret-lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 1100; justify-content: center; align-items: center; }
         .secret-lightbox.active { display: flex; }
-        .secret-lightbox img {
-            max-width: 90%;
-            max-height: 85vh;
-            border-radius: 4px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-        .secret-lightbox .s-lightbox-close {
-            position: absolute;
-            top: 20px; right: 30px;
-            font-size: 40px; color: white;
-            cursor: pointer; z-index: 1101;
-            font-family: sans-serif;
-        }
-        .secret-lightbox .s-lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 50px; color: white;
-            cursor: pointer; padding: 20px;
-            font-family: sans-serif;
-            transition: opacity 0.3s;
-            z-index: 1101;
-        }
-        .secret-lightbox .s-lightbox-nav:hover { opacity: 0.7; }
-        .secret-lightbox .s-lightbox-nav.prev { left: 10px; }
-        .secret-lightbox .s-lightbox-nav.next { right: 10px; }
+        .secret-lightbox img { max-width: 90%; max-height: 85vh; border-radius: 4px; }
+        .s-lightbox-close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; z-index: 1101; font-family: sans-serif; }
+        .s-lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); font-size: 50px; color: white; cursor: pointer; padding: 20px; font-family: sans-serif; z-index: 1101; }
+        .s-lightbox-nav.prev { left: 10px; } .s-lightbox-nav.next { right: 10px; }
 
         @media (max-width: 768px) {
             .secret-btn { bottom: 25px; right: 25px; width: 26px; height: 26px; }
@@ -248,18 +161,16 @@
 </head>
 <body>
     <!-- СЕКРЕТНАЯ КНОПКА -->
-    <button class="secret-btn" id="secretBtn" title="">
-        <i class="fas fa-circle"></i>
-    </button>
+    <button class="secret-btn" id="secretBtn"><i class="fas fa-circle"></i></button>
 
-    <!-- СЕКРЕТНОЕ МОДАЛЬНОЕ ОКНО -->
+    <!-- СЕКРЕТНОЕ ОКНО -->
     <div class="secret-overlay" id="secretOverlay">
         <span class="secret-close" id="secretClose">&times;</span>
         <div class="secret-title">только для своих</div>
         <div class="secret-grid" id="secretGrid"></div>
     </div>
 
-    <!-- ЛАЙТБОКС ДЛЯ СЕКРЕТНЫХ ФОТО -->
+    <!-- ЛАЙТБОКС -->
     <div class="secret-lightbox" id="secretLightbox">
         <span class="s-lightbox-close" id="sLightboxClose">&times;</span>
         <span class="s-lightbox-nav prev" id="sLightboxPrev">&lsaquo;</span>
@@ -366,19 +277,22 @@
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('load', handleScroll);
 
-        // ========== КНОПКА КАЛЕНДАРЯ ==========
+        // ========== КАЛЕНДАРЬ (ИСПРАВЛЕНО) ==========
         document.getElementById('calendarButton').addEventListener('click', function(e) {
             e.preventDefault();
             const isIPhone = /iPhone|iPad|iPod/.test(navigator.userAgent);
+            
             if (isIPhone) {
+                // Правильный формат для Apple Календарь
                 window.location.href = 'calshow:20260801T114500/20260801T130000' +
                     '?title=' + encodeURIComponent('Свадьба Алины и Артура 💍') +
-                    '&location=' + encodeURIComponent('г. Долинск, ул. Хабаровская, 13, корп. Б') +
-                    '&notes=' + encodeURIComponent('Сбор гостей: 11:45. Начало регистрации: 12:00. ЗАГС');
+                    '&location=' + encodeURIComponent('г. Долинск, ул. Хабаровская, 13Б') +
+                    '&notes=' + encodeURIComponent('Сбор гостей: 11:45. Начало регистрации: 12:00');
             } else {
+                // Android и ПК — .ics файл
                 const icsContent = [
                     'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding//RU','BEGIN:VEVENT',
-                    'DTSTART;TZID=Asia/Sakhalin:20260801T114500','DTEND;TZID=Asia/Sakhalin:20260801T130000',
+                    'DTSTART:20260801T024500Z','DTEND:20260801T040000Z',
                     'SUMMARY:Свадьба Алины и Артура 💍',
                     'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: ЗАГС, г. Долинск, ул. Хабаровская, 13Б',
                     'LOCATION:г. Долинск, ул. Хабаровская, 13, корп. Б',
@@ -388,7 +302,7 @@
                 const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
-                link.href = url; link.download = 'svadba-alina-artur.ics'; link.style.display = 'none';
+                link.href = url; link.download = 'svadba-alina-artur.ics';
                 document.body.appendChild(link); link.click();
                 setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(url); }, 1000);
             }
@@ -435,7 +349,7 @@
         function initMap() { if (typeof ymaps === 'undefined') return; ymaps.ready(function() { const map = new ymaps.Map('yandexMap', { center: [47.322018, 142.793501], zoom: 17 }); map.geoObjects.add(new ymaps.Placemark([47.322018, 142.793501], { hintContent: 'ЗАГС', balloonContent: 'г. Долинск, ул. Хабаровская, 13Б' })); }); }
         window.addEventListener('load', () => setTimeout(initMap, 500));
 
-        // ========== СЕКРЕТНАЯ КНОПКА + СЕКРЕТНЫЕ ФОТО ==========
+        // ========== СЕКРЕТНАЯ КНОПКА (ИСПРАВЛЕНО) ==========
         const secretBtn = document.getElementById('secretBtn');
         const secretOverlay = document.getElementById('secretOverlay');
         const secretClose = document.getElementById('secretClose');
@@ -446,29 +360,44 @@
         const sLightboxPrev = document.getElementById('sLightboxPrev');
         const sLightboxNext = document.getElementById('sLightboxNext');
 
-        let secretPhotos = [];
+        // Массив секретных фото
+        const secretPhotos = [
+            'photo s1.jpg',
+            'photo s2.jpg',
+            'photo s3.jpg',
+            'photo s4.jpg'
+        ];
         let currentSecretIndex = 0;
 
-        for (let i = 1; i <= 4; i++) {
-            const photoName = 'photo s' + i + '.jpg';
-            secretPhotos.push(photoName);
+        // Создаём сетку
+        secretPhotos.forEach((photo, index) => {
             const photoDiv = document.createElement('div');
             photoDiv.classList.add('secret-photo');
-            photoDiv.innerHTML = `<img src="${photoName}" alt="Секретное фото ${i}" loading="lazy">`;
-            photoDiv.addEventListener('click', () => openSecretLightbox(i - 1));
+            photoDiv.innerHTML = `<img src="${photo}" alt="Секретное фото ${index + 1}" loading="lazy">`;
+            photoDiv.addEventListener('click', () => {
+                currentSecretIndex = index;
+                sLightboxImg.src = secretPhotos[currentSecretIndex];
+                secretLightbox.classList.add('active');
+            });
             secretGrid.appendChild(photoDiv);
-        }
+        });
 
+        // Открыть/закрыть
         secretBtn.addEventListener('click', () => { secretOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
-        secretClose.addEventListener('click', closeSecret);
-        secretOverlay.addEventListener('click', (e) => { if (e.target === secretOverlay) closeSecret(); });
-        function closeSecret() { secretOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+        secretClose.addEventListener('click', () => { secretOverlay.classList.remove('active'); document.body.style.overflow = ''; });
+        secretOverlay.addEventListener('click', (e) => { if (e.target === secretOverlay) { secretOverlay.classList.remove('active'); document.body.style.overflow = ''; } });
 
-        function openSecretLightbox(index) { currentSecretIndex = index; sLightboxImg.src = secretPhotos[index]; secretLightbox.classList.add('active'); }
+        // Лайтбокс
         sLightboxClose.addEventListener('click', () => secretLightbox.classList.remove('active'));
         secretLightbox.addEventListener('click', (e) => { if (e.target === secretLightbox) secretLightbox.classList.remove('active'); });
-        sLightboxPrev.addEventListener('click', () => { currentSecretIndex = (currentSecretIndex - 1 + secretPhotos.length) % secretPhotos.length; sLightboxImg.src = secretPhotos[currentSecretIndex]; });
-        sLightboxNext.addEventListener('click', () => { currentSecretIndex = (currentSecretIndex + 1) % secretPhotos.length; sLightboxImg.src = secretPhotos[currentSecretIndex]; });
+        sLightboxPrev.addEventListener('click', () => {
+            currentSecretIndex = (currentSecretIndex - 1 + secretPhotos.length) % secretPhotos.length;
+            sLightboxImg.src = secretPhotos[currentSecretIndex];
+        });
+        sLightboxNext.addEventListener('click', () => {
+            currentSecretIndex = (currentSecretIndex + 1) % secretPhotos.length;
+            sLightboxImg.src = secretPhotos[currentSecretIndex];
+        });
         document.addEventListener('keydown', (e) => {
             if (!secretLightbox.classList.contains('active')) return;
             if (e.key === 'Escape') secretLightbox.classList.remove('active');
