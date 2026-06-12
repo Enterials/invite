@@ -89,9 +89,11 @@
         .secret-close:hover { color: white; }
         .secret-title { color: var(--accent-light); font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 4px; margin-bottom: 30px; font-style: italic; opacity: 0.8; }
         .secret-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 600px; width: 90%; padding: 10px; }
-        .secret-photo { aspect-ratio: 4/5; border-radius: 6px; overflow: hidden; cursor: pointer; transition: transform 0.3s; opacity: 0.85; }
+        .secret-photo { aspect-ratio: 4/5; border-radius: 6px; overflow: hidden; cursor: pointer; transition: transform 0.3s; opacity: 0.85; background: rgba(255,255,255,0.05); position: relative; }
         .secret-photo:hover { transform: scale(1.04); opacity: 1; }
         .secret-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .secret-photo .photo-error { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; align-items: center; justify-content: center; flex-direction: column; color: rgba(255,255,255,0.4); font-size: 14px; }
+        .secret-photo .photo-error i { font-size: 30px; margin-bottom: 8px; }
 
         .secret-lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 1100; justify-content: center; align-items: center; }
         .secret-lightbox.active { display: flex; }
@@ -277,35 +279,45 @@
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('load', handleScroll);
 
-        // ========== КАЛЕНДАРЬ (ИСПРАВЛЕНО) ==========
+        // ========== КАЛЕНДАРЬ (ИСПРАВЛЕНО ДЛЯ iPhone) ==========
         document.getElementById('calendarButton').addEventListener('click', function(e) {
             e.preventDefault();
-            const isIPhone = /iPhone|iPad|iPod/.test(navigator.userAgent);
             
-            if (isIPhone) {
-                // Правильный формат для Apple Календарь
-                window.location.href = 'calshow:20260801T114500/20260801T130000' +
-                    '?title=' + encodeURIComponent('Свадьба Алины и Артура 💍') +
-                    '&location=' + encodeURIComponent('г. Долинск, ул. Хабаровская, 13Б') +
-                    '&notes=' + encodeURIComponent('Сбор гостей: 11:45. Начало регистрации: 12:00');
-            } else {
-                // Android и ПК — .ics файл
-                const icsContent = [
-                    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding//RU','BEGIN:VEVENT',
-                    'DTSTART:20260801T024500Z','DTEND:20260801T040000Z',
-                    'SUMMARY:Свадьба Алины и Артура 💍',
-                    'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: ЗАГС, г. Долинск, ул. Хабаровская, 13Б',
-                    'LOCATION:г. Долинск, ул. Хабаровская, 13, корп. Б',
-                    'BEGIN:VALARM','TRIGGER:-PT24H','ACTION:DISPLAY','DESCRIPTION:Завтра свадьба! 💍','END:VALARM',
-                    'END:VEVENT','END:VCALENDAR'
-                ].join('\r\n');
-                const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url; link.download = 'svadba-alina-artur.ics';
-                document.body.appendChild(link); link.click();
-                setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(url); }, 1000);
-            }
+            // Создаём .ics файл — работает на ВСЕХ устройствах
+            const icsContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Wedding//RU',
+                'BEGIN:VEVENT',
+                'DTSTART:20260801T024500Z',
+                'DTEND:20260801T040000Z',
+                'SUMMARY:Свадьба Алины и Артура 💍',
+                'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: Зал торжественных регистраций, отдел ЗАГС\\nАдрес: г. Долинск, ул. Хабаровская, 13, корп. Б',
+                'LOCATION:г. Долинск, ул. Хабаровская, 13, корп. Б',
+                'BEGIN:VALARM',
+                'TRIGGER:-PT24H',
+                'ACTION:DISPLAY',
+                'DESCRIPTION:Завтра свадьба Алины и Артура! 💍',
+                'END:VALARM',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\r\n');
+
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            
+            // Создаём ссылку и кликаем
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'svadba-alina-artur.ics';
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            
+            setTimeout(() => {
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }, 1000);
         });
 
         // ========== СЛАЙДЕР ==========
@@ -360,7 +372,6 @@
         const sLightboxPrev = document.getElementById('sLightboxPrev');
         const sLightboxNext = document.getElementById('sLightboxNext');
 
-        // Массив секретных фото
         const secretPhotos = [
             'photo s1.jpg',
             'photo s2.jpg',
@@ -373,19 +384,46 @@
         secretPhotos.forEach((photo, index) => {
             const photoDiv = document.createElement('div');
             photoDiv.classList.add('secret-photo');
-            photoDiv.innerHTML = `<img src="${photo}" alt="Секретное фото ${index + 1}" loading="lazy">`;
-            photoDiv.addEventListener('click', () => {
-                currentSecretIndex = index;
-                sLightboxImg.src = secretPhotos[currentSecretIndex];
-                secretLightbox.classList.add('active');
+            photoDiv.innerHTML = `
+                <img src="${photo}" alt="Фото ${index + 1}" loading="lazy" 
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                     onload="this.nextElementSibling.style.display='none';">
+                <div class="photo-error" style="display:none;">
+                    <i class="fas fa-image"></i>
+                    <span>${photo}</span>
+                </div>
+            `;
+            
+            // КЛИК — открываем лайтбокс
+            photoDiv.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                if (img.style.display !== 'none') {
+                    currentSecretIndex = index;
+                    sLightboxImg.src = photo;
+                    secretLightbox.classList.add('active');
+                }
             });
+            
             secretGrid.appendChild(photoDiv);
         });
 
         // Открыть/закрыть
-        secretBtn.addEventListener('click', () => { secretOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
-        secretClose.addEventListener('click', () => { secretOverlay.classList.remove('active'); document.body.style.overflow = ''; });
-        secretOverlay.addEventListener('click', (e) => { if (e.target === secretOverlay) { secretOverlay.classList.remove('active'); document.body.style.overflow = ''; } });
+        secretBtn.addEventListener('click', () => { 
+            secretOverlay.classList.add('active'); 
+            document.body.style.overflow = 'hidden'; 
+        });
+        
+        secretClose.addEventListener('click', () => { 
+            secretOverlay.classList.remove('active'); 
+            document.body.style.overflow = ''; 
+        });
+        
+        secretOverlay.addEventListener('click', (e) => { 
+            if (e.target === secretOverlay) { 
+                secretOverlay.classList.remove('active'); 
+                document.body.style.overflow = ''; 
+            } 
+        });
 
         // Лайтбокс
         sLightboxClose.addEventListener('click', () => secretLightbox.classList.remove('active'));
