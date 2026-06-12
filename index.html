@@ -59,6 +59,99 @@
         .calendar-btn:hover { background: #a07d3a; transform: translateY(-2px); box-shadow: 0 6px 25px rgba(184, 148, 75, 0.4); }
         .calendar-btn:active { transform: scale(0.97); }
 
+        /* ========== МОДАЛЬНОЕ ОКНО КАЛЕНДАРЯ ========== */
+        .calendar-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .calendar-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .calendar-modal-content {
+            background: #faf8f2;
+            border-radius: 16px;
+            padding: 35px 25px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .calendar-modal-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: #b8944b;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        .calendar-modal-content .event-details {
+            background: white;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 15px 0;
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.9;
+            border: 1px solid #e8e4db;
+        }
+        .calendar-modal-content .event-details strong {
+            color: #b8944b;
+            font-size: 20px;
+        }
+        .calendar-modal-content button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .btn-copy {
+            background: #b8944b;
+            color: white;
+        }
+        .btn-copy:hover { background: #a07d3a; }
+        .btn-close-modal {
+            background: transparent;
+            color: #8a8a8a;
+            border: 1px solid #ddd !important;
+        }
+        .btn-close-modal:hover { background: #f5f5f5; }
+        .copy-success-text {
+            display: none;
+            color: #8a9a5b;
+            margin-top: 12px;
+            font-size: 16px;
+            letter-spacing: 1px;
+            line-height: 1.5;
+        }
+        .copy-success-text.active { display: block; }
+        .calendar-modal-close-x {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 28px;
+            color: #aaa;
+            cursor: pointer;
+            font-family: sans-serif;
+            line-height: 1;
+        }
+        .calendar-modal-close-x:hover { color: #666; }
+
         /* ========== СЕКРЕТНАЯ КНОПКА ========== */
         .secret-btn {
             position: fixed;
@@ -180,6 +273,30 @@
         <span class="s-lightbox-nav next" id="sLightboxNext">&rsaquo;</span>
     </div>
 
+    <!-- МОДАЛЬНОЕ ОКНО КАЛЕНДАРЯ (Решение 4) -->
+    <div class="calendar-modal" id="calendarModal">
+        <div class="calendar-modal-content">
+            <span class="calendar-modal-close-x" id="calendarModalCloseX">&times;</span>
+            <h3>📅 Сохранить дату</h3>
+            <div class="event-details">
+                <strong>💍 Свадьба Алины и Артура</strong><br>
+                📅 1 августа 2026 (суббота)<br>
+                🕐 11:45 — Сбор гостей<br>
+                🕐 12:00 — Начало регистрации<br>
+                📍 г. Долинск, ул. Хабаровская, 13Б
+            </div>
+            <button class="btn-copy" id="btnCopyEvent">
+                📋 Скопировать и открыть Календарь
+            </button>
+            <button class="btn-close-modal" id="btnCloseModal">
+                Закрыть
+            </button>
+            <p class="copy-success-text" id="copySuccessText">
+                ✅ Данные скопированы!<br>Откройте приложение <strong>Календарь</strong> и создайте новое событие.
+            </p>
+        </div>
+    </div>
+
     <div class="bg-lines">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
             <line x1="0" y1="120" x2="400" y2="80" stroke="#d4c5a0" stroke-width="1.2" opacity="0.7"/>
@@ -279,45 +396,55 @@
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('load', handleScroll);
 
-        // ========== КАЛЕНДАРЬ (ИСПРАВЛЕНО ДЛЯ iPhone) ==========
-        document.getElementById('calendarButton').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Создаём .ics файл — работает на ВСЕХ устройствах
-            const icsContent = [
-                'BEGIN:VCALENDAR',
-                'VERSION:2.0',
-                'PRODID:-//Wedding//RU',
-                'BEGIN:VEVENT',
-                'DTSTART:20260801T024500Z',
-                'DTEND:20260801T040000Z',
-                'SUMMARY:Свадьба Алины и Артура 💍',
-                'DESCRIPTION:Сбор гостей: 11:45\\nНачало регистрации: 12:00\\n\\nМесто: Зал торжественных регистраций, отдел ЗАГС\\nАдрес: г. Долинск, ул. Хабаровская, 13, корп. Б',
-                'LOCATION:г. Долинск, ул. Хабаровская, 13, корп. Б',
-                'BEGIN:VALARM',
-                'TRIGGER:-PT24H',
-                'ACTION:DISPLAY',
-                'DESCRIPTION:Завтра свадьба Алины и Артура! 💍',
-                'END:VALARM',
-                'END:VEVENT',
-                'END:VCALENDAR'
-            ].join('\r\n');
+        // ========== КАЛЕНДАРЬ (Решение 4) ==========
+        const calendarButton = document.getElementById('calendarButton');
+        const calendarModal = document.getElementById('calendarModal');
+        const calendarModalCloseX = document.getElementById('calendarModalCloseX');
+        const btnCloseModal = document.getElementById('btnCloseModal');
+        const btnCopyEvent = document.getElementById('btnCopyEvent');
+        const copySuccessText = document.getElementById('copySuccessText');
 
-            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            
-            // Создаём ссылку и кликаем
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'svadba-alina-artur.ics';
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            
-            setTimeout(() => {
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-            }, 1000);
+        // Открыть модальное окно
+        calendarButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            calendarModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Закрыть модальное окно
+        function closeCalendarModal() {
+            calendarModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        calendarModalCloseX.addEventListener('click', closeCalendarModal);
+        btnCloseModal.addEventListener('click', closeCalendarModal);
+        calendarModal.addEventListener('click', function(e) {
+            if (e.target === calendarModal) closeCalendarModal();
+        });
+
+        // Скопировать данные
+        btnCopyEvent.addEventListener('click', function() {
+            const text = `💍 Свадьба Алины и Артура
+📅 1 августа 2026 (суббота)
+🕐 11:45 — Сбор гостей
+🕐 12:00 — Начало регистрации
+📍 г. Долинск, ул. Хабаровская, 13, корп. Б
+🏛 Зал торжественных регистраций, отдел ЗАГС`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                copySuccessText.classList.add('active');
+                btnCopyEvent.textContent = '✅ Скопировано!';
+                btnCopyEvent.style.background = '#8a9a5b';
+                
+                setTimeout(() => {
+                    copySuccessText.classList.remove('active');
+                    btnCopyEvent.textContent = '📋 Скопировать и открыть Календарь';
+                    btnCopyEvent.style.background = '#b8944b';
+                }, 4000);
+            }).catch(() => {
+                // Если буфер не сработал — показываем текст для ручного копирования
+                alert('Скопируйте данные вручную:\n\n' + text);
+            });
         });
 
         // ========== СЛАЙДЕР ==========
@@ -361,7 +488,7 @@
         function initMap() { if (typeof ymaps === 'undefined') return; ymaps.ready(function() { const map = new ymaps.Map('yandexMap', { center: [47.322018, 142.793501], zoom: 17 }); map.geoObjects.add(new ymaps.Placemark([47.322018, 142.793501], { hintContent: 'ЗАГС', balloonContent: 'г. Долинск, ул. Хабаровская, 13Б' })); }); }
         window.addEventListener('load', () => setTimeout(initMap, 500));
 
-        // ========== СЕКРЕТНАЯ КНОПКА (ИСПРАВЛЕНО) ==========
+        // ========== СЕКРЕТНАЯ КНОПКА ==========
         const secretBtn = document.getElementById('secretBtn');
         const secretOverlay = document.getElementById('secretOverlay');
         const secretClose = document.getElementById('secretClose');
@@ -380,7 +507,6 @@
         ];
         let currentSecretIndex = 0;
 
-        // Создаём сетку
         secretPhotos.forEach((photo, index) => {
             const photoDiv = document.createElement('div');
             photoDiv.classList.add('secret-photo');
@@ -393,8 +519,6 @@
                     <span>${photo}</span>
                 </div>
             `;
-            
-            // КЛИК — открываем лайтбокс
             photoDiv.addEventListener('click', function() {
                 const img = this.querySelector('img');
                 if (img.style.display !== 'none') {
@@ -403,39 +527,16 @@
                     secretLightbox.classList.add('active');
                 }
             });
-            
             secretGrid.appendChild(photoDiv);
         });
 
-        // Открыть/закрыть
-        secretBtn.addEventListener('click', () => { 
-            secretOverlay.classList.add('active'); 
-            document.body.style.overflow = 'hidden'; 
-        });
-        
-        secretClose.addEventListener('click', () => { 
-            secretOverlay.classList.remove('active'); 
-            document.body.style.overflow = ''; 
-        });
-        
-        secretOverlay.addEventListener('click', (e) => { 
-            if (e.target === secretOverlay) { 
-                secretOverlay.classList.remove('active'); 
-                document.body.style.overflow = ''; 
-            } 
-        });
-
-        // Лайтбокс
+        secretBtn.addEventListener('click', () => { secretOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
+        secretClose.addEventListener('click', () => { secretOverlay.classList.remove('active'); document.body.style.overflow = ''; });
+        secretOverlay.addEventListener('click', (e) => { if (e.target === secretOverlay) { secretOverlay.classList.remove('active'); document.body.style.overflow = ''; } });
         sLightboxClose.addEventListener('click', () => secretLightbox.classList.remove('active'));
         secretLightbox.addEventListener('click', (e) => { if (e.target === secretLightbox) secretLightbox.classList.remove('active'); });
-        sLightboxPrev.addEventListener('click', () => {
-            currentSecretIndex = (currentSecretIndex - 1 + secretPhotos.length) % secretPhotos.length;
-            sLightboxImg.src = secretPhotos[currentSecretIndex];
-        });
-        sLightboxNext.addEventListener('click', () => {
-            currentSecretIndex = (currentSecretIndex + 1) % secretPhotos.length;
-            sLightboxImg.src = secretPhotos[currentSecretIndex];
-        });
+        sLightboxPrev.addEventListener('click', () => { currentSecretIndex = (currentSecretIndex - 1 + secretPhotos.length) % secretPhotos.length; sLightboxImg.src = secretPhotos[currentSecretIndex]; });
+        sLightboxNext.addEventListener('click', () => { currentSecretIndex = (currentSecretIndex + 1) % secretPhotos.length; sLightboxImg.src = secretPhotos[currentSecretIndex]; });
         document.addEventListener('keydown', (e) => {
             if (!secretLightbox.classList.contains('active')) return;
             if (e.key === 'Escape') secretLightbox.classList.remove('active');
